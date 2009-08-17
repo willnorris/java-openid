@@ -16,6 +16,9 @@
 
 package edu.internet2.middleware.openid.message;
 
+import java.math.BigInteger;
+import java.security.PublicKey;
+
 import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.association.Association.SessionType;
 
@@ -48,20 +51,20 @@ public interface AssociationRequest extends Message {
      * 
      * @return DH modulus
      */
-    public String getDHModulus();
+    public BigInteger getDHModulus();
 
     /**
      * The Diffie-Hellman generator.
      * 
      * @return the DH generator
      */
-    public String getDHGen();
+    public BigInteger getDHGen();
 
     /**
      * The Relying Party's Diffie-Hellman public key.
      * 
      * @return the DH key
      */
-    public String getDHConsumerPublic();
+    public PublicKey getDHConsumerPublic();
 
 }

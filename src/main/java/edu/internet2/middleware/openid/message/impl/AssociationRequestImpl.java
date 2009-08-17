@@ -16,6 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import java.math.BigInteger;
+import java.security.PublicKey;
+
 import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.association.Association.SessionType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
@@ -24,6 +27,15 @@ import edu.internet2.middleware.openid.message.AssociationRequest;
  * AssociationRequestImpl.
  */
 public class AssociationRequestImpl extends AbstractMessage implements AssociationRequest {
+
+    /** Diffie-Hellman public key. */
+    private PublicKey dhConsumerPublic;
+
+    /** Diffie-Hellman generator. */
+    private BigInteger dhGen;
+
+    /** Diffie-Hellman modulus. */
+    private BigInteger dhModulus;
 
     /**
      * Association type.
@@ -41,18 +53,18 @@ public class AssociationRequestImpl extends AbstractMessage implements Associati
     }
 
     /** {@inheritDoc} */
-    public String getDHConsumerPublic() {
-        return parameters.get(Parameter.dh_consumer_public);
+    public PublicKey getDHConsumerPublic() {
+        return dhConsumerPublic;
     }
 
     /** {@inheritDoc} */
-    public String getDHGen() {
-        return parameters.get(Parameter.dh_gen);
+    public BigInteger getDHGen() {
+        return dhGen;
     }
 
     /** {@inheritDoc} */
-    public String getDHModulus() {
-        return parameters.get(Parameter.dh_modulus);
+    public BigInteger getDHModulus() {
+        return dhModulus;
     }
 
     /** {@inheritDoc} */
@@ -104,28 +116,28 @@ public class AssociationRequestImpl extends AbstractMessage implements Associati
     /**
      * Set relying party's Diffie-Hellman public key.
      * 
-     * @param dhConsumerPublic the dhConsumerPublic to set
+     * @param newConsumerPublic the dhConsumerPublic to set
      */
-    public void setDhConsumerPublic(String dhConsumerPublic) {
-        parameters.put(Parameter.dh_consumer_public, dhConsumerPublic);
+    public void setDhConsumerPublic(PublicKey newConsumerPublic) {
+        dhConsumerPublic = newConsumerPublic;
     }
 
     /**
      * Set the Diffie-Hellman generator.
      * 
-     * @param dhGen the dhGen to set
+     * @param newGen the dhGen to set
      */
-    public void setDhGen(String dhGen) {
-        parameters.put(Parameter.dh_gen, dhGen);
+    public void setDhGen(BigInteger newGen) {
+        dhGen = newGen;
     }
 
     /**
      * Set the Diffie-Hellman modulus.
      * 
-     * @param dhModulus the dhModulus to set
+     * @param newModulus the dhModulus to set
      */
-    public void setDhModulus(String dhModulus) {
-        parameters.put(Parameter.dh_modulus, dhModulus);
+    public void setDhModulus(BigInteger newModulus) {
+        dhModulus = newModulus;
     }
 
 }

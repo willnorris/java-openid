@@ -39,7 +39,7 @@ public class AuthenticationRequestMarshaller implements Marshaller<Authenticatio
         parameters.put(Parameter.identity.toString(), request.getIdentity());
 
         parameters.put(Parameter.assoc_handle.toString(), request.getAssociationHandle());
-        parameters.put(Parameter.return_to.toString(), request.getReturnTo());
+        parameters.put(Parameter.return_to.toString(), request.getReturnTo().toString());
         parameters.put(Parameter.realm.toString(), request.getRealm());
         return parameters;
     }

@@ -16,6 +16,8 @@
 
 package edu.internet2.middleware.openid.message;
 
+import java.net.URL;
+
 /**
  * OpenID authentication request.
  */
@@ -59,7 +61,7 @@ public interface AuthenticationRequest extends Message {
      * 
      * @return the return-to URL
      */
-    public String getReturnTo();
+    public URL getReturnTo();
 
     /**
      * Get the URL pattern the OpenID Provider should ask the end user to trust.

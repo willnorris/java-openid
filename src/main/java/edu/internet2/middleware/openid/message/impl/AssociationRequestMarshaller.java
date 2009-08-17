@@ -19,6 +19,8 @@ package edu.internet2.middleware.openid.message.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.opensaml.xml.util.Base64;
+
 import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
 import edu.internet2.middleware.openid.message.Message.Parameter;
@@ -39,9 +41,14 @@ public class AssociationRequestMarshaller extends AbstractMessageMarshaller<Asso
             if (associationType.equals(AssociationType.HMAC_SHA1)
                     || associationType.equals(AssociationType.HMAC_SHA256)) {
 
-                parameters.put(Parameter.dh_modulus.toString(), request.getDHModulus());
-                parameters.put(Parameter.dh_gen.toString(), request.getDHGen());
-                parameters.put(Parameter.dh_consumer_public.toString(), request.getDHConsumerPublic());
+                String modulus = Base64.encodeBytes(request.getDHModulus().toByteArray());
+                parameters.put(Parameter.dh_modulus.toString(), modulus);
+
+                String gen = Base64.encodeBytes(request.getDHGen().toByteArray());
+                parameters.put(Parameter.dh_gen.toString(), gen);
+
+                String publicKey = Base64.encodeBytes(request.getDHConsumerPublic().getEncoded());
+                parameters.put(Parameter.dh_consumer_public.toString(), publicKey);
 
             }
         }

@@ -16,6 +16,8 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -38,7 +40,12 @@ public class PositiveAssertionUnmarshaller implements Unmarshaller<PositiveAsser
         response.setIdentity(parameters.get(Parameter.identity.toString()));
         response.setInvalidateHandle(parameters.get(Parameter.invalidate_handle.toString()));
         response.setResponseNonce(parameters.get(Parameter.response_nonce.toString()));
-        response.setReturnTo(parameters.get(Parameter.return_to.toString()));
+        try {
+            String returnTo = parameters.get(Parameter.return_to.toString());
+            response.setReturnTo(new URL(returnTo));
+        } catch (MalformedURLException e) {
+            // TODO
+        }
         response.setSignature(parameters.get(Parameter.sig.toString()));
         response.getSignedFields().addAll(Arrays.asList(Parameter.signed.toString().split(",")));
 

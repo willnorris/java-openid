@@ -16,6 +16,8 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
@@ -39,7 +41,12 @@ public class AuthenticationRequestUnmarshaller implements Unmarshaller<Authentic
 
         request.setMode(parameters.get(Parameter.mode.toString()));
         request.setRealm(parameters.get(Parameter.realm.toString()));
-        request.setReturnTo(parameters.get(Parameter.return_to.toString()));
+        try {
+            String returnTo = parameters.get(Parameter.return_to.toString());
+            request.setReturnTo(new URL(returnTo));
+        } catch (MalformedURLException e) {
+            // TODO
+        }
 
         return request;
     }

@@ -25,6 +25,9 @@ import edu.internet2.middleware.openid.message.AssociationError;
  */
 public class AssociationErrorImpl extends AbstractMessage implements AssociationError {
 
+    /** Error. */
+    private String error;
+
     /**
      * Association type.
      */
@@ -42,7 +45,7 @@ public class AssociationErrorImpl extends AbstractMessage implements Association
 
     /** {@inheritDoc} */
     public String getError() {
-        return parameters.get(Parameter.error);
+        return error;
     }
 
     /** {@inheritDoc} */
@@ -88,7 +91,7 @@ public class AssociationErrorImpl extends AbstractMessage implements Association
      * @param newError the error to set
      */
     public void setError(String newError) {
-        parameters.put(Parameter.error, newError);
+        error = newError;
     }
 
     /**

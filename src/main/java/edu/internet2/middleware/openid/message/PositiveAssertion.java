@@ -16,7 +16,7 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.util.List;
+import java.net.URL;
 
 /**
  * Response to an authentication request indicating that the OpenID Provider was successfully able to authenticate the
@@ -55,7 +55,7 @@ public interface PositiveAssertion extends SignedMessage {
      * 
      * @return return-to URL
      */
-    public String getReturnTo();
+    public URL getReturnTo();
 
     /**
      * Unique nonce for this response.

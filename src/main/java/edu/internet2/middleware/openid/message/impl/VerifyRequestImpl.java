@@ -16,7 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import edu.internet2.middleware.openid.message.Message;
+import java.net.URL;
+
+import edu.internet2.middleware.openid.message.PositiveAssertion;
 import edu.internet2.middleware.openid.message.VerifyRequest;
 
 /**
@@ -24,107 +26,128 @@ import edu.internet2.middleware.openid.message.VerifyRequest;
  */
 public class VerifyRequestImpl extends AbstractSignedMessage implements VerifyRequest {
 
+    /** Association handle. */
+    private String associationHandle;
+
+    /** Claimed ID. */
+    private String claimedId;
+
+    /** Endpoint. */
+    private String endpoint;
+
+    /** Identity. */
+    private String identity;
+
+    /** Handle to invalidate. */
+    private String invalidateHandle;
+
+    /** Nonce. */
+    private String nonce;
+
+    /** Return to URL. */
+    private URL returnTo;
+
     /** {@inheritDoc} */
     public String getAssociationHandle() {
-        return parameters.get(Message.Parameter.assoc_handle);
+        return associationHandle;
     }
 
     /** {@inheritDoc} */
     public String getClaimedId() {
-        return parameters.get(Message.Parameter.claimed_id);
+        return claimedId;
     }
 
     /** {@inheritDoc} */
     public String getEndpoint() {
-        return parameters.get(Message.Parameter.op_endpoint);
+        return endpoint;
     }
 
     /** {@inheritDoc} */
     public String getIdentity() {
-        return parameters.get(Message.Parameter.identity);
+        return identity;
     }
 
     /** {@inheritDoc} */
     public String getInvalidateHandle() {
-        return parameters.get(Message.Parameter.invalidate_handle);
+        return invalidateHandle;
     }
 
     /** {@inheritDoc} */
     public String getResponseNonce() {
-        return parameters.get(Message.Parameter.response_nonce);
+        return nonce;
     }
 
     /** {@inheritDoc} */
-    public String getReturnTo() {
-        return parameters.get(Message.Parameter.return_to);
+    public URL getReturnTo() {
+        return returnTo;
     }
 
     /** {@inheritDoc} */
     public String getMode() {
-        return VerifyRequest.MODE;
+        return PositiveAssertion.MODE;
     }
 
     /**
      * Set the association handle.
      * 
-     * @param handle the associationHandle to set
+     * @param newHandle the associationHandle to set
      */
-    public void setAssociationHandle(String handle) {
-        parameters.put(Parameter.assoc_handle, handle);
+    public void setAssociationHandle(String newHandle) {
+        associationHandle = newHandle;
     }
 
     /**
      * Set the claimed Id.
      * 
-     * @param claimedId the claimedId to set
+     * @param newClaimedId the claimedId to set
      */
-    public void setClaimedId(String claimedId) {
-        parameters.put(Parameter.claimed_id, claimedId);
+    public void setClaimedId(String newClaimedId) {
+        claimedId = newClaimedId;
     }
 
     /**
      * Set the local identity.
      * 
-     * @param identity the identity to set
+     * @param newIdentity the identity to set
      */
-    public void setIdentity(String identity) {
-        parameters.put(Parameter.identity, identity);
+    public void setIdentity(String newIdentity) {
+        identity = newIdentity;
     }
 
     /**
      * Set the return to address.
      * 
-     * @param returnTo the returnTo to set
+     * @param newReturnTo the returnTo to set
      */
-    public void setReturnTo(String returnTo) {
-        parameters.put(Parameter.return_to, returnTo);
+    public void setReturnTo(URL newReturnTo) {
+        returnTo = newReturnTo;
     }
 
     /**
      * Set the endpoint.
      * 
-     * @param endpoint the endpoint to set
+     * @param newEndpoint the endpoint to set
      */
-    public void setEndpoint(String endpoint) {
-        parameters.put(Parameter.op_endpoint, endpoint);
+    public void setEndpoint(String newEndpoint) {
+        endpoint = newEndpoint;
     }
 
     /**
      * Set the handle to invalidate.
      * 
-     * @param handle the invalidateHandle to set
+     * @param newInvalidateHandle the invalidateHandle to set
      */
-    public void setInvalidateHandle(String handle) {
-        parameters.put(Parameter.invalidate_handle, handle);
+    public void setInvalidateHandle(String newInvalidateHandle) {
+        invalidateHandle = newInvalidateHandle;
     }
 
     /**
      * Set the response nonce.
      * 
-     * @param nonce the responseNonce to set
+     * @param newNonce the responseNonce to set
      */
-    public void setResponseNonce(String nonce) {
-        parameters.put(Parameter.response_nonce, nonce);
+    public void setResponseNonce(String newNonce) {
+        nonce = newNonce;
     }
 
 }

@@ -23,19 +23,28 @@ import edu.internet2.middleware.openid.message.ErrorResponse;
  */
 public class ErrorResponseImpl extends AbstractMessage implements ErrorResponse {
 
+    /** Contact address. */
+    private String contact;
+
+    /** Error message. */
+    private String error;
+
+    /** Reference token. */
+    private String reference;
+
     /** {@inheritDoc} */
     public String getContact() {
-        return parameters.get(Parameter.contact);
+        return contact;
     }
 
     /** {@inheritDoc} */
     public String getError() {
-        return parameters.get(Parameter.error);
+        return error;
     }
 
     /** {@inheritDoc} */
     public String getReference() {
-        return parameters.get(Parameter.reference);
+        return reference;
     }
 
     /**
@@ -50,28 +59,28 @@ public class ErrorResponseImpl extends AbstractMessage implements ErrorResponse 
     /**
      * Set the contact.
      * 
-     * @param contact the contact to set
+     * @param newContact the contact to set
      */
-    public void setContact(String contact) {
-        parameters.put(Parameter.contact, contact);
+    public void setContact(String newContact) {
+        contact = newContact;
     }
 
     /**
      * Set the error message.
      * 
-     * @param error the error to set
+     * @param newError the error to set
      */
-    public void setError(String error) {
-        parameters.put(Parameter.error, error);
+    public void setError(String newError) {
+        error = newError;
     }
 
     /**
      * Set the error reference.
      * 
-     * @param reference the reference to set
+     * @param newReference the reference to set
      */
-    public void setReference(String reference) {
-        parameters.put(Parameter.reference, reference);
+    public void setReference(String newReference) {
+        reference = newReference;
     }
 
 }

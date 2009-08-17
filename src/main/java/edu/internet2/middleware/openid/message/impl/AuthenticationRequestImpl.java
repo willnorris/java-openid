@@ -16,6 +16,8 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import java.net.URL;
+
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
 
 /**
@@ -23,88 +25,106 @@ import edu.internet2.middleware.openid.message.AuthenticationRequest;
  */
 public class AuthenticationRequestImpl extends AbstractMessage implements AuthenticationRequest {
 
+    /** Association handle. */
+    private String associationHandle;
+
+    /** Claimed ID. */
+    private String claimedId;
+
+    /** Identity. */
+    private String identity;
+
+    /** Realm. */
+    private String realm;
+
+    /** Return to URL. */
+    private URL returnTo;
+
+    /** Message mode. */
+    private String mode;
+
     /** {@inheritDoc} */
     public String getAssociationHandle() {
-        return parameters.get(Parameter.assoc_handle);
+        return associationHandle;
     }
 
     /** {@inheritDoc} */
     public String getClaimedId() {
-        return parameters.get(Parameter.claimed_id);
+        return claimedId;
     }
 
     /** {@inheritDoc} */
     public String getIdentity() {
-        return parameters.get(Parameter.identity);
+        return identity;
     }
 
     /** {@inheritDoc} */
     public String getRealm() {
-        return parameters.get(Parameter.realm);
+        return realm;
     }
 
     /** {@inheritDoc} */
-    public String getReturnTo() {
-        return parameters.get(Parameter.return_to);
+    public URL getReturnTo() {
+        return returnTo;
     }
 
     /** {@inheritDoc} */
     public String getMode() {
-        return parameters.get(Parameter.mode);
+        return mode;
     }
 
     /**
      * Set the association handle.
      * 
-     * @param handle the associationHandle to set
+     * @param newHandle the associationHandle to set
      */
-    public void setAssociationHandle(String handle) {
-        parameters.put(Parameter.assoc_handle, handle);
+    public void setAssociationHandle(String newHandle) {
+        associationHandle = newHandle;
     }
 
     /**
      * Set the claimed Id.
      * 
-     * @param claimedId the claimedId to set
+     * @param newClaimedId the claimedId to set
      */
-    public void setClaimedId(String claimedId) {
-        parameters.put(Parameter.claimed_id, claimedId);
+    public void setClaimedId(String newClaimedId) {
+        claimedId = newClaimedId;
     }
 
     /**
      * Set the local identity.
      * 
-     * @param identity the identity to set
+     * @param newIdentity the identity to set
      */
-    public void setIdentity(String identity) {
-        parameters.put(Parameter.identity, identity);
+    public void setIdentity(String newIdentity) {
+        identity = newIdentity;
     }
 
     /**
      * Set the realm.
      * 
-     * @param realm the realm to set
+     * @param newRealm the realm to set
      */
-    public void setRealm(String realm) {
-        parameters.put(Parameter.realm, realm);
+    public void setRealm(String newRealm) {
+        realm = newRealm;
     }
 
     /**
      * Set the return to address.
      * 
-     * @param returnTo the returnTo to set
+     * @param newReturnTo the returnTo to set
      */
-    public void setReturnTo(String returnTo) {
-        parameters.put(Parameter.return_to, returnTo);
+    public void setReturnTo(URL newReturnTo) {
+        returnTo = newReturnTo;
     }
 
     /**
      * Set the mode.
      * 
-     * @param mode the mode to set
+     * @param newMode the mode to set
      */
-    public void setMode(String mode) {
-        parameters.put(Parameter.mode, mode);
+    public void setMode(String newMode) {
+        mode = newMode;
     }
 
 }

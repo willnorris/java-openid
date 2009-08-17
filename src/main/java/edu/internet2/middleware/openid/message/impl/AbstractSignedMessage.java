@@ -19,13 +19,15 @@ package edu.internet2.middleware.openid.message.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.SignedMessage;
 
 /**
  * Abstract implementation for signed messages.
  */
 public abstract class AbstractSignedMessage extends AbstractMessage implements SignedMessage {
+
+    /** Signature. */
+    private String signature;
 
     /** Signed Fields. */
     private List<String> signedFields;
@@ -44,15 +46,16 @@ public abstract class AbstractSignedMessage extends AbstractMessage implements S
 
     /** {@inheritDoc} */
     public String getSignature() {
-        return parameters.get(Message.Parameter.sig);
+        return signature;
     }
 
     /**
      * Set the signature.
      * 
-     * @param signature the signature to set
+     * @param newSignature the signature to set
      */
-    public void setSignature(String signature) {
-        parameters.put(Parameter.sig, signature);
+    public void setSignature(String newSignature) {
+        signature = newSignature;
     }
+
 }

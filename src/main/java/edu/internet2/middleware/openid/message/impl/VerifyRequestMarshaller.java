@@ -39,7 +39,7 @@ public class VerifyRequestMarshaller implements Marshaller<VerifyRequest> {
         parameters.put(Parameter.identity.toString(), request.getIdentity());
         parameters.put(Parameter.invalidate_handle.toString(), request.getInvalidateHandle());
         parameters.put(Parameter.response_nonce.toString(), request.getResponseNonce());
-        parameters.put(Parameter.return_to.toString(), request.getReturnTo());
+        parameters.put(Parameter.return_to.toString(), request.getReturnTo().toString());
         parameters.put(Parameter.sig.toString(), request.getSignature());
         parameters.put(Parameter.signed.toString(), StringUtils.join(request.getSignedFields(), ","));
 

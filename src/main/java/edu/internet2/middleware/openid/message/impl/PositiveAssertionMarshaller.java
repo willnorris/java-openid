@@ -39,7 +39,7 @@ public class PositiveAssertionMarshaller implements Marshaller<PositiveAssertion
         parameters.put(Parameter.identity.toString(), response.getIdentity());
         parameters.put(Parameter.invalidate_handle.toString(), response.getInvalidateHandle());
         parameters.put(Parameter.response_nonce.toString(), response.getResponseNonce());
-        parameters.put(Parameter.return_to.toString(), response.getReturnTo());
+        parameters.put(Parameter.return_to.toString(), response.getReturnTo().toString());
         parameters.put(Parameter.sig.toString(), response.getSignature());
         parameters.put(Parameter.signed.toString(), StringUtils.join(response.getSignedFields(), ","));
 

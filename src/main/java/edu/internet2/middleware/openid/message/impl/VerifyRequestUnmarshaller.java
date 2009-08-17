@@ -16,6 +16,8 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -38,7 +40,12 @@ public class VerifyRequestUnmarshaller implements Unmarshaller<VerifyRequest> {
         request.setIdentity(parameters.get(Parameter.identity.toString()));
         request.setInvalidateHandle(parameters.get(Parameter.invalidate_handle.toString()));
         request.setResponseNonce(parameters.get(Parameter.response_nonce.toString()));
-        request.setReturnTo(parameters.get(Parameter.return_to.toString()));
+        try {
+            String returnTo = parameters.get(Parameter.return_to.toString());
+            request.setReturnTo(new URL(returnTo));
+        } catch (MalformedURLException e) {
+            // TODO
+        }
         request.setSignature(parameters.get(Parameter.sig.toString()));
         request.getSignedFields().addAll(Arrays.asList(Parameter.signed.toString().split(",")));
 

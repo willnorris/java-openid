@@ -23,14 +23,20 @@ import edu.internet2.middleware.openid.message.VerifyResponse;
  */
 public class VerifyResponseImpl extends AbstractMessage implements VerifyResponse {
 
+    /** Handle to invalidate. */
+    private String invalidateHandle;
+
+    /** If response was valid. */
+    private boolean valid;
+
     /** {@inheritDoc} */
     public String getInvalidateHandle() {
-        return parameters.get(Parameter.invalidate_handle);
+        return invalidateHandle;
     }
 
     /** {@inheritDoc} */
     public boolean isValid() {
-        return Boolean.parseBoolean(parameters.get(Parameter.is_valid));
+        return valid;
     }
 
     /** {@inheritDoc} */
@@ -41,19 +47,19 @@ public class VerifyResponseImpl extends AbstractMessage implements VerifyRespons
     /**
      * Set invalidate Handle.
      * 
-     * @param handle the invalidateHandle to set
+     * @param newInvalidateHandle the invalidateHandle to set
      */
-    public void setInvalidateHandle(String handle) {
-        parameters.put(Parameter.invalidate_handle, handle);
+    public void setInvalidateHandle(String newInvalidateHandle) {
+        invalidateHandle = newInvalidateHandle;
     }
 
     /**
      * Set whether the signature is valid.
      * 
-     * @param valid whether the signature is valid
+     * @param newValid whether the signature is valid
      */
-    public void setValid(boolean valid) {
-        parameters.put(Parameter.is_valid, Boolean.toString(valid));
+    public void setValid(boolean newValid) {
+        valid = newValid;
     }
 
 }

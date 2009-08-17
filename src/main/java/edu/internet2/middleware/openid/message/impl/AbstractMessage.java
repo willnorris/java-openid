@@ -17,9 +17,6 @@
 package edu.internet2.middleware.openid.message.impl;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.MessageExtension;
@@ -29,20 +26,10 @@ import edu.internet2.middleware.openid.message.MessageExtension;
  */
 public abstract class AbstractMessage implements Message {
 
-    /** Message parameters. */
-    Map<Parameter, String> parameters;
-
     /**
      * Message extensions.
      */
     private Collection<MessageExtension> extensions;
-
-    /**
-     * Constructor.
-     */
-    public AbstractMessage() {
-        parameters = new HashMap<Parameter, String>();
-    }
 
     /** {@inheritDoc} */
     public String getNamespace() {
@@ -54,8 +41,4 @@ public abstract class AbstractMessage implements Message {
         return extensions;
     }
 
-    /** {@inheritDoc} */
-    public Map<Parameter, String> getParameters() {
-        return Collections.unmodifiableMap(parameters);
-    }
 }

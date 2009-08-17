@@ -16,6 +16,11 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Map;
 
 import edu.internet2.middleware.openid.association.Association.SessionType;
@@ -40,10 +45,23 @@ public class AssociationResponseUnmarshaller implements Unmarshaller<Association
         response.setLifetime(Integer.parseInt(parameters.get(Parameter.expires_in.toString())));
 
         if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
-            response.setDhPublicKey(parameters.get(Parameter.dh_server_public.toString()));
-            response.setMACKey(parameters.get(Parameter.enc_mac_key.toString()));
+
+            try {
+                byte[] publicKeyBytes = parameters.get(Parameter.dh_server_public.toString()).getBytes();
+                X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(publicKeyBytes);
+                KeyFactory keyFactory = KeyFactory.getInstance("DH");
+                PublicKey publicKey = keyFactory.generatePublic(x509KeySpec);
+                response.setPublicKey(publicKey);
+            } catch (NoSuchAlgorithmException e) {
+                // TODO
+            } catch (InvalidKeySpecException e) {
+                // TODO
+            }
+
+            // TODO
+            // response.setMACKey(parameters.get(Parameter.enc_mac_key.toString()));
         } else if (sessionType.equals(SessionType.no_encryption)) {
-            response.setMACKey(parameters.get(Parameter.mac_key.toString()));
+            // response.setMACKey(parameters.get(Parameter.mac_key.toString()));
         }
 
         return response;

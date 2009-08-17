@@ -17,7 +17,6 @@
 package edu.internet2.middleware.openid.message;
 
 import java.util.Collection;
-import java.util.Map;
 
 /**
  * OpenID protocol message.
@@ -134,12 +133,5 @@ public interface Message {
      * @return the extensions
      */
     public Collection<MessageExtension> getExtensions();
-
-    /**
-     * Get an unmodifiable map of the message's parameters.
-     * 
-     * @return message parameters
-     */
-    public Map<Parameter, String> getParameters();
 
 }

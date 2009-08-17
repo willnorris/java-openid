@@ -16,6 +16,11 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import java.security.Key;
+import java.security.PublicKey;
+
+import javax.crypto.Mac;
+
 import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.association.Association.SessionType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
@@ -25,6 +30,18 @@ import edu.internet2.middleware.openid.message.AssociationResponse;
  * AssociationRequestImpl.
  */
 public class AssociationResponseImpl extends AbstractMessage implements AssociationResponse {
+
+    /** Association Handle. */
+    private String associationHandle;
+
+    /** Diffie-Hellman public key. */
+    private PublicKey publicKey;
+
+    /** MAC Key. */
+    private Key macKey;
+
+    /** Lifetime of the association. */
+    private int lifetime;
 
     /**
      * Association type.
@@ -53,31 +70,31 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
 
     /** {@inheritDoc} */
     public String getAssociationHandle() {
-        return parameters.get(Parameter.assoc_handle);
+        return associationHandle;
     }
 
     /** {@inheritDoc} */
-    public String getDHPublicKey() {
-        return parameters.get(Parameter.dh_server_public);
+    public PublicKey getDHServerPublic() {
+        return publicKey;
     }
 
     /** {@inheritDoc} */
     public int getLifetime() {
-        return Integer.parseInt(parameters.get(Parameter.expires_in));
+        return lifetime;
     }
 
     /** {@inheritDoc} */
-    public String getMACKey() {
-        return parameters.get(getMacKeyParameter());
+    public Key getMacKey() {
+        return macKey;
     }
 
     /**
      * Set association handle.
      * 
-     * @param handle the association handle to set
+     * @param newHandle the association handle to set
      */
-    public void setAssociationHandle(String handle) {
-        parameters.put(Parameter.assoc_handle, handle);
+    public void setAssociationHandle(String newHandle) {
+        associationHandle = newHandle;
     }
 
     /**
@@ -119,28 +136,28 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
     /**
      * Set OpenID Provider's Diffie-Hellman public key.
      * 
-     * @param dhPublicKey the dhPublicKey to set
+     * @param newPublicKey the DH public key to set
      */
-    public void setDhPublicKey(String dhPublicKey) {
-        parameters.put(Parameter.dh_server_public, dhPublicKey);
+    public void setPublicKey(PublicKey newPublicKey) {
+        publicKey = newPublicKey;
     }
 
     /**
      * Set lifetime of response in seconds.
      * 
-     * @param lifetime the lifetime to set
+     * @param newLifetime the lifetime to set
      */
-    public void setLifetime(int lifetime) {
-        parameters.put(Parameter.expires_in, Integer.toString(lifetime));
+    public void setLifetime(int newLifetime) {
+        lifetime = newLifetime;
     }
 
     /**
      * Set the MAC key.
      * 
-     * @param macKey the macKey to set
+     * @param newMacKey the MAC key to set
      */
-    public void setMACKey(String macKey) {
-        parameters.put(getMacKeyParameter(), macKey);
+    public void setMacKey(Key newMacKey) {
+        macKey = newMacKey;
     }
 
     /**

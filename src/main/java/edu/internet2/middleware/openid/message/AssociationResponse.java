@@ -16,6 +16,9 @@
 
 package edu.internet2.middleware.openid.message;
 
+import java.security.Key;
+import java.security.PublicKey;
+
 import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.association.Association.SessionType;
 
@@ -58,13 +61,13 @@ public interface AssociationResponse extends Message {
      * 
      * @return the MAC key
      */
-    public String getMACKey();
+    public Key getMacKey();
 
     /**
      * The OpenID Provider's Diffie-Hellman public key.
      * 
-     * @return the DH public key
+     * @return the DH server key
      */
-    public String getDHPublicKey();
+    public PublicKey getDHServerPublic();
 
 }

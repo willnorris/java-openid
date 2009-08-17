@@ -23,18 +23,21 @@ import edu.internet2.middleware.openid.message.NegativeAssertion;
  */
 public class NegativeAssertionImpl extends AbstractMessage implements NegativeAssertion {
 
+    /** Message mode. */
+    private String mode;
+
     /** {@inheritDoc} */
     public String getMode() {
-        return parameters.get(Parameter.mode);
+        return mode;
     }
 
     /**
      * Set mode.
      * 
-     * @param mode new mode to set.
+     * @param newMode new mode to set.
      */
-    public void setMode(String mode) {
-        parameters.put(Parameter.mode, mode);
+    public void setMode(String newMode) {
+        mode = newMode;
     }
 
 }

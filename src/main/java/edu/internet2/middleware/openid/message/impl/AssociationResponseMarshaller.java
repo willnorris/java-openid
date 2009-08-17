@@ -19,6 +19,8 @@ package edu.internet2.middleware.openid.message.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.opensaml.xml.util.Base64;
+
 import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.message.AssociationResponse;
 import edu.internet2.middleware.openid.message.Marshaller;
@@ -37,13 +39,17 @@ public class AssociationResponseMarshaller implements Marshaller<AssociationResp
         if (associationType != null) {
             parameters.put(Parameter.assoc_type.toString(), associationType.toString());
 
+            String macKey = Base64.encodeBytes(response.getMacKey().getEncoded());
+
             if (associationType.equals(AssociationType.HMAC_SHA1)
                     || associationType.equals(AssociationType.HMAC_SHA256)) {
 
-                parameters.put(Parameter.enc_mac_key.toString(), response.getMACKey());
-                parameters.put(Parameter.dh_server_public.toString(), response.getDHPublicKey());
+                parameters.put(Parameter.enc_mac_key.toString(), macKey);
+
+                String publicKey = Base64.encodeBytes(response.getDHServerPublic().getEncoded());
+                parameters.put(Parameter.dh_server_public.toString(), publicKey);
             } else {
-                parameters.put(Parameter.mac_key.toString(), response.getMACKey());
+                parameters.put(Parameter.mac_key.toString(), macKey);
             }
 
         }
