@@ -22,7 +22,7 @@ import java.util.List;
  * Response to an authentication request indicating that the OpenID Provider was successfully able to authenticate the
  * end user.
  */
-public interface PositiveAssertion extends Message {
+public interface PositiveAssertion extends SignedMessage {
 
     /**
      * Message mode indicating a positive assertion.
@@ -77,19 +77,5 @@ public interface PositiveAssertion extends Message {
      * @return the association handle
      */
     public String getAssociationHandle();
-
-    /**
-     * The message fields that were used to generate the message signature. Fields do not include the "openid." prefix.
-     * 
-     * @return the signed fields
-     */
-    public List<String> getSignedFields();
-
-    /**
-     * The Base64 encoded signature.
-     * 
-     * @return the signature
-     */
-    public String getSignature();
 
 }

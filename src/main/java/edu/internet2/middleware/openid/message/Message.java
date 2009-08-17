@@ -131,7 +131,7 @@ public interface Message {
     /**
      * Get message extensions.
      * 
-     * @return the extenesions
+     * @return the extensions
      */
     public Collection<MessageExtension> getExtensions();
 

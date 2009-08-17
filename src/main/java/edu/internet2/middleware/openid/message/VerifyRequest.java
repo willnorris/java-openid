@@ -16,13 +16,11 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.util.List;
-
 /**
  * Request to verify a positive authentication assertion. All of the data from the assertion to be verified is included
  * in the verification request.
  */
-public interface VerifyRequest extends Message {
+public interface VerifyRequest extends SignedMessage {
 
     /**
      * Message mode for verification requests.
@@ -78,17 +76,4 @@ public interface VerifyRequest extends Message {
      */
     public String getAssociationHandle();
 
-    /**
-     * The message fields that were used to generate the message signature. Fields do not include the "openid." prefix.
-     * 
-     * @return the signed fields
-     */
-    public List<String> getSignedFields();
-
-    /**
-     * The Base64 encoded signature.
-     * 
-     * @return the signature
-     */
-    public String getSignature();
 }

@@ -16,28 +16,13 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
 
 /**
  * PositiveAssertionImpl.
  */
-public class PositiveAssertionImpl extends AbstractMessage implements PositiveAssertion {
-
-    /**
-     * Signed Fields.
-     */
-    private List<String> signedFields;
-
-    /**
-     * Constructor.
-     */
-    public PositiveAssertionImpl() {
-        signedFields = new ArrayList<String>();
-    }
+public class PositiveAssertionImpl extends AbstractSignedMessage implements PositiveAssertion {
 
     /** {@inheritDoc} */
     public String getAssociationHandle() {
@@ -72,16 +57,6 @@ public class PositiveAssertionImpl extends AbstractMessage implements PositiveAs
     /** {@inheritDoc} */
     public String getReturnTo() {
         return parameters.get(Message.Parameter.return_to);
-    }
-
-    /** {@inheritDoc} */
-    public String getSignature() {
-        return parameters.get(Message.Parameter.sig);
-    }
-
-    /** {@inheritDoc} */
-    public List<String> getSignedFields() {
-        return signedFields;
     }
 
     /** {@inheritDoc} */
@@ -150,15 +125,6 @@ public class PositiveAssertionImpl extends AbstractMessage implements PositiveAs
      */
     public void setResponseNonce(String nonce) {
         parameters.put(Parameter.response_nonce, nonce);
-    }
-
-    /**
-     * Set the signature.
-     * 
-     * @param signature the signature to set
-     */
-    public void setSignature(String signature) {
-        parameters.put(Parameter.sig, signature);
     }
 
 }

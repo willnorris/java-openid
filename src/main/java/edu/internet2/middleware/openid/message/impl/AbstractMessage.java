@@ -37,6 +37,9 @@ public abstract class AbstractMessage implements Message {
      */
     private Collection<MessageExtension> extensions;
 
+    /**
+     * Constructor.
+     */
     public AbstractMessage() {
         parameters = new HashMap<Parameter, String>();
     }
