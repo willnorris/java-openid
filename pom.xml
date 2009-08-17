@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.shibfaced</groupId>
+	<groupId>edu.internet2.middleware.openid</groupId>
 	<artifactId>openid</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
@@ -82,11 +82,11 @@
 					<archive>
 						<index>true</index>
 						<manifestEntries>
-							<Main-Class>com.shibfaced.openid.Version</Main-Class>
+							<Main-Class>edu.internet2.middleware.openid.Version</Main-Class>
 						</manifestEntries>
 						<manifestSections>
 							<manifestSection>
-								<name>com/shibfaced/openid/</name>
+								<name>edu/internet2/middleware/openid</name>
 								<manifestEntries>
 									<Implementation-Title>${pom.artifactId}</Implementation-Title>
 									<Implementation-Version>${pom.version}</Implementation-Version>
@@ -96,7 +96,7 @@
 								</manifestEntries>
 							</manifestSection>
 							<manifestSection>
-								<name>com/shibfaced/openid/message/ax</name>
+								<name>edu/internet2/middleware/openid/message/ax</name>
 								<manifestEntries>
 									<Specification-Title>OpenID Attribute Exchange 1.0</Specification-Title>
 									<Specification-Version>1.0</Specification-Version>

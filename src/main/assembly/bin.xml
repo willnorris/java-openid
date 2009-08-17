@@ -12,7 +12,7 @@
             <excludes>
                 <exclude>org.apache.xerces:*</exclude>
                 <exclude>org.apache.xalan:*</exclude>
-                <exclude>com.shibfaced:openid:*</exclude>
+                <exclude>edu.internet2.middleware.openid:openid:*</exclude>
             </excludes>
             <includes>
                 <include>*:jar:*</include>
