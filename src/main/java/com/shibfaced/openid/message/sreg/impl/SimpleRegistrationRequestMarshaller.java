@@ -20,10 +20,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.opensaml.xml.util.DatatypeHelper;
+
 import com.shibfaced.openid.message.Marshaller;
 import com.shibfaced.openid.message.sreg.SimpleRegistrationRequest;
 import com.shibfaced.openid.message.sreg.SimpleRegistration.Parameter;
-import com.shibfaced.openid.util.DatatypeHelper;
 import com.shibfaced.openid.util.StringUtils;
 
 /**

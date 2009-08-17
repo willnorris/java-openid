@@ -21,11 +21,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.opensaml.xml.util.DatatypeHelper;
+
 import com.shibfaced.openid.message.Marshaller;
 import com.shibfaced.openid.message.ax.AttributeExchange;
 import com.shibfaced.openid.message.ax.FetchResponse;
 import com.shibfaced.openid.message.ax.AttributeExchange.Parameter;
-import com.shibfaced.openid.util.DatatypeHelper;
 
 /**
  * FetchRequestMarshaller.

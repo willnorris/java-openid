@@ -19,10 +19,11 @@ package com.shibfaced.openid.message.ax.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.opensaml.xml.util.DatatypeHelper;
+
 import com.shibfaced.openid.message.Marshaller;
 import com.shibfaced.openid.message.ax.StoreResponse;
 import com.shibfaced.openid.message.ax.AttributeExchange.Parameter;
-import com.shibfaced.openid.util.DatatypeHelper;
 
 /**
  * StoreResponseMarshaller.
