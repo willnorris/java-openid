@@ -10,9 +10,9 @@ import com.shibfaced.openid.association.Association.AssociationType;
 import com.shibfaced.openid.association.Association.SessionType;
 import com.shibfaced.openid.message.sreg.SimpleRegistration.Field;
 
-public class AssociationTests extends TestCase {
+public class AssociationTest extends TestCase {
 
-    private static final Logger log = LoggerFactory.getLogger(AssociationTests.class);
+    private static final Logger log = LoggerFactory.getLogger(AssociationTest.class);
 
     public void testAssociation() {
         log.info(Field.valueOf("nickname").toString());

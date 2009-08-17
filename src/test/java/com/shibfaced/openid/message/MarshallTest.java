@@ -22,7 +22,7 @@ import com.shibfaced.openid.message.sreg.impl.SimpleRegistrationRequestUnmarshal
 /**
  * Marshall Tests.
  */
-public class MarshallTests extends TestCase {
+public class MarshallTest extends TestCase {
 
     /**
      * Test simple registration marshalling.
