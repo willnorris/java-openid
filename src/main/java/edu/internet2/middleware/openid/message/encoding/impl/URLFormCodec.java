@@ -19,12 +19,11 @@ package edu.internet2.middleware.openid.message.encoding.impl;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
 import edu.internet2.middleware.openid.message.encoding.MessageCodec;
 
@@ -59,8 +58,8 @@ public class URLFormCodec implements MessageCodec<String> {
     }
 
     /** {@inheritDoc} */
-    public Map<String, String> decode(String encoded) throws EncodingException {
-        Map<String, String> parameters = new HashMap<String, String>();
+    public ParameterMap decode(String encoded) throws EncodingException {
+        ParameterMap parameters = new ParameterMap();
         String key;
         String value;
 
@@ -85,7 +84,7 @@ public class URLFormCodec implements MessageCodec<String> {
     }
 
     /** {@inheritDoc} */
-    public String encode(Map<String, String> parameters) throws EncodingException {
+    public String encode(ParameterMap parameters) throws EncodingException {
         StringBuffer buffer = new StringBuffer();
 
         int numKeys = parameters.keySet().size();

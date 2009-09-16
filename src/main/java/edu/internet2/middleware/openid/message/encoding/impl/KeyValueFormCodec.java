@@ -16,12 +16,10 @@
 
 package edu.internet2.middleware.openid.message.encoding.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
 import edu.internet2.middleware.openid.message.encoding.MessageCodec;
 
@@ -50,8 +48,8 @@ public class KeyValueFormCodec implements MessageCodec<String> {
     }
 
     /** {@inheritDoc} */
-    public Map<String, String> decode(String encoded) throws EncodingException {
-        Map<String, String> parameters = new HashMap<String, String>();
+    public ParameterMap decode(String encoded) throws EncodingException {
+        ParameterMap parameters = new ParameterMap();
 
         for (String line : encoded.split("\n")) {
             String[] parts = line.split(":", 2);
@@ -64,7 +62,7 @@ public class KeyValueFormCodec implements MessageCodec<String> {
     }
 
     /** {@inheritDoc} */
-    public String encode(Map<String, String> parameters) throws EncodingException {
+    public String encode(ParameterMap parameters) throws EncodingException {
         StringBuffer buffer = new StringBuffer();
 
         for (String key : parameters.keySet()) {
