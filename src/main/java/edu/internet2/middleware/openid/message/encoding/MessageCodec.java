@@ -30,15 +30,17 @@ public interface MessageCodec<EncodedType> {
      * 
      * @param encoded encoded string
      * @return map of parameters
+     * @throws EncodingException if unable to decode message
      */
-    public Map<String, String> decode(EncodedType encoded);
+    public Map<String, String> decode(EncodedType encoded) throws EncodingException;
 
     /**
      * Encode the message.
      * 
      * @param parameters parameters to encode
      * @return encoded format
+     * @throws EncodingException if unable to encode message
      */
-    public EncodedType encode(Map<String, String> parameters);
+    public EncodedType encode(Map<String, String> parameters) throws EncodingException;
 
 }

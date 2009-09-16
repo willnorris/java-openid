@@ -19,6 +19,10 @@ package edu.internet2.middleware.openid.message.encoding.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import edu.internet2.middleware.openid.message.encoding.EncodingException;
 import edu.internet2.middleware.openid.message.encoding.MessageCodec;
 
 /**
@@ -26,8 +30,17 @@ import edu.internet2.middleware.openid.message.encoding.MessageCodec;
  */
 public class KeyValueFormCodec implements MessageCodec<String> {
 
+    /** Logger. */
+    private static final Logger LOG = LoggerFactory.getLogger(KeyValueFormCodec.class);
+
+    /** Codec singleton instance. */
     private static KeyValueFormCodec codec;
 
+    /**
+     * Get singleton instance.
+     * 
+     * @return singleton instance
+     */
     public static KeyValueFormCodec getInstance() {
         if (codec == null) {
             codec = new KeyValueFormCodec();
@@ -37,7 +50,7 @@ public class KeyValueFormCodec implements MessageCodec<String> {
     }
 
     /** {@inheritDoc} */
-    public Map<String, String> decode(String encoded) {
+    public Map<String, String> decode(String encoded) throws EncodingException {
         Map<String, String> parameters = new HashMap<String, String>();
 
         for (String line : encoded.split("\n")) {
@@ -51,10 +64,25 @@ public class KeyValueFormCodec implements MessageCodec<String> {
     }
 
     /** {@inheritDoc} */
-    public String encode(Map<String, String> parameters) {
+    public String encode(Map<String, String> parameters) throws EncodingException {
         StringBuffer buffer = new StringBuffer();
 
         for (String key : parameters.keySet()) {
+            if (key.contains(":")) {
+                LOG.warn("Message parameter cannot contain a colon ':': {}", key);
+                throw new EncodingException("Message parameter cannot contain a colon ':': " + key);
+            }
+
+            if (key.contains("\n")) {
+                LOG.warn("Message parameter name cannot contain a newline: {}", key);
+                throw new EncodingException("Message parameter name cannot contain a newline: " + key);
+            }
+
+            if (parameters.get(key).contains("\n")) {
+                LOG.warn("Message parameter name cannot contain a newline: {}", parameters.get(key));
+                throw new EncodingException("Message parameter name cannot contain a newline: " + parameters.get(key));
+            }
+
             buffer.append(key);
             buffer.append(":");
             buffer.append(parameters.get(key));
@@ -63,5 +91,4 @@ public class KeyValueFormCodec implements MessageCodec<String> {
 
         return buffer.toString();
     }
-
 }
