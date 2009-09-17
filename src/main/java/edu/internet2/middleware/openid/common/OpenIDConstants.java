@@ -16,6 +16,8 @@
 
 package edu.internet2.middleware.openid.common;
 
+import java.math.BigInteger;
+
 import javax.xml.namespace.QName;
 
 /**
@@ -25,6 +27,18 @@ public class OpenIDConstants {
 
     /** OpenID 2.0 Namespace URI. */
     public static final String OPENID_20_NS = "http://specs.openid.net/auth/2.0";
+
+    /** Default Diffie-Hellman Modulus (in hexadecimal). */
+    public static final String DEFAULT_DH_MODULUS_HEX = "DCF93A0B883972EC0E19989AC5A2CE310E1D37717E8D9571BB7623731866E61E"
+            + "F75A2E27898B057F9891C2E27A639C3F29B60814581CD3B2CA3986D268370557"
+            + "7D45C2E7E52DC81C7A171876E5CEA74B1448BFDFAF18828EFD2519F14E45E382"
+            + "6634AF1949E5B535CC829A483B8A76223E5D490A257F05BDFF16F2FB22C583AB";
+
+    /** Default Diffie-Hellman Modulus. */
+    public static final BigInteger DEFAULT_DH_MODULUS = new BigInteger(DEFAULT_DH_MODULUS_HEX, 16);
+
+    /** Default Diffie-Hellman Generator. */
+    public static final BigInteger DEFAULT_DH_GEN = BigInteger.valueOf(2);
 
     /**
      * OpenID parameters.
@@ -126,12 +140,24 @@ public class OpenIDConstants {
         /**
          * Association type using the HMAC-SHA1 signature algorithm.
          */
-        HMAC_SHA1,
+        HMAC_SHA1("HmacSHA1"),
 
         /**
          * Association type using the HMAC-SHA256 signature algorithm.
          */
-        HMAC_SHA256;
+        HMAC_SHA256("HmacSHA256");
+
+        /** The algorithm for this type. */
+        private final String algorithm;
+
+        /**
+         * Constructor.
+         * 
+         * @param newAlgorithm the algorithm for this type
+         */
+        AssociationType(String newAlgorithm) {
+            this.algorithm = newAlgorithm;
+        }
 
         /** {@inheritDoc} */
         public String toString() {
@@ -150,6 +176,15 @@ public class OpenIDConstants {
             }
 
             return AssociationType.valueOf(type.replace('-', '_'));
+        }
+
+        /**
+         * Get the algorithm for this type.
+         * 
+         * @return the algorithm for this type
+         */
+        public String getAlgorithm() {
+            return algorithm;
         }
     }
 

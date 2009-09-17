@@ -16,9 +16,45 @@
 
 package edu.internet2.middleware.openid.association;
 
+import java.security.Key;
+
+import org.joda.time.DateTime;
+
+import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
+
 /**
- * Association.
+ * An OpenID Association encapsulates a shared secret used to enable secure communication between two parties. The
+ * association includes the shared secret key, the algorithm used to sign messages, and a shared public handle used to
+ * identify the association.
  */
 public interface Association {
+
+    /**
+     * Get the association handle.
+     * 
+     * @return the association handle
+     */
+    public String getHandle();
+
+    /**
+     * Get the association type.
+     * 
+     * @return the association type
+     */
+    public AssociationType getAssociationType();
+
+    /**
+     * Get the expiration instant of the association.
+     * 
+     * @return the expiration instant
+     */
+    public DateTime getExpiration();
+
+    /**
+     * Get the MAC Key for the association.
+     * 
+     * @return the MAC Key
+     */
+    public Key getMacKey();
 
 }
