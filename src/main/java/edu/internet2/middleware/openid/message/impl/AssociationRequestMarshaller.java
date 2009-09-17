@@ -19,9 +19,9 @@ package edu.internet2.middleware.openid.message.impl;
 import org.opensaml.xml.util.Base64;
 
 import edu.internet2.middleware.openid.association.Association.SessionType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.AssociationRequest;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Marshaller for {@link AssociationRequest} message.
@@ -30,21 +30,21 @@ public class AssociationRequestMarshaller extends AbstractMessageMarshaller<Asso
 
     /** {@inheritDoc} */
     protected void marshallParameters(AssociationRequest request, ParameterMap parameters) {
-        parameters.put(Parameter.assoc_type, request.getAssociationType().toString());
+        parameters.put(Parameter.assoc_type.QNAME, request.getAssociationType().toString());
 
         SessionType sessionType = request.getSessionType();
-        parameters.put(Parameter.session_type, sessionType.toString());
+        parameters.put(Parameter.session_type.QNAME, sessionType.toString());
 
         if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
 
             String modulus = Base64.encodeBytes(request.getDHModulus().toByteArray());
-            parameters.put(Parameter.dh_modulus, modulus);
+            parameters.put(Parameter.dh_modulus.QNAME, modulus);
 
             String gen = Base64.encodeBytes(request.getDHGen().toByteArray());
-            parameters.put(Parameter.dh_gen, gen);
+            parameters.put(Parameter.dh_gen.QNAME, gen);
 
             String publicKey = Base64.encodeBytes(request.getDHConsumerPublic().getEncoded());
-            parameters.put(Parameter.dh_consumer_public, publicKey);
+            parameters.put(Parameter.dh_consumer_public.QNAME, publicKey);
 
         }
     }

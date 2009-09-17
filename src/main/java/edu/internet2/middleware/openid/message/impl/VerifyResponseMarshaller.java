@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.VerifyResponse;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Marshaller for {@link VerifyResponse} messages.
@@ -27,8 +27,8 @@ public class VerifyResponseMarshaller extends AbstractMessageMarshaller<VerifyRe
 
     /** {@inheritDoc} */
     public void marshallParameters(VerifyResponse response, ParameterMap parameters) {
-        parameters.put(Parameter.invalidate_handle, response.getInvalidateHandle());
-        parameters.put(Parameter.is_valid, Boolean.toString(response.isValid()));
+        parameters.put(Parameter.invalidate_handle.QNAME, response.getInvalidateHandle());
+        parameters.put(Parameter.is_valid.QNAME, Boolean.toString(response.isValid()));
     }
 
 }

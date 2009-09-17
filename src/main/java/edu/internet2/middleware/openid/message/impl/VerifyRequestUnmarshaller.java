@@ -20,9 +20,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.VerifyRequest;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Unmarshaller for {@link VerifyRequest} messages.
@@ -31,19 +31,19 @@ public class VerifyRequestUnmarshaller extends AbstractMessageUnmarshaller<Verif
 
     /** {@inheritDoc} */
     public void unmarshallParameters(VerifyRequest request, ParameterMap parameters) {
-        request.setAssociationHandle(parameters.get(Parameter.assoc_handle));
-        request.setClaimedId(parameters.get(Parameter.claimed_id));
-        request.setEndpoint(parameters.get(Parameter.op_endpoint));
-        request.setIdentity(parameters.get(Parameter.identity));
-        request.setInvalidateHandle(parameters.get(Parameter.invalidate_handle));
-        request.setResponseNonce(parameters.get(Parameter.response_nonce));
+        request.setAssociationHandle(parameters.get(Parameter.assoc_handle.QNAME));
+        request.setClaimedId(parameters.get(Parameter.claimed_id.QNAME));
+        request.setEndpoint(parameters.get(Parameter.op_endpoint.QNAME));
+        request.setIdentity(parameters.get(Parameter.identity.QNAME));
+        request.setInvalidateHandle(parameters.get(Parameter.invalidate_handle.QNAME));
+        request.setResponseNonce(parameters.get(Parameter.response_nonce.QNAME));
         try {
-            String returnTo = parameters.get(Parameter.return_to);
+            String returnTo = parameters.get(Parameter.return_to.QNAME);
             request.setReturnTo(new URL(returnTo));
         } catch (MalformedURLException e) {
             // TODO
         }
-        request.setSignature(parameters.get(Parameter.sig));
+        request.setSignature(parameters.get(Parameter.sig.QNAME));
         request.getSignedFields().addAll(Arrays.asList(Parameter.signed.toString().split(",")));
     }
 

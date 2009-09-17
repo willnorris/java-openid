@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ErrorResponse;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Marshaller for {@link ErrorResponse} messages.
@@ -27,8 +27,8 @@ public class ErrorResponseMarshaller extends AbstractMessageMarshaller<ErrorResp
 
     /** {@inheritDoc} */
     public void marshallParameters(ErrorResponse response, ParameterMap parameters) {
-        parameters.put(Parameter.contact, response.getContact());
-        parameters.put(Parameter.error, response.getError());
-        parameters.put(Parameter.reference, response.getReference());
+        parameters.put(Parameter.contact.QNAME, response.getContact());
+        parameters.put(Parameter.error.QNAME, response.getError());
+        parameters.put(Parameter.reference.QNAME, response.getReference());
     }
 }

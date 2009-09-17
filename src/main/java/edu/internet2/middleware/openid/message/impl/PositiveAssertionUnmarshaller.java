@@ -20,9 +20,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Unmarshaller for {@link PositiveAssertion} messages.
@@ -31,19 +31,19 @@ public class PositiveAssertionUnmarshaller extends AbstractMessageUnmarshaller<P
 
     /** {@inheritDoc} */
     public void unmarshallParameters(PositiveAssertion response, ParameterMap parameters) {
-        response.setAssociationHandle(parameters.get(Parameter.assoc_handle));
-        response.setClaimedId(parameters.get(Parameter.claimed_id));
-        response.setEndpoint(parameters.get(Parameter.op_endpoint));
-        response.setIdentity(parameters.get(Parameter.identity));
-        response.setInvalidateHandle(parameters.get(Parameter.invalidate_handle));
-        response.setResponseNonce(parameters.get(Parameter.response_nonce));
+        response.setAssociationHandle(parameters.get(Parameter.assoc_handle.QNAME));
+        response.setClaimedId(parameters.get(Parameter.claimed_id.QNAME));
+        response.setEndpoint(parameters.get(Parameter.op_endpoint.QNAME));
+        response.setIdentity(parameters.get(Parameter.identity.QNAME));
+        response.setInvalidateHandle(parameters.get(Parameter.invalidate_handle.QNAME));
+        response.setResponseNonce(parameters.get(Parameter.response_nonce.QNAME));
         try {
-            String returnTo = parameters.get(Parameter.return_to);
+            String returnTo = parameters.get(Parameter.return_to.QNAME);
             response.setReturnTo(new URL(returnTo));
         } catch (MalformedURLException e) {
             // TODO
         }
-        response.setSignature(parameters.get(Parameter.sig));
+        response.setSignature(parameters.get(Parameter.sig.QNAME));
         response.getSignedFields().addAll(Arrays.asList(Parameter.signed.toString().split(",")));
     }
 

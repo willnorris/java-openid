@@ -16,10 +16,10 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.Marshaller;
 import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Base class for message marshallers.
@@ -42,10 +42,8 @@ public abstract class AbstractMessageMarshaller<MessageType extends Message> imp
      * @param parameters parameter map to marshall message into
      */
     protected void marshall(MessageType message, ParameterMap parameters) {
-        parameters.setNamespace(message.getNamespace());
-
         try {
-            parameters.put(Parameter.mode, message.getMode());
+            parameters.put(Parameter.mode.QNAME, message.getMode());
         } catch (UnsupportedOperationException e) {
             // do nothing
         }

@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.AssociationError;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Marshaller for {@link AssociationError} messages.
@@ -27,13 +27,13 @@ public class AssociationErrorMarshaller extends AbstractMessageMarshaller<Associ
 
     /** {@inheritDoc} */
     public void marshallParameters(AssociationError response, ParameterMap parameters) {
-        parameters.put(Parameter.assoc_type, response.getAssociationType().toString());
-        parameters.put(Parameter.session_type, response.getSessionType().toString());
+        parameters.put(Parameter.assoc_type.QNAME, response.getAssociationType().toString());
+        parameters.put(Parameter.session_type.QNAME, response.getSessionType().toString());
 
-        parameters.put(Parameter.error, response.getError());
-        parameters.put(Parameter.error_code, response.getErrorCode());
-        parameters.put(Parameter.contact, response.getContact());
-        parameters.put(Parameter.reference, response.getReference());
+        parameters.put(Parameter.error.QNAME, response.getError());
+        parameters.put(Parameter.error_code.QNAME, response.getErrorCode());
+        parameters.put(Parameter.contact.QNAME, response.getContact());
+        parameters.put(Parameter.reference.QNAME, response.getReference());
     }
 
 }

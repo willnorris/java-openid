@@ -19,9 +19,9 @@ package edu.internet2.middleware.openid.message.impl;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Unmarshaller for {@link AuthenticationRequest} messages.
@@ -30,16 +30,16 @@ public class AuthenticationRequestUnmarshaller extends AbstractMessageUnmarshall
 
     /** {@inheritDoc} */
     public void unmarshallParameters(AuthenticationRequest request, ParameterMap parameters) {
-        request.setAssociationHandle(parameters.get(Parameter.assoc_handle));
+        request.setAssociationHandle(parameters.get(Parameter.assoc_handle.QNAME));
 
         // TODO claimed_id and identity MUST appear together
-        request.setClaimedId(parameters.get(Parameter.claimed_id));
-        request.setIdentity(parameters.get(Parameter.identity));
+        request.setClaimedId(parameters.get(Parameter.claimed_id.QNAME));
+        request.setIdentity(parameters.get(Parameter.identity.QNAME));
 
-        request.setMode(parameters.get(Parameter.mode));
-        request.setRealm(parameters.get(Parameter.realm));
+        request.setMode(parameters.get(Parameter.mode.QNAME));
+        request.setRealm(parameters.get(Parameter.realm.QNAME));
         try {
-            String returnTo = parameters.get(Parameter.return_to);
+            String returnTo = parameters.get(Parameter.return_to.QNAME);
             request.setReturnTo(new URL(returnTo));
         } catch (MalformedURLException e) {
             // TODO

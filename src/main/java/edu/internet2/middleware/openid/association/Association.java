@@ -47,6 +47,10 @@ public interface Association {
          * @return the association type
          */
         public static AssociationType getType(String type) {
+            if (type == null) {
+                return null;
+            }
+
             return AssociationType.valueOf(type.replace('-', '_'));
         }
     }
@@ -83,6 +87,10 @@ public interface Association {
          * @return the session type
          */
         public static SessionType getType(String type) {
+            if (type == null) {
+                return null;
+            }
+
             return SessionType.valueOf(type.replace('-', '_'));
         }
     }

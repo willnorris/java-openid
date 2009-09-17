@@ -16,23 +16,32 @@
 
 package edu.internet2.middleware.openid.message.encoding.impl;
 
+import javax.xml.namespace.QName;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
 import edu.internet2.middleware.openid.message.encoding.MessageCodec;
 
 /**
  * Message encoder implementation which produces Key-Value Form encoded strings.
+ * 
+ * As of OpenID 2.0, protocol extensions can only be attached to OpenID authentication requests, which always use URL
+ * form encoding. As a consequence, key value form encoding messages do not include any namespace declarations. This
+ * codec therefore assumes that all paramters are in the OpenID 2.0 namespace. If and when a future version of OpenID
+ * allows for protocol extensions on requests that use key value form encoding, this codec will need to be updated to
+ * accommodate that.
  */
 public class KeyValueFormCodec implements MessageCodec<String> {
 
-    /** Logger. */
-    private static final Logger LOG = LoggerFactory.getLogger(KeyValueFormCodec.class);
-
     /** Codec singleton instance. */
-    private static KeyValueFormCodec codec;
+    private static KeyValueFormCodec singleton;
+
+    /** Logger. */
+    private final Logger log = LoggerFactory.getLogger(KeyValueFormCodec.class);
 
     /**
      * Get singleton instance.
@@ -40,21 +49,23 @@ public class KeyValueFormCodec implements MessageCodec<String> {
      * @return singleton instance
      */
     public static KeyValueFormCodec getInstance() {
-        if (codec == null) {
-            codec = new KeyValueFormCodec();
+        if (singleton == null) {
+            singleton = new KeyValueFormCodec();
         }
 
-        return codec;
+        return singleton;
     }
 
     /** {@inheritDoc} */
     public ParameterMap decode(String encoded) throws EncodingException {
+        log.debug("Decoding Key-Value form encoded string: {}", encoded);
         ParameterMap parameters = new ParameterMap();
 
         for (String line : encoded.split("\n")) {
             String[] parts = line.split(":", 2);
             if (parts.length == 2) {
-                parameters.put(parts[0], parts[1]);
+                log.debug("Found encoded paramater {} : {}", parts[0], parts[1]);
+                parameters.put(new QName(OpenIDConstants.OPENID_20_NS, parts[0]), parts[1]);
             }
         }
 
@@ -63,27 +74,31 @@ public class KeyValueFormCodec implements MessageCodec<String> {
 
     /** {@inheritDoc} */
     public String encode(ParameterMap parameters) throws EncodingException {
+        log.debug("Encoding ParameterMap containing {} entries", parameters.size());
         StringBuffer buffer = new StringBuffer();
 
-        for (String key : parameters.keySet()) {
+        for (QName qname : parameters.keySet()) {
+            String key = qname.getLocalPart();
+            String value = parameters.get(qname);
+
             if (key.contains(":")) {
-                LOG.warn("Message parameter cannot contain a colon ':': {}", key);
+                log.warn("Message parameter cannot contain a colon ':': {}", key);
                 throw new EncodingException("Message parameter cannot contain a colon ':': " + key);
             }
 
             if (key.contains("\n")) {
-                LOG.warn("Message parameter name cannot contain a newline: {}", key);
+                log.warn("Message parameter name cannot contain a newline: {}", key);
                 throw new EncodingException("Message parameter name cannot contain a newline: " + key);
             }
 
-            if (parameters.get(key).contains("\n")) {
-                LOG.warn("Message parameter name cannot contain a newline: {}", parameters.get(key));
-                throw new EncodingException("Message parameter name cannot contain a newline: " + parameters.get(key));
+            if (value.contains("\n")) {
+                log.warn("Message parameter name cannot contain a newline: {}", value);
+                throw new EncodingException("Message parameter name cannot contain a newline: " + value);
             }
 
             buffer.append(key);
             buffer.append(":");
-            buffer.append(parameters.get(key));
+            buffer.append(value);
             buffer.append("\n");
         }
 

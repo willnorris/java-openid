@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.VerifyRequest;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 import edu.internet2.middleware.openid.util.StringUtils;
 
 /**
@@ -28,15 +28,15 @@ public class VerifyRequestMarshaller extends AbstractMessageMarshaller<VerifyReq
 
     /** {@inheritDoc} */
     public void marshallParameters(VerifyRequest request, ParameterMap parameters) {
-        parameters.put(Parameter.assoc_handle, request.getAssociationHandle());
-        parameters.put(Parameter.claimed_id, request.getClaimedId());
-        parameters.put(Parameter.op_endpoint, request.getEndpoint());
-        parameters.put(Parameter.identity, request.getIdentity());
-        parameters.put(Parameter.invalidate_handle, request.getInvalidateHandle());
-        parameters.put(Parameter.response_nonce, request.getResponseNonce());
-        parameters.put(Parameter.return_to, request.getReturnTo().toString());
-        parameters.put(Parameter.sig, request.getSignature());
-        parameters.put(Parameter.signed, StringUtils.join(request.getSignedFields(), ","));
+        parameters.put(Parameter.assoc_handle.QNAME, request.getAssociationHandle());
+        parameters.put(Parameter.claimed_id.QNAME, request.getClaimedId());
+        parameters.put(Parameter.op_endpoint.QNAME, request.getEndpoint());
+        parameters.put(Parameter.identity.QNAME, request.getIdentity());
+        parameters.put(Parameter.invalidate_handle.QNAME, request.getInvalidateHandle());
+        parameters.put(Parameter.response_nonce.QNAME, request.getResponseNonce());
+        parameters.put(Parameter.return_to.QNAME, request.getReturnTo().toString());
+        parameters.put(Parameter.sig.QNAME, request.getSignature());
+        parameters.put(Parameter.signed.QNAME, StringUtils.join(request.getSignedFields(), ","));
     }
 
 }

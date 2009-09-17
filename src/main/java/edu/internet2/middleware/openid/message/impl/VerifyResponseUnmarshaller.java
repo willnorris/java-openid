@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.VerifyResponse;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Unmarshaller for {@link VerifyResponse} messages.
@@ -27,8 +27,8 @@ public class VerifyResponseUnmarshaller extends AbstractMessageUnmarshaller<Veri
 
     /** {@inheritDoc} */
     public void unmarshallParameters(VerifyResponse response, ParameterMap parameters) {
-        response.setInvalidateHandle(parameters.get(Parameter.invalidate_handle));
-        response.setValid(Boolean.parseBoolean(parameters.get(Parameter.is_valid)));
+        response.setInvalidateHandle(parameters.get(Parameter.invalidate_handle.QNAME));
+        response.setValid(Boolean.parseBoolean(parameters.get(Parameter.is_valid.QNAME)));
     }
 
 }

@@ -19,9 +19,9 @@ package edu.internet2.middleware.openid.message.impl;
 import org.opensaml.xml.util.Base64;
 
 import edu.internet2.middleware.openid.association.Association.AssociationType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.AssociationResponse;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Marshaller for {@link AssociationResponse} messages.
@@ -32,25 +32,25 @@ public class AssociationResponseMarshaller extends AbstractMessageMarshaller<Ass
     public void marshallParameters(AssociationResponse response, ParameterMap parameters) {
         AssociationType associationType = response.getAssociationType();
         if (associationType != null) {
-            parameters.put(Parameter.assoc_type, associationType.toString());
+            parameters.put(Parameter.assoc_type.QNAME, associationType.toString());
 
             String macKey = Base64.encodeBytes(response.getMacKey().getEncoded());
 
             if (associationType.equals(AssociationType.HMAC_SHA1)
                     || associationType.equals(AssociationType.HMAC_SHA256)) {
 
-                parameters.put(Parameter.enc_mac_key, macKey);
+                parameters.put(Parameter.enc_mac_key.QNAME, macKey);
 
                 String publicKey = Base64.encodeBytes(response.getDHServerPublic().getEncoded());
-                parameters.put(Parameter.dh_server_public, publicKey);
+                parameters.put(Parameter.dh_server_public.QNAME, publicKey);
             } else {
-                parameters.put(Parameter.mac_key, macKey);
+                parameters.put(Parameter.mac_key.QNAME, macKey);
             }
 
         }
 
-        parameters.put(Parameter.session_type, response.getSessionType().toString());
-        parameters.put(Parameter.expires_in, response.getLifetime().toString());
+        parameters.put(Parameter.session_type.QNAME, response.getSessionType().toString());
+        parameters.put(Parameter.expires_in.QNAME, response.getLifetime().toString());
     }
 
 }

@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.NegativeAssertion;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Marshaller for {@link NegativeAssertion} messages.
@@ -27,7 +27,7 @@ public class NegativeAssertionMarshaller extends AbstractMessageMarshaller<Negat
 
     /** {@inheritDoc} */
     public void marshallParameters(NegativeAssertion response, ParameterMap parameters) {
-        parameters.put(Parameter.mode, response.getMode());
+        parameters.put(Parameter.mode.QNAME, response.getMode());
     }
 
 }

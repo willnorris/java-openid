@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Marshaller for {@link AuthenticationRequest} messages.
@@ -27,15 +27,15 @@ public class AuthenticationRequestMarshaller extends AbstractMessageMarshaller<A
 
     /** {@inheritDoc} */
     public void marshallParameters(AuthenticationRequest request, ParameterMap parameters) {
-        parameters.put(Parameter.mode, request.getMode());
+        parameters.put(Parameter.mode.QNAME, request.getMode());
 
         // TODO claimed_id and identity MUST appear together
-        parameters.put(Parameter.claimed_id, request.getClaimedId());
-        parameters.put(Parameter.identity, request.getIdentity());
+        parameters.put(Parameter.claimed_id.QNAME, request.getClaimedId());
+        parameters.put(Parameter.identity.QNAME, request.getIdentity());
 
-        parameters.put(Parameter.assoc_handle, request.getAssociationHandle());
-        parameters.put(Parameter.return_to, request.getReturnTo().toString());
-        parameters.put(Parameter.realm, request.getRealm());
+        parameters.put(Parameter.assoc_handle.QNAME, request.getAssociationHandle());
+        parameters.put(Parameter.return_to.QNAME, request.getReturnTo().toString());
+        parameters.put(Parameter.realm.QNAME, request.getRealm());
     }
 
 }

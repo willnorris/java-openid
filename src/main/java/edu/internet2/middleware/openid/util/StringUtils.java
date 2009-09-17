@@ -16,7 +16,6 @@
 
 package edu.internet2.middleware.openid.util;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -26,19 +25,18 @@ public final class StringUtils {
 
     /** Private constructor. */
     private StringUtils() {
-
     }
 
     /**
      * Join a Collection using a delimiter.
      * 
-     * @param collection objects to join
+     * @param objects objects to join
      * @param delimiter String used to join objects
      * @return joined string
      */
-    public static String join(Collection<?> collection, String delimiter) {
+    public static String join(Iterable objects, String delimiter) {
         StringBuffer buffer = new StringBuffer();
-        Iterator<?> iterator = collection.iterator();
+        Iterator<?> iterator = objects.iterator();
 
         while (iterator.hasNext()) {
             buffer.append(iterator.next().toString());
@@ -49,4 +47,5 @@ public final class StringUtils {
 
         return buffer.toString();
     }
+
 }

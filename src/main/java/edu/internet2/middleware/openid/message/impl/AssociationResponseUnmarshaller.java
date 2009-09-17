@@ -24,9 +24,9 @@ import java.security.spec.X509EncodedKeySpec;
 
 import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.association.Association.SessionType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.AssociationResponse;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Marshaller for {@link AssociationResponse} messages.
@@ -36,12 +36,12 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
     /** {@inheritDoc} */
     public void unmarshallParameters(AssociationResponse response, ParameterMap parameters) {
 
-        SessionType sessionType = SessionType.getType(parameters.get(Parameter.session_type));
+        SessionType sessionType = SessionType.getType(parameters.get(Parameter.session_type.QNAME));
 
-        response.setAssociationHandle(parameters.get(Parameter.assoc_handle));
-        response.setAssociationType(AssociationType.getType(parameters.get(Parameter.assoc_type)));
+        response.setAssociationHandle(parameters.get(Parameter.assoc_handle.QNAME));
+        response.setAssociationType(AssociationType.getType(parameters.get(Parameter.assoc_type.QNAME)));
         response.setSessionType(sessionType);
-        response.setLifetime(Integer.parseInt(parameters.get(Parameter.expires_in)));
+        response.setLifetime(Integer.parseInt(parameters.get(Parameter.expires_in.QNAME)));
 
         if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
 

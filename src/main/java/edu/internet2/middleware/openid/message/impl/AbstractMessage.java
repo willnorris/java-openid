@@ -18,6 +18,7 @@ package edu.internet2.middleware.openid.message.impl;
 
 import java.util.Collection;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.MessageExtension;
 
@@ -33,7 +34,7 @@ public abstract class AbstractMessage implements Message {
 
     /** {@inheritDoc} */
     public String getNamespace() {
-        return Message.OPENID2_NS;
+        return OpenIDConstants.OPENID_20_NS;
     }
 
     /** {@inheritDoc} */

@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 import edu.internet2.middleware.openid.util.StringUtils;
 
 /**
@@ -28,15 +28,15 @@ public class PositiveAssertionMarshaller extends AbstractMessageMarshaller<Posit
 
     /** {@inheritDoc} */
     public void marshallParameters(PositiveAssertion response, ParameterMap parameters) {
-        parameters.put(Parameter.assoc_handle, response.getAssociationHandle());
-        parameters.put(Parameter.claimed_id, response.getClaimedId());
-        parameters.put(Parameter.op_endpoint, response.getEndpoint());
-        parameters.put(Parameter.identity, response.getIdentity());
-        parameters.put(Parameter.invalidate_handle, response.getInvalidateHandle());
-        parameters.put(Parameter.response_nonce, response.getResponseNonce());
-        parameters.put(Parameter.return_to, response.getReturnTo().toString());
-        parameters.put(Parameter.sig, response.getSignature());
-        parameters.put(Parameter.signed, StringUtils.join(response.getSignedFields(), ","));
+        parameters.put(Parameter.assoc_handle.QNAME, response.getAssociationHandle());
+        parameters.put(Parameter.claimed_id.QNAME, response.getClaimedId());
+        parameters.put(Parameter.op_endpoint.QNAME, response.getEndpoint());
+        parameters.put(Parameter.identity.QNAME, response.getIdentity());
+        parameters.put(Parameter.invalidate_handle.QNAME, response.getInvalidateHandle());
+        parameters.put(Parameter.response_nonce.QNAME, response.getResponseNonce());
+        parameters.put(Parameter.return_to.QNAME, response.getReturnTo().toString());
+        parameters.put(Parameter.sig.QNAME, response.getSignature());
+        parameters.put(Parameter.signed.QNAME, StringUtils.join(response.getSignedFields(), ","));
     }
 
 }

@@ -25,9 +25,9 @@ import java.security.spec.X509EncodedKeySpec;
 
 import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.association.Association.SessionType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.AssociationRequest;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Unmarshaller for {@link AssociationRequest} message.
@@ -37,29 +37,32 @@ public class AssociationRequestUnmarshaller extends AbstractMessageUnmarshaller<
     /** {@inheritDoc} */
     public void unmarshallParameters(AssociationRequest request, ParameterMap parameters) {
 
-        SessionType sessionType = SessionType.getType(parameters.get(Parameter.session_type));
-        request.setAssociationType(AssociationType.getType(parameters.get(Parameter.assoc_type)));
-        request.setSessionType(sessionType);
+        SessionType sessionType = SessionType.getType(parameters.get(Parameter.session_type.QNAME));
+        request.setAssociationType(AssociationType.getType(parameters.get(Parameter.assoc_type.QNAME)));
 
-        if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
+        if (sessionType != null) {
+            request.setSessionType(sessionType);
 
-            try {
-                byte[] publicKeyBytes = parameters.get(Parameter.dh_consumer_public.toString()).getBytes();
-                X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(publicKeyBytes);
-                KeyFactory keyFactory = KeyFactory.getInstance("DH");
-                PublicKey publicKey = keyFactory.generatePublic(x509KeySpec);
-                request.setDHConsumerPublic(publicKey);
-            } catch (NoSuchAlgorithmException e) {
-                // TODO
-            } catch (InvalidKeySpecException e) {
-                // TODO
+            if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
+
+                try {
+                    byte[] publicKeyBytes = parameters.get(Parameter.dh_consumer_public.QNAME).getBytes();
+                    X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(publicKeyBytes);
+                    KeyFactory keyFactory = KeyFactory.getInstance("DH");
+                    PublicKey publicKey = keyFactory.generatePublic(x509KeySpec);
+                    request.setDHConsumerPublic(publicKey);
+                } catch (NoSuchAlgorithmException e) {
+                    // TODO
+                } catch (InvalidKeySpecException e) {
+                    // TODO
+                }
+
+                String gen = parameters.get(Parameter.dh_gen.QNAME);
+                request.setDHGen(new BigInteger(gen));
+
+                String modulus = parameters.get(Parameter.dh_modulus.QNAME);
+                request.setDHModulus(new BigInteger(modulus));
             }
-
-            String gen = parameters.get(Parameter.dh_gen.toString());
-            request.setDHGen(new BigInteger(gen));
-
-            String modulus = parameters.get(Parameter.dh_modulus.toString());
-            request.setDHModulus(new BigInteger(modulus));
         }
 
     }

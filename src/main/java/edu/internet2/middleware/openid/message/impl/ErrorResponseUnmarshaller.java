@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ErrorResponse;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
  * Unmarshaller for {@link ErrorResponse} messages.
@@ -27,9 +27,9 @@ public class ErrorResponseUnmarshaller extends AbstractMessageUnmarshaller<Error
 
     /** {@inheritDoc} */
     public void unmarshallParameters(ErrorResponse response, ParameterMap parameters) {
-        response.setContact(parameters.get(Parameter.contact));
-        response.setError(parameters.get(Parameter.error));
-        response.setReference(parameters.get(Parameter.reference));
+        response.setContact(parameters.get(Parameter.contact.QNAME));
+        response.setError(parameters.get(Parameter.error.QNAME));
+        response.setReference(parameters.get(Parameter.reference.QNAME));
     }
 
 }
