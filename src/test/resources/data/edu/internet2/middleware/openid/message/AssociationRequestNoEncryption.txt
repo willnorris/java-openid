@@ -1,0 +1,3 @@
+mode:associate
+assoc_type:HMAC-SHA256
+session_type:no-encryption
