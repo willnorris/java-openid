@@ -34,9 +34,6 @@ Code standard checking for Internet 2 code
         <module name="IllegalImport"/>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
-        <module name="FileLength">
-            <property name="max" value="1000"/>
-        </module>
         <module name="LineLength">
             <property name="max" value="120"/>
         </module>
@@ -48,7 +45,6 @@ Code standard checking for Internet 2 code
         </module>
         <module name="EmptyForIteratorPad"/>
         <module name="MethodParamPad"/>
-        <module name="TabCharacter"/>
         <module name="ModifierOrder"/>
         <module name="AvoidNestedBlocks"/>
         <module name="EmptyBlock"/>
@@ -102,7 +98,9 @@ Code standard checking for Internet 2 code
         <module name="CyclomaticComplexity"/>
         <module name="TrailingComment"/>
     </module>
-    <module name="PackageHtml">
-        <property name="fileExtensions" value="html"/>
+    <module name="FileTabCharacter"/>
+    <module name="FileLength">
+        <property name="max" value="1000"/>
     </module>
+    <module name="JavadocPackage" />
 </module>
