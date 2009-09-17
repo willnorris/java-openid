@@ -16,26 +16,24 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.Map;
-
+import edu.internet2.middleware.openid.association.Association.AssociationType;
+import edu.internet2.middleware.openid.association.Association.SessionType;
 import edu.internet2.middleware.openid.message.AssociationError;
-import edu.internet2.middleware.openid.message.Unmarshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * AssociationErrorUnmarshaller.
+ * Unmarshaller for {@link AssociationError} messages.
  */
-public class AssociationErrorUnmarshaller implements Unmarshaller<AssociationError> {
+public class AssociationErrorUnmarshaller extends AbstractMessageUnmarshaller<AssociationError> {
 
     /** {@inheritDoc} */
-    public AssociationError unmarshall(Map<String, String> parameters) {
-        AssociationErrorImpl response = new AssociationErrorImpl();
-
-        response.setAssociationType(parameters.get(Parameter.assoc_type.toString()));
-        response.setSessionType(parameters.get(Parameter.session_type.toString()));
-        response.setError(parameters.get(Parameter.error.toString()));
-
-        return response;
+    public void unmarshallParameters(AssociationError response, ParameterMap parameters) {
+        response.setAssociationType(AssociationType.getType(parameters.get(Parameter.assoc_type)));
+        response.setSessionType(SessionType.getType(parameters.get(Parameter.session_type)));
+        response.setError(parameters.get(Parameter.error));
+        response.setContact(parameters.get(Parameter.contact));
+        response.setReference(parameters.get(Parameter.reference));
     }
 
 }

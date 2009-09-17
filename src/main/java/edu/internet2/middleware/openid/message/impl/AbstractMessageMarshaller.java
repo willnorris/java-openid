@@ -16,43 +16,49 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.internet2.middleware.openid.message.Marshaller;
 import edu.internet2.middleware.openid.message.Message;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * AbstractMessageMarshaller.
+ * Base class for message marshallers.
  * 
  * @param <MessageType> type of OpenID Message to be marshalled
  */
 public abstract class AbstractMessageMarshaller<MessageType extends Message> implements Marshaller<MessageType> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(MessageType message) {
-        Map<String, String> parameters = new HashMap<String, String>();
-
-        parameters.put(Parameter.ns.toString(), message.getNamespace());
-
-        try {
-            parameters.put(Parameter.mode.toString(), message.getMode());
-        } catch (UnsupportedOperationException e) {
-            // do nothing
-        }
-
-        parameters.putAll(marshallMessage(message));
-
+    public ParameterMap marshall(MessageType message) {
+        ParameterMap parameters = new ParameterMap();
+        marshall(message, parameters);
         return parameters;
     }
 
     /**
-     * Perform message type specific marshalling.
+     * Marshall message into the parameter map.
      * 
      * @param message message to marshall
-     * @return message type specific parameter map
+     * @param parameters parameter map to marshall message into
      */
-    protected abstract Map<String, String> marshallMessage(MessageType message);
+    protected void marshall(MessageType message, ParameterMap parameters) {
+        parameters.setNamespace(message.getNamespace());
+
+        try {
+            parameters.put(Parameter.mode, message.getMode());
+        } catch (UnsupportedOperationException e) {
+            // do nothing
+        }
+
+        marshallParameters(message, parameters);
+    }
+
+    /**
+     * Marshall message parameters into the parameter map.
+     * 
+     * @param message message to marshall
+     * @param parameters parameter map to marshall message into
+     */
+    protected abstract void marshallParameters(MessageType message, ParameterMap parameters);
 
 }

@@ -22,7 +22,7 @@ import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.MessageExtension;
 
 /**
- * AbstractMessage.
+ * Base class for OpenID message implementation.
  */
 public abstract class AbstractMessage implements Message {
 

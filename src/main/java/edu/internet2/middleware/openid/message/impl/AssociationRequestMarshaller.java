@@ -16,46 +16,37 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.opensaml.xml.util.Base64;
 
-import edu.internet2.middleware.openid.association.Association.AssociationType;
+import edu.internet2.middleware.openid.association.Association.SessionType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * AssociationRequestMarshaller.
+ * Marshaller for {@link AssociationRequest} message.
  */
 public class AssociationRequestMarshaller extends AbstractMessageMarshaller<AssociationRequest> {
 
     /** {@inheritDoc} */
-    protected Map<String, String> marshallMessage(AssociationRequest request) {
-        Map<String, String> parameters = new HashMap<String, String>();
+    protected void marshallParameters(AssociationRequest request, ParameterMap parameters) {
+        parameters.put(Parameter.assoc_type, request.getAssociationType().toString());
 
-        AssociationType associationType = request.getAssociationType();
-        if (associationType != null) {
-            parameters.put(Parameter.assoc_type.toString(), associationType.toString());
+        SessionType sessionType = request.getSessionType();
+        parameters.put(Parameter.session_type, sessionType.toString());
 
-            if (associationType.equals(AssociationType.HMAC_SHA1)
-                    || associationType.equals(AssociationType.HMAC_SHA256)) {
+        if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
 
-                String modulus = Base64.encodeBytes(request.getDHModulus().toByteArray());
-                parameters.put(Parameter.dh_modulus.toString(), modulus);
+            String modulus = Base64.encodeBytes(request.getDHModulus().toByteArray());
+            parameters.put(Parameter.dh_modulus, modulus);
 
-                String gen = Base64.encodeBytes(request.getDHGen().toByteArray());
-                parameters.put(Parameter.dh_gen.toString(), gen);
+            String gen = Base64.encodeBytes(request.getDHGen().toByteArray());
+            parameters.put(Parameter.dh_gen, gen);
 
-                String publicKey = Base64.encodeBytes(request.getDHConsumerPublic().getEncoded());
-                parameters.put(Parameter.dh_consumer_public.toString(), publicKey);
+            String publicKey = Base64.encodeBytes(request.getDHConsumerPublic().getEncoded());
+            parameters.put(Parameter.dh_consumer_public, publicKey);
 
-            }
         }
-
-        parameters.put(Parameter.session_type.toString(), request.getSessionType().toString());
-
-        return parameters;
     }
 
     /** {@inheritDoc} */

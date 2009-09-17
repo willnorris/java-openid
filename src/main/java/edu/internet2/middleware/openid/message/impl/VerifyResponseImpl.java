@@ -19,7 +19,7 @@ package edu.internet2.middleware.openid.message.impl;
 import edu.internet2.middleware.openid.message.VerifyResponse;
 
 /**
- * VerifyResponseImpl.
+ * Implementation of {@link VerifyResponse}.
  */
 public class VerifyResponseImpl extends AbstractMessage implements VerifyResponse {
 
@@ -30,8 +30,18 @@ public class VerifyResponseImpl extends AbstractMessage implements VerifyRespons
     private boolean valid;
 
     /** {@inheritDoc} */
+    public String getMode() {
+        return null;
+    }
+
+    /** {@inheritDoc} */
     public String getInvalidateHandle() {
         return invalidateHandle;
+    }
+
+    /** {@inheritDoc} */
+    public void setInvalidateHandle(String newInvalidateHandle) {
+        invalidateHandle = newInvalidateHandle;
     }
 
     /** {@inheritDoc} */
@@ -40,24 +50,6 @@ public class VerifyResponseImpl extends AbstractMessage implements VerifyRespons
     }
 
     /** {@inheritDoc} */
-    public String getMode() {
-        return null;
-    }
-
-    /**
-     * Set invalidate Handle.
-     * 
-     * @param newInvalidateHandle the invalidateHandle to set
-     */
-    public void setInvalidateHandle(String newInvalidateHandle) {
-        invalidateHandle = newInvalidateHandle;
-    }
-
-    /**
-     * Set whether the signature is valid.
-     * 
-     * @param newValid whether the signature is valid
-     */
     public void setValid(boolean newValid) {
         valid = newValid;
     }

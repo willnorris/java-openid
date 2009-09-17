@@ -121,25 +121,11 @@ public interface Message {
     public String getNamespace();
 
     /**
-     * Set the message namespace.
-     * 
-     * @param newNamespace the namespace
-     */
-    public void setNamespace(String newNamespace);
-
-    /**
      * Get the message mode.
      * 
      * @return the mode
      */
     public String getMode();
-
-    /**
-     * Set the message mode.
-     * 
-     * @param newMode the mode
-     */
-    public void setMode(String newMode);
 
     /**
      * Get message extensions.

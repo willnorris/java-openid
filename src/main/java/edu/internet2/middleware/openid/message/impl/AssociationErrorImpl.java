@@ -21,12 +21,9 @@ import edu.internet2.middleware.openid.association.Association.SessionType;
 import edu.internet2.middleware.openid.message.AssociationError;
 
 /**
- * AssociationErrorImpl.
+ * Implementation of {@link AssociationError}.
  */
-public class AssociationErrorImpl extends AbstractMessage implements AssociationError {
-
-    /** Error. */
-    private String error;
+public class AssociationErrorImpl extends ErrorResponseImpl implements AssociationError {
 
     /**
      * Association type.
@@ -44,11 +41,6 @@ public class AssociationErrorImpl extends AbstractMessage implements Association
     }
 
     /** {@inheritDoc} */
-    public String getError() {
-        return error;
-    }
-
-    /** {@inheritDoc} */
     public String getErrorCode() {
         return AssociationError.ERROR_CODE;
     }
@@ -58,58 +50,14 @@ public class AssociationErrorImpl extends AbstractMessage implements Association
         return sessionType;
     }
 
-    /**
-     * Throws UnsupportedOperationException. Association errors do not have a mode value.
-     * 
-     * @return mode
-     */
-    public String getMode() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Set the association type.
-     * 
-     * @param type the associationType to set
-     */
+    /** {@inheritDoc} */
     public void setAssociationType(AssociationType type) {
         associationType = type;
     }
 
-    /**
-     * Set the association type.
-     * 
-     * @param type the associationType to set
-     */
-    public void setAssociationType(String type) {
-        setAssociationType(AssociationType.getType(type));
-    }
-
-    /**
-     * Set the error message.
-     * 
-     * @param newError the error to set
-     */
-    public void setError(String newError) {
-        error = newError;
-    }
-
-    /**
-     * Set the association session type.
-     * 
-     * @param type the sessionType to set
-     */
+    /** {@inheritDoc} */
     public void setSessionType(SessionType type) {
         sessionType = type;
-    }
-
-    /**
-     * Set the association session type.
-     * 
-     * @param type the sessionType to set
-     */
-    public void setSessionType(String type) {
-        setSessionType(SessionType.getType(type));
     }
 
 }

@@ -105,4 +105,10 @@ public interface AuthenticationRequest extends Message {
      */
     public void setRealm(String newRealm);
 
+    /**
+     * Set the mode of this message.
+     * 
+     * @param newMode the mode of this message
+     */
+    public void setMode(String newMode);
 }

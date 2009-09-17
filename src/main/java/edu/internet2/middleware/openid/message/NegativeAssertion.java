@@ -30,4 +30,11 @@ public interface NegativeAssertion extends Message {
      * Message mode for a negative assertion to a non-immediate authentication request.
      */
     public static final String MODE_INTERACTIVE = "cancel";
+
+    /**
+     * Set the mode of this message.
+     * 
+     * @param newMode the mode of this message
+     */
+    public void setMode(String newMode);
 }

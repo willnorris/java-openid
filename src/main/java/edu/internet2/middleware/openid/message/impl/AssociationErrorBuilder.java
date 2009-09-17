@@ -1,5 +1,5 @@
 /*
- * Copyright [2009] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2009 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,24 +16,17 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import edu.internet2.middleware.openid.message.NegativeAssertion;
+import edu.internet2.middleware.openid.message.AssociationError;
+import edu.internet2.middleware.openid.message.MessageBuilder;
 
 /**
- * Implementation of {@link NegativeAssertion}.
+ * Builder of {@link AssociationError} messages.
  */
-public class NegativeAssertionImpl extends AbstractMessage implements NegativeAssertion {
-
-    /** Message mode. */
-    private String mode;
+public class AssociationErrorBuilder implements MessageBuilder<AssociationError> {
 
     /** {@inheritDoc} */
-    public String getMode() {
-        return mode;
-    }
-
-    /** {@inheritDoc} */
-    public void setMode(String newMode) {
-        mode = newMode;
+    public AssociationError buildObject() {
+        return new AssociationErrorImpl();
     }
 
 }

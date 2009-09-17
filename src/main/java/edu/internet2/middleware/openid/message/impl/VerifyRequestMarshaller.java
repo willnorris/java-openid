@@ -16,34 +16,27 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import edu.internet2.middleware.openid.message.Marshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.VerifyRequest;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 import edu.internet2.middleware.openid.util.StringUtils;
 
 /**
- * VerifyRequestMarshaller.
+ * Marshaller for {@link VerifyRequest} messages.
  */
-public class VerifyRequestMarshaller implements Marshaller<VerifyRequest> {
+public class VerifyRequestMarshaller extends AbstractMessageMarshaller<VerifyRequest> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(VerifyRequest request) {
-        Map<String, String> parameters = new HashMap<String, String>();
-
-        parameters.put(Parameter.assoc_handle.toString(), request.getAssociationHandle());
-        parameters.put(Parameter.claimed_id.toString(), request.getClaimedId());
-        parameters.put(Parameter.op_endpoint.toString(), request.getEndpoint());
-        parameters.put(Parameter.identity.toString(), request.getIdentity());
-        parameters.put(Parameter.invalidate_handle.toString(), request.getInvalidateHandle());
-        parameters.put(Parameter.response_nonce.toString(), request.getResponseNonce());
-        parameters.put(Parameter.return_to.toString(), request.getReturnTo().toString());
-        parameters.put(Parameter.sig.toString(), request.getSignature());
-        parameters.put(Parameter.signed.toString(), StringUtils.join(request.getSignedFields(), ","));
-
-        return parameters;
+    public void marshallParameters(VerifyRequest request, ParameterMap parameters) {
+        parameters.put(Parameter.assoc_handle, request.getAssociationHandle());
+        parameters.put(Parameter.claimed_id, request.getClaimedId());
+        parameters.put(Parameter.op_endpoint, request.getEndpoint());
+        parameters.put(Parameter.identity, request.getIdentity());
+        parameters.put(Parameter.invalidate_handle, request.getInvalidateHandle());
+        parameters.put(Parameter.response_nonce, request.getResponseNonce());
+        parameters.put(Parameter.return_to, request.getReturnTo().toString());
+        parameters.put(Parameter.sig, request.getSignature());
+        parameters.put(Parameter.signed, StringUtils.join(request.getSignedFields(), ","));
     }
 
 }

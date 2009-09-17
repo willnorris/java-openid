@@ -21,7 +21,7 @@ import java.net.URL;
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
 
 /**
- * AuthenticationRequestImpl.
+ * Implementation of {@link AuthenticationRequest}.
  */
 public class AuthenticationRequestImpl extends AbstractMessage implements AuthenticationRequest {
 
@@ -44,8 +44,23 @@ public class AuthenticationRequestImpl extends AbstractMessage implements Authen
     private String mode;
 
     /** {@inheritDoc} */
+    public String getMode() {
+        return mode;
+    }
+
+    /** {@inheritDoc} */
+    public void setMode(String newMode) {
+        mode = newMode;
+    }
+
+    /** {@inheritDoc} */
     public String getAssociationHandle() {
         return associationHandle;
+    }
+
+    /** {@inheritDoc} */
+    public void setAssociationHandle(String newHandle) {
+        associationHandle = newHandle;
     }
 
     /** {@inheritDoc} */
@@ -54,8 +69,18 @@ public class AuthenticationRequestImpl extends AbstractMessage implements Authen
     }
 
     /** {@inheritDoc} */
+    public void setClaimedId(String newClaimedId) {
+        claimedId = newClaimedId;
+    }
+
+    /** {@inheritDoc} */
     public String getIdentity() {
         return identity;
+    }
+
+    /** {@inheritDoc} */
+    public void setIdentity(String newIdentity) {
+        identity = newIdentity;
     }
 
     /** {@inheritDoc} */
@@ -64,67 +89,18 @@ public class AuthenticationRequestImpl extends AbstractMessage implements Authen
     }
 
     /** {@inheritDoc} */
+    public void setRealm(String newRealm) {
+        realm = newRealm;
+    }
+
+    /** {@inheritDoc} */
     public URL getReturnTo() {
         return returnTo;
     }
 
     /** {@inheritDoc} */
-    public String getMode() {
-        return mode;
-    }
-
-    /**
-     * Set the association handle.
-     * 
-     * @param newHandle the associationHandle to set
-     */
-    public void setAssociationHandle(String newHandle) {
-        associationHandle = newHandle;
-    }
-
-    /**
-     * Set the claimed Id.
-     * 
-     * @param newClaimedId the claimedId to set
-     */
-    public void setClaimedId(String newClaimedId) {
-        claimedId = newClaimedId;
-    }
-
-    /**
-     * Set the local identity.
-     * 
-     * @param newIdentity the identity to set
-     */
-    public void setIdentity(String newIdentity) {
-        identity = newIdentity;
-    }
-
-    /**
-     * Set the realm.
-     * 
-     * @param newRealm the realm to set
-     */
-    public void setRealm(String newRealm) {
-        realm = newRealm;
-    }
-
-    /**
-     * Set the return to address.
-     * 
-     * @param newReturnTo the returnTo to set
-     */
     public void setReturnTo(URL newReturnTo) {
         returnTo = newReturnTo;
-    }
-
-    /**
-     * Set the mode.
-     * 
-     * @param newMode the mode to set
-     */
-    public void setMode(String newMode) {
-        mode = newMode;
     }
 
 }

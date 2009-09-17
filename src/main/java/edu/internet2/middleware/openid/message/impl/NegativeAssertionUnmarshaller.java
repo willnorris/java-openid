@@ -16,24 +16,18 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.Map;
-
 import edu.internet2.middleware.openid.message.NegativeAssertion;
-import edu.internet2.middleware.openid.message.Unmarshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * NegativeAssertionUnmarshaller.
+ * Unmarshaller for {@link NegativeAssertion} messages.
  */
-public class NegativeAssertionUnmarshaller implements Unmarshaller<NegativeAssertion> {
+public class NegativeAssertionUnmarshaller extends AbstractMessageUnmarshaller<NegativeAssertion> {
 
     /** {@inheritDoc} */
-    public NegativeAssertion unmarshall(Map<String, String> parameters) {
-        NegativeAssertionImpl response = new NegativeAssertionImpl();
-
-        response.setMode(parameters.get(Parameter.mode.toString()));
-
-        return response;
+    public void unmarshallParameters(NegativeAssertion response, ParameterMap parameters) {
+        response.setMode(parameters.get(Parameter.mode));
     }
 
 }

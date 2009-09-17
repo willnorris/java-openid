@@ -16,25 +16,18 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import edu.internet2.middleware.openid.message.Marshaller;
 import edu.internet2.middleware.openid.message.NegativeAssertion;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * NegativeAssertionMarshaller.
+ * Marshaller for {@link NegativeAssertion} messages.
  */
-public class NegativeAssertionMarshaller implements Marshaller<NegativeAssertion> {
+public class NegativeAssertionMarshaller extends AbstractMessageMarshaller<NegativeAssertion> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(NegativeAssertion response) {
-        Map<String, String> parameters = new HashMap<String, String>();
-
-        parameters.put(Parameter.mode.toString(), response.getMode());
-
-        return parameters;
+    public void marshallParameters(NegativeAssertion response, ParameterMap parameters) {
+        parameters.put(Parameter.mode, response.getMode());
     }
 
 }

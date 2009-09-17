@@ -24,7 +24,7 @@ import edu.internet2.middleware.openid.association.Association.SessionType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
 
 /**
- * AssociationRequestImpl.
+ * Implementation of {@link AssociationRequest}.
  */
 public class AssociationRequestImpl extends AbstractMessage implements AssociationRequest {
 
@@ -48,23 +48,18 @@ public class AssociationRequestImpl extends AbstractMessage implements Associati
     private SessionType sessionType;
 
     /** {@inheritDoc} */
+    public String getMode() {
+        return AssociationRequest.MODE;
+    }
+
+    /** {@inheritDoc} */
     public AssociationType getAssociationType() {
         return associationType;
     }
 
     /** {@inheritDoc} */
-    public PublicKey getDHConsumerPublic() {
-        return dhConsumerPublic;
-    }
-
-    /** {@inheritDoc} */
-    public BigInteger getDHGen() {
-        return dhGen;
-    }
-
-    /** {@inheritDoc} */
-    public BigInteger getDHModulus() {
-        return dhModulus;
+    public void setAssociationType(AssociationType type) {
+        associationType = type;
     }
 
     /** {@inheritDoc} */
@@ -73,70 +68,37 @@ public class AssociationRequestImpl extends AbstractMessage implements Associati
     }
 
     /** {@inheritDoc} */
-    public String getMode() {
-        return AssociationRequest.MODE;
-    }
-
-    /**
-     * Set association type.
-     * 
-     * @param type the association type to set
-     */
-    public void setAssociationType(AssociationType type) {
-        associationType = type;
-    }
-
-    /**
-     * Set association type.
-     * 
-     * @param type the association type to set
-     */
-    public void setAssociationType(String type) {
-        setAssociationType(AssociationType.getType(type));
-    }
-
-    /**
-     * Set association session type.
-     * 
-     * @param type the session type to set
-     */
     public void setSessionType(SessionType type) {
         sessionType = type;
     }
 
-    /**
-     * Set association session type.
-     * 
-     * @param type name of the session type to set
-     */
-    public void setSessionType(String type) {
-        setSessionType(SessionType.getType(type));
+    /** {@inheritDoc} */
+    public PublicKey getDHConsumerPublic() {
+        return dhConsumerPublic;
     }
 
-    /**
-     * Set relying party's Diffie-Hellman public key.
-     * 
-     * @param newConsumerPublic the dhConsumerPublic to set
-     */
-    public void setDhConsumerPublic(PublicKey newConsumerPublic) {
+    /** {@inheritDoc} */
+    public void setDHConsumerPublic(PublicKey newConsumerPublic) {
         dhConsumerPublic = newConsumerPublic;
     }
 
-    /**
-     * Set the Diffie-Hellman generator.
-     * 
-     * @param newGen the dhGen to set
-     */
-    public void setDhGen(BigInteger newGen) {
+    /** {@inheritDoc} */
+    public BigInteger getDHGen() {
+        return dhGen;
+    }
+
+    /** {@inheritDoc} */
+    public void setDHGen(BigInteger newGen) {
         dhGen = newGen;
     }
 
-    /**
-     * Set the Diffie-Hellman modulus.
-     * 
-     * @param newModulus the dhModulus to set
-     */
-    public void setDhModulus(BigInteger newModulus) {
+    /** {@inheritDoc} */
+    public BigInteger getDHModulus() {
+        return dhModulus;
+    }
+
+    /** {@inheritDoc} */
+    public void setDHModulus(BigInteger newModulus) {
         dhModulus = newModulus;
     }
 

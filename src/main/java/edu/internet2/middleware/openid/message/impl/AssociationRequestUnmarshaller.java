@@ -22,24 +22,23 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Map;
 
+import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.association.Association.SessionType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
-import edu.internet2.middleware.openid.message.Unmarshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * AssociationRequestUnmarshaller.
+ * Unmarshaller for {@link AssociationRequest} message.
  */
-public class AssociationRequestUnmarshaller implements Unmarshaller<AssociationRequest> {
+public class AssociationRequestUnmarshaller extends AbstractMessageUnmarshaller<AssociationRequest> {
 
     /** {@inheritDoc} */
-    public AssociationRequest unmarshall(Map<String, String> parameters) {
-        AssociationRequestImpl request = new AssociationRequestImpl();
+    public void unmarshallParameters(AssociationRequest request, ParameterMap parameters) {
 
-        SessionType sessionType = SessionType.getType(parameters.get(Parameter.session_type.toString()));
-        request.setAssociationType(parameters.get(Parameter.assoc_type.toString()));
+        SessionType sessionType = SessionType.getType(parameters.get(Parameter.session_type));
+        request.setAssociationType(AssociationType.getType(parameters.get(Parameter.assoc_type)));
         request.setSessionType(sessionType);
 
         if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
@@ -49,7 +48,7 @@ public class AssociationRequestUnmarshaller implements Unmarshaller<AssociationR
                 X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(publicKeyBytes);
                 KeyFactory keyFactory = KeyFactory.getInstance("DH");
                 PublicKey publicKey = keyFactory.generatePublic(x509KeySpec);
-                request.setDhConsumerPublic(publicKey);
+                request.setDHConsumerPublic(publicKey);
             } catch (NoSuchAlgorithmException e) {
                 // TODO
             } catch (InvalidKeySpecException e) {
@@ -57,12 +56,11 @@ public class AssociationRequestUnmarshaller implements Unmarshaller<AssociationR
             }
 
             String gen = parameters.get(Parameter.dh_gen.toString());
-            request.setDhGen(new BigInteger(gen));
+            request.setDHGen(new BigInteger(gen));
 
             String modulus = parameters.get(Parameter.dh_modulus.toString());
-            request.setDhModulus(new BigInteger(modulus));
+            request.setDHModulus(new BigInteger(modulus));
         }
 
-        return request;
     }
 }

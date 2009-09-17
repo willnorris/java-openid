@@ -16,32 +16,18 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.util.List;
-
 /**
- * Signed OpenID protocol message.
+ * A builder for OpenID {@link Message}s.
+ * 
+ * @param <MessageType> the Message type that this builder produces
  */
-public interface SignedMessage extends Message {
+public interface MessageBuilder<MessageType extends Message> {
 
     /**
-     * The message fields that were used to generate the message signature. Fields do not include the "openid." prefix.
+     * Creates a Message object.
      * 
-     * @return the signed fields
+     * @return the constructed Message
      */
-    public List<String> getSignedFields();
-
-    /**
-     * The Base64 encoded signature.
-     * 
-     * @return the signature
-     */
-    public String getSignature();
-
-    /**
-     * Set the Base64 encoded signature.
-     * 
-     * @param newSignature the signature
-     */
-    public void setSignature(String newSignature);
+    public MessageType buildObject();
 
 }

@@ -16,34 +16,27 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import edu.internet2.middleware.openid.message.Marshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 import edu.internet2.middleware.openid.util.StringUtils;
 
 /**
- * PositiveAssertionMarshaller.
+ * Marshaller for {@link PositiveAssertion} messages.
  */
-public class PositiveAssertionMarshaller implements Marshaller<PositiveAssertion> {
+public class PositiveAssertionMarshaller extends AbstractMessageMarshaller<PositiveAssertion> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(PositiveAssertion response) {
-        Map<String, String> parameters = new HashMap<String, String>();
-
-        parameters.put(Parameter.assoc_handle.toString(), response.getAssociationHandle());
-        parameters.put(Parameter.claimed_id.toString(), response.getClaimedId());
-        parameters.put(Parameter.op_endpoint.toString(), response.getEndpoint());
-        parameters.put(Parameter.identity.toString(), response.getIdentity());
-        parameters.put(Parameter.invalidate_handle.toString(), response.getInvalidateHandle());
-        parameters.put(Parameter.response_nonce.toString(), response.getResponseNonce());
-        parameters.put(Parameter.return_to.toString(), response.getReturnTo().toString());
-        parameters.put(Parameter.sig.toString(), response.getSignature());
-        parameters.put(Parameter.signed.toString(), StringUtils.join(response.getSignedFields(), ","));
-
-        return parameters;
+    public void marshallParameters(PositiveAssertion response, ParameterMap parameters) {
+        parameters.put(Parameter.assoc_handle, response.getAssociationHandle());
+        parameters.put(Parameter.claimed_id, response.getClaimedId());
+        parameters.put(Parameter.op_endpoint, response.getEndpoint());
+        parameters.put(Parameter.identity, response.getIdentity());
+        parameters.put(Parameter.invalidate_handle, response.getInvalidateHandle());
+        parameters.put(Parameter.response_nonce, response.getResponseNonce());
+        parameters.put(Parameter.return_to, response.getReturnTo().toString());
+        parameters.put(Parameter.sig, response.getSignature());
+        parameters.put(Parameter.signed, StringUtils.join(response.getSignedFields(), ","));
     }
 
 }

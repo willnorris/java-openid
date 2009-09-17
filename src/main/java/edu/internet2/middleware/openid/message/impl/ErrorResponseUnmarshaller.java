@@ -16,26 +16,20 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.Map;
-
 import edu.internet2.middleware.openid.message.ErrorResponse;
-import edu.internet2.middleware.openid.message.Unmarshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * ErrorResponseUnmarshaller.
+ * Unmarshaller for {@link ErrorResponse} messages.
  */
-public class ErrorResponseUnmarshaller implements Unmarshaller<ErrorResponse> {
+public class ErrorResponseUnmarshaller extends AbstractMessageUnmarshaller<ErrorResponse> {
 
     /** {@inheritDoc} */
-    public ErrorResponse unmarshall(Map<String, String> parameters) {
-        ErrorResponseImpl response = new ErrorResponseImpl();
-
-        response.setContact(parameters.get(Parameter.contact.toString()));
-        response.setError(parameters.get(Parameter.error.toString()));
-        response.setReference(parameters.get(Parameter.reference.toString()));
-
-        return response;
+    public void unmarshallParameters(ErrorResponse response, ParameterMap parameters) {
+        response.setContact(parameters.get(Parameter.contact));
+        response.setError(parameters.get(Parameter.error));
+        response.setReference(parameters.get(Parameter.reference));
     }
 
 }

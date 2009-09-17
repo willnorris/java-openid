@@ -19,15 +19,13 @@ package edu.internet2.middleware.openid.message.impl;
 import java.security.Key;
 import java.security.PublicKey;
 
-import javax.crypto.Mac;
-
 import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.association.Association.SessionType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
 import edu.internet2.middleware.openid.message.AssociationResponse;
 
 /**
- * AssociationRequestImpl.
+ * Implementation of {@link AssociationResponse}.
  */
 public class AssociationResponseImpl extends AbstractMessage implements AssociationResponse {
 
@@ -54,8 +52,18 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
     private SessionType sessionType;
 
     /** {@inheritDoc} */
+    public String getMode() {
+        return AssociationRequest.MODE;
+    }
+
+    /** {@inheritDoc} */
     public AssociationType getAssociationType() {
         return associationType;
+    }
+
+    /** {@inheritDoc} */
+    public void setAssociationType(AssociationType type) {
+        associationType = type;
     }
 
     /** {@inheritDoc} */
@@ -64,8 +72,8 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
     }
 
     /** {@inheritDoc} */
-    public String getMode() {
-        return AssociationRequest.MODE;
+    public void setSessionType(SessionType type) {
+        sessionType = type;
     }
 
     /** {@inheritDoc} */
@@ -74,13 +82,28 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
     }
 
     /** {@inheritDoc} */
+    public void setAssociationHandle(String newHandle) {
+        associationHandle = newHandle;
+    }
+
+    /** {@inheritDoc} */
     public PublicKey getDHServerPublic() {
         return publicKey;
     }
 
     /** {@inheritDoc} */
-    public int getLifetime() {
+    public void setDHServerPublic(PublicKey newPublicKey) {
+        publicKey = newPublicKey;
+    }
+
+    /** {@inheritDoc} */
+    public Integer getLifetime() {
         return lifetime;
+    }
+
+    /** {@inheritDoc} */
+    public void setLifetime(Integer newLifetime) {
+        lifetime = newLifetime;
     }
 
     /** {@inheritDoc} */
@@ -88,74 +111,7 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
         return macKey;
     }
 
-    /**
-     * Set association handle.
-     * 
-     * @param newHandle the association handle to set
-     */
-    public void setAssociationHandle(String newHandle) {
-        associationHandle = newHandle;
-    }
-
-    /**
-     * Set association type.
-     * 
-     * @param type the associationType to set
-     */
-    public void setAssociationType(AssociationType type) {
-        associationType = type;
-    }
-
-    /**
-     * Set association type.
-     * 
-     * @param type the associationType to set
-     */
-    public void setAssociationType(String type) {
-        setAssociationType(AssociationType.getType(type));
-    }
-
-    /**
-     * Set association session type.
-     * 
-     * @param type the sessionType to set
-     */
-    public void setSessionType(SessionType type) {
-        sessionType = type;
-    }
-
-    /**
-     * Set association session type.
-     * 
-     * @param type the sessionType to set
-     */
-    public void setSessionType(String type) {
-        setSessionType(SessionType.getType(type));
-    }
-
-    /**
-     * Set OpenID Provider's Diffie-Hellman public key.
-     * 
-     * @param newPublicKey the DH public key to set
-     */
-    public void setPublicKey(PublicKey newPublicKey) {
-        publicKey = newPublicKey;
-    }
-
-    /**
-     * Set lifetime of response in seconds.
-     * 
-     * @param newLifetime the lifetime to set
-     */
-    public void setLifetime(int newLifetime) {
-        lifetime = newLifetime;
-    }
-
-    /**
-     * Set the MAC key.
-     * 
-     * @param newMacKey the MAC key to set
-     */
+    /** {@inheritDoc} */
     public void setMacKey(Key newMacKey) {
         macKey = newMacKey;
     }

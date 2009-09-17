@@ -1,5 +1,5 @@
 /*
- * Copyright [2009] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2009 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,17 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import edu.internet2.middleware.openid.message.ParameterMap;
+import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.VerifyResponse;
-import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * Unmarshaller for {@link VerifyResponse} messages.
+ * Builder of {@link VerifyResponse} messages.
  */
-public class VerifyResponseUnmarshaller extends AbstractMessageUnmarshaller<VerifyResponse> {
+public class VerifyResponseBuilder implements MessageBuilder<VerifyResponse> {
 
     /** {@inheritDoc} */
-    public void unmarshallParameters(VerifyResponse response, ParameterMap parameters) {
-        response.setInvalidateHandle(parameters.get(Parameter.invalidate_handle));
-        response.setValid(Boolean.parseBoolean(parameters.get(Parameter.is_valid)));
+    public VerifyResponse buildObject() {
+        return new VerifyResponseImpl();
     }
 
 }

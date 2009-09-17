@@ -16,48 +16,41 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.opensaml.xml.util.Base64;
 
 import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.message.AssociationResponse;
-import edu.internet2.middleware.openid.message.Marshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * AssociationResponseMarshaller.
+ * Marshaller for {@link AssociationResponse} messages.
  */
-public class AssociationResponseMarshaller implements Marshaller<AssociationResponse> {
+public class AssociationResponseMarshaller extends AbstractMessageMarshaller<AssociationResponse> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(AssociationResponse response) {
-        Map<String, String> parameters = new HashMap<String, String>();
-
+    public void marshallParameters(AssociationResponse response, ParameterMap parameters) {
         AssociationType associationType = response.getAssociationType();
         if (associationType != null) {
-            parameters.put(Parameter.assoc_type.toString(), associationType.toString());
+            parameters.put(Parameter.assoc_type, associationType.toString());
 
             String macKey = Base64.encodeBytes(response.getMacKey().getEncoded());
 
             if (associationType.equals(AssociationType.HMAC_SHA1)
                     || associationType.equals(AssociationType.HMAC_SHA256)) {
 
-                parameters.put(Parameter.enc_mac_key.toString(), macKey);
+                parameters.put(Parameter.enc_mac_key, macKey);
 
                 String publicKey = Base64.encodeBytes(response.getDHServerPublic().getEncoded());
-                parameters.put(Parameter.dh_server_public.toString(), publicKey);
+                parameters.put(Parameter.dh_server_public, publicKey);
             } else {
-                parameters.put(Parameter.mac_key.toString(), macKey);
+                parameters.put(Parameter.mac_key, macKey);
             }
 
         }
 
-        parameters.put(Parameter.session_type.toString(), response.getSessionType().toString());
-        parameters.put(Parameter.expires_in.toString(), response.getLifetime() + "");
-
-        return parameters;
+        parameters.put(Parameter.session_type, response.getSessionType().toString());
+        parameters.put(Parameter.expires_in, response.getLifetime().toString());
     }
 
 }

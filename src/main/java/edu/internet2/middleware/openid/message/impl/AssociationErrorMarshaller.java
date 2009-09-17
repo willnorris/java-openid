@@ -16,34 +16,24 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.message.AssociationError;
-import edu.internet2.middleware.openid.message.Marshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * AssociationErrorMarshaller.
+ * Marshaller for {@link AssociationError} messages.
  */
-public class AssociationErrorMarshaller implements Marshaller<AssociationError> {
+public class AssociationErrorMarshaller extends AbstractMessageMarshaller<AssociationError> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(AssociationError response) {
-        Map<String, String> parameters = new HashMap<String, String>();
+    public void marshallParameters(AssociationError response, ParameterMap parameters) {
+        parameters.put(Parameter.assoc_type, response.getAssociationType().toString());
+        parameters.put(Parameter.session_type, response.getSessionType().toString());
 
-        AssociationType associationType = response.getAssociationType();
-        if (associationType != null) {
-            parameters.put(Parameter.assoc_type.toString(), associationType.toString());
-
-            parameters.put(Parameter.error.toString(), response.getError());
-            parameters.put(Parameter.error_code.toString(), response.getErrorCode());
-        }
-
-        parameters.put(Parameter.session_type.toString(), response.getSessionType().toString());
-
-        return parameters;
+        parameters.put(Parameter.error, response.getError());
+        parameters.put(Parameter.error_code, response.getErrorCode());
+        parameters.put(Parameter.contact, response.getContact());
+        parameters.put(Parameter.reference, response.getReference());
     }
 
 }

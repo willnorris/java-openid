@@ -45,10 +45,24 @@ public interface AssociationError extends ErrorResponse {
     public SessionType getSessionType();
 
     /**
+     * Set a valid session type that the OpenID Provider supports.
+     * 
+     * @param newSessionType supported session type
+     */
+    public void setSessionType(SessionType newSessionType);
+
+    /**
      * A valid association type that the OpenID Provider supports.
      * 
      * @return the association type
      */
     public AssociationType getAssociationType();
+
+    /**
+     * Set a valid association type that the OpenID Provider supports.
+     * 
+     * @param newAssociationType supported association type
+     */
+    public void setAssociationType(AssociationType newAssociationType);
 
 }

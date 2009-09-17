@@ -19,37 +19,32 @@ package edu.internet2.middleware.openid.message.impl;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Map;
 
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
-import edu.internet2.middleware.openid.message.Unmarshaller;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * PositiveAssertionUnmarshaller.
+ * Unmarshaller for {@link PositiveAssertion} messages.
  */
-public class PositiveAssertionUnmarshaller implements Unmarshaller<PositiveAssertion> {
+public class PositiveAssertionUnmarshaller extends AbstractMessageUnmarshaller<PositiveAssertion> {
 
     /** {@inheritDoc} */
-    public PositiveAssertion unmarshall(Map<String, String> parameters) {
-        PositiveAssertionImpl response = new PositiveAssertionImpl();
-
-        response.setAssociationHandle(parameters.get(Parameter.assoc_handle.toString()));
-        response.setClaimedId(parameters.get(Parameter.claimed_id.toString()));
-        response.setEndpoint(parameters.get(Parameter.op_endpoint.toString()));
-        response.setIdentity(parameters.get(Parameter.identity.toString()));
-        response.setInvalidateHandle(parameters.get(Parameter.invalidate_handle.toString()));
-        response.setResponseNonce(parameters.get(Parameter.response_nonce.toString()));
+    public void unmarshallParameters(PositiveAssertion response, ParameterMap parameters) {
+        response.setAssociationHandle(parameters.get(Parameter.assoc_handle));
+        response.setClaimedId(parameters.get(Parameter.claimed_id));
+        response.setEndpoint(parameters.get(Parameter.op_endpoint));
+        response.setIdentity(parameters.get(Parameter.identity));
+        response.setInvalidateHandle(parameters.get(Parameter.invalidate_handle));
+        response.setResponseNonce(parameters.get(Parameter.response_nonce));
         try {
-            String returnTo = parameters.get(Parameter.return_to.toString());
+            String returnTo = parameters.get(Parameter.return_to);
             response.setReturnTo(new URL(returnTo));
         } catch (MalformedURLException e) {
             // TODO
         }
-        response.setSignature(parameters.get(Parameter.sig.toString()));
+        response.setSignature(parameters.get(Parameter.sig));
         response.getSignedFields().addAll(Arrays.asList(Parameter.signed.toString().split(",")));
-
-        return response;
     }
 
 }

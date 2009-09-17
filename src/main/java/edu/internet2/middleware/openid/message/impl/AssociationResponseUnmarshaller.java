@@ -21,28 +21,27 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Map;
 
+import edu.internet2.middleware.openid.association.Association.AssociationType;
 import edu.internet2.middleware.openid.association.Association.SessionType;
 import edu.internet2.middleware.openid.message.AssociationResponse;
-import edu.internet2.middleware.openid.message.Unmarshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * AssociationResponseUnmarshaller.
+ * Marshaller for {@link AssociationResponse} messages.
  */
-public class AssociationResponseUnmarshaller implements Unmarshaller<AssociationResponse> {
+public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller<AssociationResponse> {
 
     /** {@inheritDoc} */
-    public AssociationResponse unmarshall(Map<String, String> parameters) {
-        AssociationResponseImpl response = new AssociationResponseImpl();
+    public void unmarshallParameters(AssociationResponse response, ParameterMap parameters) {
 
-        SessionType sessionType = SessionType.getType(parameters.get(Parameter.session_type.toString()));
+        SessionType sessionType = SessionType.getType(parameters.get(Parameter.session_type));
 
-        response.setAssociationHandle(parameters.get(Parameter.assoc_handle.toString()));
-        response.setAssociationType(parameters.get(Parameter.assoc_type.toString()));
+        response.setAssociationHandle(parameters.get(Parameter.assoc_handle));
+        response.setAssociationType(AssociationType.getType(parameters.get(Parameter.assoc_type)));
         response.setSessionType(sessionType);
-        response.setLifetime(Integer.parseInt(parameters.get(Parameter.expires_in.toString())));
+        response.setLifetime(Integer.parseInt(parameters.get(Parameter.expires_in)));
 
         if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
 
@@ -51,7 +50,7 @@ public class AssociationResponseUnmarshaller implements Unmarshaller<Association
                 X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(publicKeyBytes);
                 KeyFactory keyFactory = KeyFactory.getInstance("DH");
                 PublicKey publicKey = keyFactory.generatePublic(x509KeySpec);
-                response.setPublicKey(publicKey);
+                response.setDHServerPublic(publicKey);
             } catch (NoSuchAlgorithmException e) {
                 // TODO
             } catch (InvalidKeySpecException e) {
@@ -64,6 +63,5 @@ public class AssociationResponseUnmarshaller implements Unmarshaller<Association
             // response.setMACKey(parameters.get(Parameter.mac_key.toString()));
         }
 
-        return response;
     }
 }

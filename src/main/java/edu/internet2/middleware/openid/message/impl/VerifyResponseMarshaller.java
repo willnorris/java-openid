@@ -16,26 +16,19 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import edu.internet2.middleware.openid.message.Marshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.VerifyResponse;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * VerifyResponseMarshaller.
+ * Marshaller for {@link VerifyResponse} messages.
  */
-public class VerifyResponseMarshaller implements Marshaller<VerifyResponse> {
+public class VerifyResponseMarshaller extends AbstractMessageMarshaller<VerifyResponse> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(VerifyResponse response) {
-        Map<String, String> parameters = new HashMap<String, String>();
-
-        parameters.put(Parameter.invalidate_handle.toString(), response.getInvalidateHandle());
-        parameters.put(Parameter.is_valid.toString(), Boolean.toString(response.isValid()));
-
-        return parameters;
+    public void marshallParameters(VerifyResponse response, ParameterMap parameters) {
+        parameters.put(Parameter.invalidate_handle, response.getInvalidateHandle());
+        parameters.put(Parameter.is_valid, Boolean.toString(response.isValid()));
     }
 
 }

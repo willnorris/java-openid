@@ -18,37 +18,32 @@ package edu.internet2.middleware.openid.message.impl;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Map;
 
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
-import edu.internet2.middleware.openid.message.Unmarshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * AuthenticationRequestUnmarshaller.
+ * Unmarshaller for {@link AuthenticationRequest} messages.
  */
-public class AuthenticationRequestUnmarshaller implements Unmarshaller<AuthenticationRequest> {
+public class AuthenticationRequestUnmarshaller extends AbstractMessageUnmarshaller<AuthenticationRequest> {
 
     /** {@inheritDoc} */
-    public AuthenticationRequest unmarshall(Map<String, String> parameters) {
-        AuthenticationRequestImpl request = new AuthenticationRequestImpl();
-
-        request.setAssociationHandle(parameters.get(Parameter.assoc_handle.toString()));
+    public void unmarshallParameters(AuthenticationRequest request, ParameterMap parameters) {
+        request.setAssociationHandle(parameters.get(Parameter.assoc_handle));
 
         // TODO claimed_id and identity MUST appear together
-        request.setClaimedId(parameters.get(Parameter.claimed_id.toString()));
-        request.setIdentity(parameters.get(Parameter.identity.toString()));
+        request.setClaimedId(parameters.get(Parameter.claimed_id));
+        request.setIdentity(parameters.get(Parameter.identity));
 
-        request.setMode(parameters.get(Parameter.mode.toString()));
-        request.setRealm(parameters.get(Parameter.realm.toString()));
+        request.setMode(parameters.get(Parameter.mode));
+        request.setRealm(parameters.get(Parameter.realm));
         try {
-            String returnTo = parameters.get(Parameter.return_to.toString());
+            String returnTo = parameters.get(Parameter.return_to);
             request.setReturnTo(new URL(returnTo));
         } catch (MalformedURLException e) {
             // TODO
         }
-
-        return request;
     }
 
 }

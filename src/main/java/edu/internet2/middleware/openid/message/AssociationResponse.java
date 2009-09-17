@@ -74,14 +74,14 @@ public interface AssociationResponse extends Message {
      * 
      * @return the lifetime
      */
-    public int getLifetime();
+    public Integer getLifetime();
 
     /**
      * Set the lifetime of the association
      * 
      * @param newLifetime the lifetime of the association
      */
-    public void setLifetime(int newLifetime);
+    public void setLifetime(Integer newLifetime);
 
     /**
      * The MAC key (shared secret) for this association. Depending on the session type, this may be the plain-text MAC

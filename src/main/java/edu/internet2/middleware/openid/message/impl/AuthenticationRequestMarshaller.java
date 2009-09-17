@@ -16,32 +16,26 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
-import edu.internet2.middleware.openid.message.Marshaller;
+import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Message.Parameter;
 
 /**
- * AuthenticationRequestMarshaller.
+ * Marshaller for {@link AuthenticationRequest} messages.
  */
-public class AuthenticationRequestMarshaller implements Marshaller<AuthenticationRequest> {
+public class AuthenticationRequestMarshaller extends AbstractMessageMarshaller<AuthenticationRequest> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(AuthenticationRequest request) {
-        Map<String, String> parameters = new HashMap<String, String>();
-
-        parameters.put(Parameter.mode.toString(), request.getMode());
+    public void marshallParameters(AuthenticationRequest request, ParameterMap parameters) {
+        parameters.put(Parameter.mode, request.getMode());
 
         // TODO claimed_id and identity MUST appear together
-        parameters.put(Parameter.claimed_id.toString(), request.getClaimedId());
-        parameters.put(Parameter.identity.toString(), request.getIdentity());
+        parameters.put(Parameter.claimed_id, request.getClaimedId());
+        parameters.put(Parameter.identity, request.getIdentity());
 
-        parameters.put(Parameter.assoc_handle.toString(), request.getAssociationHandle());
-        parameters.put(Parameter.return_to.toString(), request.getReturnTo().toString());
-        parameters.put(Parameter.realm.toString(), request.getRealm());
-        return parameters;
+        parameters.put(Parameter.assoc_handle, request.getAssociationHandle());
+        parameters.put(Parameter.return_to, request.getReturnTo().toString());
+        parameters.put(Parameter.realm, request.getRealm());
     }
 
 }

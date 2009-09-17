@@ -19,7 +19,7 @@ package edu.internet2.middleware.openid.message.impl;
 import edu.internet2.middleware.openid.message.ErrorResponse;
 
 /**
- * ErrorResponseImpl.
+ * Implementation of {@link ErrorResponse}.
  */
 public class ErrorResponseImpl extends AbstractMessage implements ErrorResponse {
 
@@ -32,21 +32,6 @@ public class ErrorResponseImpl extends AbstractMessage implements ErrorResponse 
     /** Reference token. */
     private String reference;
 
-    /** {@inheritDoc} */
-    public String getContact() {
-        return contact;
-    }
-
-    /** {@inheritDoc} */
-    public String getError() {
-        return error;
-    }
-
-    /** {@inheritDoc} */
-    public String getReference() {
-        return reference;
-    }
-
     /**
      * Throws UnsupportedOperationException. Association errors do not have a mode value.
      * 
@@ -56,29 +41,32 @@ public class ErrorResponseImpl extends AbstractMessage implements ErrorResponse 
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * Set the contact.
-     * 
-     * @param newContact the contact to set
-     */
+    /** {@inheritDoc} */
+    public String getContact() {
+        return contact;
+    }
+
+    /** {@inheritDoc} */
     public void setContact(String newContact) {
         contact = newContact;
     }
 
-    /**
-     * Set the error message.
-     * 
-     * @param newError the error to set
-     */
+    /** {@inheritDoc} */
+    public String getError() {
+        return error;
+    }
+
+    /** {@inheritDoc} */
     public void setError(String newError) {
         error = newError;
     }
 
-    /**
-     * Set the error reference.
-     * 
-     * @param newReference the reference to set
-     */
+    /** {@inheritDoc} */
+    public String getReference() {
+        return reference;
+    }
+
+    /** {@inheritDoc} */
     public void setReference(String newReference) {
         reference = newReference;
     }
