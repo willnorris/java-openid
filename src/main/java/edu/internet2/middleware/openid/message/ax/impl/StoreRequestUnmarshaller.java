@@ -24,7 +24,7 @@ import edu.internet2.middleware.openid.message.ax.StoreRequest;
 /**
  * StoreRequestUnmarshaller.
  */
-public class StoreRequestUnmarshaller implements Unmarshaller<StoreRequest> {
+public class StoreRequestUnmarshaller  {
 
     /** {@inheritDoc} */
     public StoreRequest unmarshall(Map<String, String> parameters) {

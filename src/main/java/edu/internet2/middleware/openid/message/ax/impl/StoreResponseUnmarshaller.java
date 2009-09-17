@@ -25,7 +25,7 @@ import edu.internet2.middleware.openid.message.ax.AttributeExchange.Parameter;
 /**
  * StoreResponseUnmarshaller.
  */
-public class StoreResponseUnmarshaller implements Unmarshaller<StoreResponse> {
+public class StoreResponseUnmarshaller {
 
     /** {@inheritDoc} */
     public StoreResponse unmarshall(Map<String, String> parameters) {

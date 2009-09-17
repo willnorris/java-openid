@@ -18,9 +18,7 @@ package edu.internet2.middleware.openid.message.sreg.impl;
 
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.Marshaller;
-
-public class SimpleRegistrationResponseMarshaller implements Marshaller {
+public class SimpleRegistrationResponseMarshaller {
 
     public Map marshall(Object object) {
         return null;

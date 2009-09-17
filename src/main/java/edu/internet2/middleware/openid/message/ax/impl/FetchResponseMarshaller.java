@@ -31,7 +31,7 @@ import edu.internet2.middleware.openid.message.ax.AttributeExchange.Parameter;
 /**
  * FetchRequestMarshaller.
  */
-public class FetchResponseMarshaller implements Marshaller<FetchResponse> {
+public class FetchResponseMarshaller {
 
     /** {@inheritDoc} */
     public Map<String, String> marshall(FetchResponse response) {

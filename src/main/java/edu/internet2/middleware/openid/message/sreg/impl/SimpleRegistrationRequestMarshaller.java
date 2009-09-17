@@ -30,7 +30,7 @@ import edu.internet2.middleware.openid.util.StringUtils;
 /**
  * Marshaller for a simple registration request.
  */
-public class SimpleRegistrationRequestMarshaller implements Marshaller<SimpleRegistrationRequest> {
+public class SimpleRegistrationRequestMarshaller  {
 
     /** {@inheritDoc} */
     public Map<String, String> marshall(SimpleRegistrationRequest request) {

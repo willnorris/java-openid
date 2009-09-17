@@ -28,7 +28,7 @@ import edu.internet2.middleware.openid.message.ax.AttributeExchange.Parameter;
 /**
  * StoreResponseMarshaller.
  */
-public class StoreResponseMarshaller implements Marshaller<StoreResponse> {
+public class StoreResponseMarshaller {
 
     /** {@inheritDoc} */
     public Map<String, String> marshall(StoreResponse response) {

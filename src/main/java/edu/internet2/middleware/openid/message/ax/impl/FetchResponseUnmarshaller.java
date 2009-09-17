@@ -24,7 +24,7 @@ import edu.internet2.middleware.openid.message.ax.FetchResponse;
 /**
  * FetchRequestUnmarshaller.
  */
-public class FetchResponseUnmarshaller implements Unmarshaller<FetchResponse> {
+public class FetchResponseUnmarshaller  {
 
     /** {@inheritDoc} */
     public FetchResponse unmarshall(Map<String, String> parameters) {

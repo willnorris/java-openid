@@ -20,7 +20,7 @@ import java.util.Map;
 
 import edu.internet2.middleware.openid.message.Unmarshaller;
 
-public class SimpleRegistrationResponseUnmarshaller implements Unmarshaller {
+public class SimpleRegistrationResponseUnmarshaller  {
 
     public Object unmarshall(Map parameters) {
         return null;

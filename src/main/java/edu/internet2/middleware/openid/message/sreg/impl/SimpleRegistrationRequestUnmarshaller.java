@@ -30,7 +30,7 @@ import edu.internet2.middleware.openid.message.sreg.SimpleRegistration.Parameter
 /**
  * Unmarshaller for a simple registration request.
  */
-public class SimpleRegistrationRequestUnmarshaller implements Unmarshaller<SimpleRegistrationRequest> {
+public class SimpleRegistrationRequestUnmarshaller  {
 
     /** {@inheritDoc} */
     public SimpleRegistrationRequest unmarshall(Map<String, String> parameters) {

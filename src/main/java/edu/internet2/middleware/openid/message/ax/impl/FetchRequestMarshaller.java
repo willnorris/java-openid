@@ -33,7 +33,7 @@ import edu.internet2.middleware.openid.util.StringUtils;
 /**
  * FetchRequestMarshaller.
  */
-public class FetchRequestMarshaller implements Marshaller<FetchRequest> {
+public class FetchRequestMarshaller {
 
     /** {@inheritDoc} */
     public Map<String, String> marshall(FetchRequest request) {
