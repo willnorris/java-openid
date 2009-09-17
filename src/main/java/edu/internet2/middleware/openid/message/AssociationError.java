@@ -16,8 +16,8 @@
 
 package edu.internet2.middleware.openid.message;
 
-import edu.internet2.middleware.openid.association.Association.AssociationType;
-import edu.internet2.middleware.openid.association.Association.SessionType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 
 /**
  * Response to an {@link AssociationRequest} indicating that the OpenID Provider does not support the requested session

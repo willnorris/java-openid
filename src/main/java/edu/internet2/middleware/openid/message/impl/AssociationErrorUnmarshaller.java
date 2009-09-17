@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import edu.internet2.middleware.openid.association.Association.AssociationType;
-import edu.internet2.middleware.openid.association.Association.SessionType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
+import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationError;
 import edu.internet2.middleware.openid.message.ParameterMap;
 

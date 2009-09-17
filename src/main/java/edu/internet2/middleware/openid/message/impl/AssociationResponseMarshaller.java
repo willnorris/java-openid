@@ -18,7 +18,7 @@ package edu.internet2.middleware.openid.message.impl;
 
 import org.opensaml.xml.util.Base64;
 
-import edu.internet2.middleware.openid.association.Association.AssociationType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.AssociationResponse;
 import edu.internet2.middleware.openid.message.ParameterMap;

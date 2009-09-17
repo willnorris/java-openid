@@ -19,8 +19,8 @@ package edu.internet2.middleware.openid.message;
 import java.math.BigInteger;
 import java.security.PublicKey;
 
-import edu.internet2.middleware.openid.association.Association.AssociationType;
-import edu.internet2.middleware.openid.association.Association.SessionType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 
 /**
  * Request for the initiation of an association session.
