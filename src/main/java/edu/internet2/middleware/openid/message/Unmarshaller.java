@@ -16,21 +16,21 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.util.Map;
-
 /**
- * Unmarshallers are used to unmarshall a collection of {@link Parameter}s into an OpenID {@link Message} or
+ * Unmarshallers are used to unmarshall a {@link ParameterMap} into an OpenID {@link Message} or
  * {@link MessageExtension}.
  * 
- * @param <ObjectType> type of object this unmarshaller handles
+ * @param <MessageType> type of object this unmarshaller handles
  */
-public interface Unmarshaller<ObjectType> {
+public interface Unmarshaller<MessageType extends Message> {
 
     /**
      * Unmarshall the parameters.
      * 
      * @param parameters parameters
      * @return the OpenID message
+     * @throws UnmarshallingException thrown if an error occurs unmarshalling the Parameter Map into the OpenID Message
      */
-    public ObjectType unmarshall(Map<String, String> parameters);
+    public MessageType unmarshall(ParameterMap parameters) throws UnmarshallingException;
+
 }

@@ -16,22 +16,21 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.util.Map;
-
 /**
  * Marshallers are used to marshall OpenID {@link Message} and {@link MessageExtensions}s into a map of parameters.
  * Marshallers <b>MUST</b> be thread-safe.
  * 
- * @param <ObjectType> type of object this marshaller handles
+ * @param <MessageType> type of message this marshaller handles
  */
-public interface Marshaller<ObjectType> {
+public interface Marshaller<MessageType extends Message> {
 
     /**
      * Marshall the object.
      * 
-     * @param object object to marshall
+     * @param message object to marshall
      * @return the parameters
+     * @throws MarshallingException thrown if an error occurs marshalling the OpenID Message into the Parameter Map
      */
-    public Map<String, String> marshall(ObjectType object);
+    public ParameterMap marshall(MessageType message) throws MarshallingException;
 
 }
