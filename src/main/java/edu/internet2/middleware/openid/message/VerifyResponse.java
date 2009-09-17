@@ -29,10 +29,23 @@ public interface VerifyResponse extends Message {
     public boolean isValid();
 
     /**
+     * Set whether the signature of the verification request is valid.
+     * 
+     * @param newValid if the signature is valid
+     */
+    public void setValid(boolean newValid);
+
+    /**
      * The "invalidate_handle" value sent in the verification request, if the OpenID Provider confirms it is invalid.
      * 
      * @return the confirmed invalid handle
      */
     public String getInvalidateHandle();
 
+    /**
+     * Set the association handle to invalidate.
+     * 
+     * @param newHandle the association handle to invalidate
+     */
+    public void setInvalidateHandle(String newHandle);
 }

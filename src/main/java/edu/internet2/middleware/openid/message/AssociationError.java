@@ -23,19 +23,12 @@ import edu.internet2.middleware.openid.association.Association.SessionType;
  * Response to an {@link AssociationRequest} indicating that the OpenID Provider does not support the requested session
  * type or association type.
  */
-public interface AssociationError extends Message {
+public interface AssociationError extends ErrorResponse {
 
     /**
      * Unsuccessful response error code.
      */
     public static final String ERROR_CODE = "unsupported-type";
-
-    /**
-     * A human-readable message indicating why the association request failed.
-     * 
-     * @return the error message
-     */
-    public String getError();
 
     /**
      * Error code. Value must be "unsupported-type".
@@ -57,4 +50,5 @@ public interface AssociationError extends Message {
      * @return the association type
      */
     public AssociationType getAssociationType();
+
 }

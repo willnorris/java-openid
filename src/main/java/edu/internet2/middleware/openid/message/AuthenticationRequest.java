@@ -43,11 +43,25 @@ public interface AuthenticationRequest extends Message {
     public String getClaimedId();
 
     /**
+     * Set the claimed identifier.
+     * 
+     * @param newClaimedId the claimed identifier
+     */
+    public void setClaimedId(String newClaimedId);
+
+    /**
      * Get the OpenID Provider local identifier.
      * 
      * @return the local identifier
      */
     public String getIdentity();
+
+    /**
+     * Set the OpenID Provider local identifier.
+     * 
+     * @param newIdentity the local identifier
+     */
+    public void setIdentity(String newIdentity);
 
     /**
      * Get the handle for the established association.
@@ -57,6 +71,13 @@ public interface AuthenticationRequest extends Message {
     public String getAssociationHandle();
 
     /**
+     * Set the handle for the established association.
+     * 
+     * @param newHandle the association handle
+     */
+    public void setAssociationHandle(String newHandle);
+
+    /**
      * Get the URL to which the OpenID Provider should return the user with the response.
      * 
      * @return the return-to URL
@@ -64,10 +85,24 @@ public interface AuthenticationRequest extends Message {
     public URL getReturnTo();
 
     /**
+     * Set the return to URL.
+     * 
+     * @param newReturnTo the return to URL
+     */
+    public void setReturnTo(URL newReturnTo);
+
+    /**
      * Get the URL pattern the OpenID Provider should ask the end user to trust.
      * 
      * @return the realm URL pattern
      */
     public String getRealm();
+
+    /**
+     * Set the trust realm.
+     * 
+     * @param newRealm the trust realm
+     */
+    public void setRealm(String newRealm);
 
 }

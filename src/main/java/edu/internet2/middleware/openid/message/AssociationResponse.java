@@ -35,11 +35,25 @@ public interface AssociationResponse extends Message {
     public String getAssociationHandle();
 
     /**
+     * Set the association handle.
+     * 
+     * @param newHandle the association handle
+     */
+    public void setAssociationHandle(String newHandle);
+
+    /**
      * The session encryption method for this association.
      * 
      * @return the session type
      */
     public SessionType getSessionType();
+
+    /**
+     * Set the session type.
+     * 
+     * @param newSessionType the session type
+     */
+    public void setSessionType(SessionType newSessionType);
 
     /**
      * The associate type algorithm for this association.
@@ -49,11 +63,25 @@ public interface AssociationResponse extends Message {
     public AssociationType getAssociationType();
 
     /**
+     * Set the association type.
+     * 
+     * @param newAssociationType the association type
+     */
+    public void setAssociationType(AssociationType newAssociationType);
+
+    /**
      * The lifetime, in seconds, of this association.
      * 
      * @return the lifetime
      */
     public int getLifetime();
+
+    /**
+     * Set the lifetime of the association
+     * 
+     * @param newLifetime the lifetime of the association
+     */
+    public void setLifetime(int newLifetime);
 
     /**
      * The MAC key (shared secret) for this association. Depending on the session type, this may be the plain-text MAC
@@ -64,10 +92,24 @@ public interface AssociationResponse extends Message {
     public Key getMacKey();
 
     /**
+     * Set the MAC key for the association.
+     * 
+     * @param newKey the MAC key
+     */
+    public void setMacKey(Key newKey);
+
+    /**
      * The OpenID Provider's Diffie-Hellman public key.
      * 
      * @return the DH server key
      */
     public PublicKey getDHServerPublic();
+
+    /**
+     * Set the OpenID Provider's Diffie-Hellman public key.
+     * 
+     * @param newPublicKey the DH server key
+     */
+    public void setDHServerPublic(PublicKey newPublicKey);
 
 }

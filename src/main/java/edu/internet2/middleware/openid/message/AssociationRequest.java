@@ -40,6 +40,13 @@ public interface AssociationRequest extends Message {
     public AssociationType getAssociationType();
 
     /**
+     * Set the preferred association type algorithm.
+     * 
+     * @param newAssociationType the association type
+     */
+    public void setAssociationType(AssociationType newAssociationType);
+
+    /**
      * Get the preferred association session encryption method.
      * 
      * @return the session type
@@ -47,24 +54,52 @@ public interface AssociationRequest extends Message {
     public SessionType getSessionType();
 
     /**
-     * The Diffie-Hellman modulus.
+     * Set the preferred association session encryption method.
+     * 
+     * @param newSessionType the session type
+     */
+    public void setSessionType(SessionType newSessionType);
+
+    /**
+     * Get the Diffie-Hellman modulus.
      * 
      * @return DH modulus
      */
     public BigInteger getDHModulus();
 
     /**
-     * The Diffie-Hellman generator.
+     * Set the Diffie-Hellman modulus.
+     * 
+     * @param newModulus DH modulus
+     */
+    public void setDHModulus(BigInteger newModulus);
+
+    /**
+     * Get the Diffie-Hellman generator.
      * 
      * @return the DH generator
      */
     public BigInteger getDHGen();
 
     /**
-     * The Relying Party's Diffie-Hellman public key.
+     * Set the Diffie-Hellman generator.
+     * 
+     * @param newGen the DH generator
+     */
+    public void setDHGen(BigInteger newGen);
+
+    /**
+     * Get the Relying Party's Diffie-Hellman public key.
      * 
      * @return the DH key
      */
     public PublicKey getDHConsumerPublic();
+
+    /**
+     * Set the Relying Party's Diffie-Hellman public key.
+     * 
+     * @param newPublicKey the DH key
+     */
+    public void setDHConsumerPublic(PublicKey newPublicKey);
 
 }

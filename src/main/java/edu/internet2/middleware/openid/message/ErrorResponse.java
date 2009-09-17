@@ -29,6 +29,13 @@ public interface ErrorResponse extends Message {
     public String getError();
 
     /**
+     * Set the human-readable error message.
+     * 
+     * @param newError the error message
+     */
+    public void setError(String newError);
+
+    /**
      * Contact address for the administrator of the sever. The contact address may take any form, as it is intended to
      * be displayed to a person.
      * 
@@ -37,10 +44,24 @@ public interface ErrorResponse extends Message {
     public String getContact();
 
     /**
+     * Set the contact address for the administrator of the server.
+     * 
+     * @param newContact the contact address
+     */
+    public void setContact(String newContact);
+
+    /**
      * A reference token, such as a support ticket number or a URL to a news blog, etc.
      * 
      * @return the reference
      */
     public String getReference();
+
+    /**
+     * Set the reference token for the error.
+     * 
+     * @param newReference the reference token
+     */
+    public void setReference(String newReference);
 
 }
