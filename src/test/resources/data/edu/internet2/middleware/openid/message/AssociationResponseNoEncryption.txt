@@ -1,0 +1,6 @@
+ns:http://specs.openid.net/auth/2.0
+assoc_handle:foobar
+assoc_type:HMAC-SHA256
+session_type:no-encryption
+expires_in:3600
+mac_key:hee0W816z4fMtFK4X3Y7IZPEmRo9eORfWC9QoA/d0hU=

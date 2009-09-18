@@ -96,4 +96,5 @@ public class AssociationTest extends BaseTestCase {
         String signature = AssociationUtils.calculateSignature(association, "foo");
         assertEquals("gp8cxaax9Hynh5JqM/kQ2mLdOC36fwYTrOUvQ4fX8nE=", signature);
     }
+
 }

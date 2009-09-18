@@ -41,7 +41,7 @@ import edu.internet2.middleware.openid.message.encoding.impl.KeyValueFormCodec;
 /**
  * Intermediate class that serves to initialize the configuration environment for other base test classes.
  */
-public class BaseTestCase extends TestCase {
+public abstract class BaseTestCase extends TestCase {
 
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(BaseTestCase.class);

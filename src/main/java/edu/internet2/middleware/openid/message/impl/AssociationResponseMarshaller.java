@@ -34,14 +34,15 @@ public class AssociationResponseMarshaller extends AbstractMessageMarshaller<Ass
         if (associationType != null) {
             parameters.put(Parameter.assoc_type.QNAME, associationType.toString());
 
-            String macKey = Base64.encodeBytes(response.getMacKey().getEncoded());
+            String macKey = Base64.encodeBytes(response.getMacKey().getEncoded(), Base64.DONT_BREAK_LINES);
 
             if (associationType.equals(AssociationType.HMAC_SHA1)
                     || associationType.equals(AssociationType.HMAC_SHA256)) {
 
                 parameters.put(Parameter.enc_mac_key.QNAME, macKey);
 
-                String publicKey = Base64.encodeBytes(response.getDHServerPublic().getEncoded());
+                String publicKey = Base64.encodeBytes(response.getDHServerPublic().getEncoded(),
+                        Base64.DONT_BREAK_LINES);
                 parameters.put(Parameter.dh_server_public.QNAME, publicKey);
             } else {
                 parameters.put(Parameter.mac_key.QNAME, macKey);

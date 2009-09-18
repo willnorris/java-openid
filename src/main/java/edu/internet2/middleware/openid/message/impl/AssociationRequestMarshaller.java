@@ -16,6 +16,8 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import java.security.PublicKey;
+
 import org.opensaml.xml.util.Base64;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
@@ -37,14 +39,17 @@ public class AssociationRequestMarshaller extends AbstractMessageMarshaller<Asso
 
         if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
 
-            String modulus = Base64.encodeBytes(request.getDHModulus().toByteArray());
+            String modulus = Base64.encodeBytes(request.getDHModulus().toByteArray(), Base64.DONT_BREAK_LINES);
             parameters.put(Parameter.dh_modulus.QNAME, modulus);
 
             String gen = Base64.encodeBytes(request.getDHGen().toByteArray());
             parameters.put(Parameter.dh_gen.QNAME, gen);
 
-            String publicKey = Base64.encodeBytes(request.getDHConsumerPublic().getEncoded());
-            parameters.put(Parameter.dh_consumer_public.QNAME, publicKey);
+            PublicKey consumerPublic = request.getDHConsumerPublic();
+            if (consumerPublic != null) {
+                String publicKey = Base64.encodeBytes(consumerPublic.getEncoded(), Base64.DONT_BREAK_LINES);
+                parameters.put(Parameter.dh_consumer_public.QNAME, publicKey);
+            }
 
         }
     }

@@ -116,10 +116,15 @@ public class AssociationUtils {
         return null;
     }
 
-    public static Key generateMacKey(String algorithm) {
+    /**
+     * Generate a new MAC Key with the specified algorithm.
+     * 
+     * @param algorithm algorithm to use for generated key
+     * @return generated MAC Key
+     */
+    public static SecretKey generateMacKey(String algorithm) {
         try {
-            KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
-            return keyGenerator.generateKey();
+            return KeyGenerator.getInstance(algorithm).generateKey();
         } catch (NoSuchAlgorithmException e) {
             log.error("Unable to generate mac key - " + e.getMessage());
         }
@@ -127,12 +132,27 @@ public class AssociationUtils {
         return null;
     }
 
-    public static Key encryptMacKey(Key macKey, SecretKey sharedSecret) {
+    /**
+     * Encrypt the MAC key using the provided shared secret.
+     * 
+     * @param macKey MAC key to encrypt
+     * @param sharedSecret shared secret used to encrypt MAC key
+     * @return encrypted MAC Key
+     */
+    public static SecretKey encryptMacKey(Key macKey, SecretKey sharedSecret) {
         byte[] encrypted = xor(macKey.getEncoded(), sharedSecret.getEncoded());
         return new SecretKeySpec(encrypted, macKey.getAlgorithm());
     }
 
-    public static Key decryptMacKey(Key macKey, SecretKey sharedSecret) {
+    /**
+     * Decrypt the MAC key using the provided shared secret. This is identical to encryptMacKey(), and is included
+     * merely for logical function naming. Both functions can be used interchangeably.
+     * 
+     * @param macKey MAC key to decrypt
+     * @param sharedSecret shared secret used to decrypt MAC key
+     * @return decrypted MAC key
+     */
+    public static SecretKey decryptMacKey(Key macKey, SecretKey sharedSecret) {
         byte[] decrypted = xor(macKey.getEncoded(), sharedSecret.getEncoded());
         return new SecretKeySpec(decrypted, macKey.getAlgorithm());
     }
@@ -165,14 +185,13 @@ public class AssociationUtils {
      * 
      * @param bytes public key bytes
      * @return public key
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
+     * @throws NoSuchAlgorithmException if unknown algorithm is request
+     * @throws InvalidKeySpecException if key spc is invalid
      */
     public static PublicKey loadPublicKey(byte[] bytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(bytes);
-        KeyFactory keyFactory = KeyFactory.getInstance(DH_ALGORITHM);
-        return keyFactory.generatePublic(x509KeySpec);
-
+        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);
+        KeyFactory keyFactory = KeyFactory.getInstance("DH");
+        return keyFactory.generatePublic(keySpec);
     }
 
     /**
