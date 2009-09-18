@@ -44,7 +44,8 @@ public class PositiveAssertionUnmarshaller extends AbstractMessageUnmarshaller<P
             // TODO
         }
         response.setSignature(parameters.get(Parameter.sig.QNAME));
-        response.getSignedFields().addAll(Arrays.asList(Parameter.signed.toString().split(",")));
+        String signedFields = parameters.get(Parameter.signed.QNAME);
+        response.getSignedFields().addAll(Arrays.asList(signedFields.split(",")));
     }
 
 }

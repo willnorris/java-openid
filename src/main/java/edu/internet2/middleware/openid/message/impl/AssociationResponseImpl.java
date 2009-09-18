@@ -54,7 +54,7 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
 
     /** {@inheritDoc} */
     public String getMode() {
-        return AssociationRequest.MODE;
+        return "foo";
     }
 
     /** {@inheritDoc} */

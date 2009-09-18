@@ -1,0 +1,2 @@
+ns:http://specs.openid.net/auth/2.0
+mode:cancel

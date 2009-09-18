@@ -1,0 +1,7 @@
+ns:http://specs.openid.net/auth/2.0
+mode:checkid_immediate
+claimed_id:http://example.org/
+identity:http://example.com/username
+assoc_handle:foobar
+return_to:http://rp.example.com/consumer
+realm:http://rp.example.com/
