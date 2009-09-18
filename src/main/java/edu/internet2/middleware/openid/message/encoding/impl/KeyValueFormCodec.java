@@ -16,26 +16,19 @@
 
 package edu.internet2.middleware.openid.message.encoding.impl;
 
-import javax.xml.namespace.QName;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
-import edu.internet2.middleware.openid.message.encoding.MessageCodec;
 
 /**
  * Message encoder implementation which produces Key-Value Form encoded strings.
- * 
- * As of OpenID 2.0, protocol extensions can only be attached to OpenID authentication requests, which always use URL
- * form encoding. As a consequence, key value form encoding messages do not include any namespace declarations. This
- * codec therefore assumes that all paramters are in the OpenID 2.0 namespace. If and when a future version of OpenID
- * allows for protocol extensions on requests that use key value form encoding, this codec will need to be updated to
- * accommodate that.
  */
-public class KeyValueFormCodec implements MessageCodec<String> {
+public class KeyValueFormCodec extends AbstractNamespaceAwareCodec<String> {
 
     /** Codec singleton instance. */
     private static KeyValueFormCodec singleton;
@@ -59,13 +52,17 @@ public class KeyValueFormCodec implements MessageCodec<String> {
     /** {@inheritDoc} */
     public ParameterMap decode(String encoded) throws EncodingException {
         log.debug("Decoding Key-Value form encoded string: {}", encoded);
-        ParameterMap parameters = new ParameterMap();
+        return super.decode(encoded);
+    }
+
+    /** {@inheritDoc} */
+    public Map<String, String> decodeMessage(String encoded) throws EncodingException {
+        Map<String, String> parameters = new HashMap<String, String>();
 
         for (String line : encoded.split("\n")) {
             String[] parts = line.split(":", 2);
             if (parts.length == 2) {
-                log.debug("Found encoded paramater {} : {}", parts[0], parts[1]);
-                parameters.put(new QName(OpenIDConstants.OPENID_20_NS, parts[0]), parts[1]);
+                parameters.put(parts[0], parts[1]);
             }
         }
 
@@ -75,11 +72,15 @@ public class KeyValueFormCodec implements MessageCodec<String> {
     /** {@inheritDoc} */
     public String encode(ParameterMap parameters) throws EncodingException {
         log.debug("Encoding ParameterMap containing {} entries", parameters.size());
+        return super.encode(parameters);
+    }
+
+    /** {@inheritDoc} */
+    public String encodeMessage(Map<String, String> parameters) throws EncodingException {
         StringBuffer buffer = new StringBuffer();
 
-        for (QName qname : parameters.keySet()) {
-            String key = qname.getLocalPart();
-            String value = parameters.get(qname);
+        for (String key : parameters.keySet()) {
+            String value = parameters.get(key);
 
             if (key.contains(":")) {
                 log.warn("Message parameter cannot contain a colon ':': {}", key);
@@ -92,8 +93,8 @@ public class KeyValueFormCodec implements MessageCodec<String> {
             }
 
             if (value.contains("\n")) {
-                log.warn("Message parameter name cannot contain a newline: {}", value);
-                throw new EncodingException("Message parameter name cannot contain a newline: " + value);
+                log.warn("Message parameter value cannot contain a newline: {}", value);
+                throw new EncodingException("Message parameter value cannot contain a newline: " + value);
             }
 
             buffer.append(key);

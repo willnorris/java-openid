@@ -39,7 +39,7 @@ public class EncodingTest extends BaseTestCase {
      */
     public void testUrlFormEncoding() throws EncodingException {
         String encoded = "openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0"
-                + "&openid.mode=error&openid.error=This+is+an+example+message";
+                + "&openid.error=This+is+an+example+message" + "&openid.mode=error";
 
         ParameterMap parameters = URLFormCodec.getInstance().decode(encoded);
 
@@ -56,7 +56,7 @@ public class EncodingTest extends BaseTestCase {
      * @throws EncodingException if unable to encode string
      */
     public void testKeyValueEncoding() throws EncodingException {
-        String encoded = "mode:error\nerror:This is an example message\n";
+        String encoded = "ns:http://specs.openid.net/auth/2.0\nerror:This is an example message\nmode:error\n";
 
         ParameterMap parameters = KeyValueFormCodec.getInstance().decode(encoded);
 
