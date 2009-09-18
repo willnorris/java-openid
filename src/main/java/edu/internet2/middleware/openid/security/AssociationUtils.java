@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 University Corporation for Advanced Internet Development, Inc.
+ * Copyright [2009] [University Corporation for Advanced Internet Development, Inc.]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,23 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.association;
+package edu.internet2.middleware.openid.security;
 
+import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.KeyAgreement;
+import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.DHParameterSpec;
@@ -44,6 +50,9 @@ public class AssociationUtils {
     /** Default Diffie-Hellman Parameter Spec. */
     public static final DHParameterSpec DEFAULT_PARAMETER_SPEC = new DHParameterSpec(
             OpenIDConstants.DEFAULT_DH_MODULUS, OpenIDConstants.DEFAULT_DH_GEN);
+
+    /** Diffie-Hellman algorithm. */
+    public static final String DH_ALGORITHM = "DH";
 
     /** Logger. */
     private static final Logger log = LoggerFactory.getLogger(AssociationUtils.class);
@@ -71,7 +80,7 @@ public class AssociationUtils {
      */
     public static KeyPair generateKeyPair(DHParameterSpec parameters) {
         try {
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DH");
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance(DH_ALGORITHM);
             keyGen.initialize(parameters);
             return keyGen.generateKeyPair();
         } catch (NoSuchAlgorithmException e) {
@@ -93,7 +102,7 @@ public class AssociationUtils {
      */
     public static SecretKey generateSharedSecret(PrivateKey privateKey, PublicKey publicKey, String algorithm) {
         try {
-            KeyAgreement keyAgreement = KeyAgreement.getInstance("DH");
+            KeyAgreement keyAgreement = KeyAgreement.getInstance(DH_ALGORITHM);
             keyAgreement.init(privateKey);
             keyAgreement.doPhase(publicKey, true);
             byte[] secretKey = keyAgreement.generateSecret();
@@ -107,36 +116,77 @@ public class AssociationUtils {
         return null;
     }
 
-    /**
-     * Generate a MAC for secret key.
-     * 
-     * @param secretKey sercret key to generate MAC for
-     * @param algorithm algorithm to generate MAC for
-     * @return generated MAC
-     */
-    public static Mac generateMac(SecretKey secretKey, String algorithm) {
+    public static Key generateMacKey(String algorithm) {
         try {
-            Mac mac = Mac.getInstance(algorithm);
-            mac.init(secretKey);
-            return mac;
+            KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
+            return keyGenerator.generateKey();
+        } catch (NoSuchAlgorithmException e) {
+            log.error("Unable to generate mac key - " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    public static Key encryptMacKey(Key macKey, SecretKey sharedSecret) {
+        byte[] encrypted = xor(macKey.getEncoded(), sharedSecret.getEncoded());
+        return new SecretKeySpec(encrypted, macKey.getAlgorithm());
+    }
+
+    public static Key decryptMacKey(Key macKey, SecretKey sharedSecret) {
+        byte[] decrypted = xor(macKey.getEncoded(), sharedSecret.getEncoded());
+        return new SecretKeySpec(decrypted, macKey.getAlgorithm());
+    }
+
+    /**
+     * Calculate signature for specified data using an Association.
+     * 
+     * @param association association
+     * @param data data to calculate signature for
+     * @return calculated signature
+     */
+    public static String calculateSignature(Association association, String data) {
+        try {
+            Mac mac = Mac.getInstance(association.getMacKey().getAlgorithm());
+            mac.init(association.getMacKey());
+
+            byte[] rawHmac = mac.doFinal(data.getBytes());
+            return Base64.encodeBytes(rawHmac, Base64.DONT_BREAK_LINES);
         } catch (InvalidKeyException e) {
             log.error("Unable to generate Mac - " + e.getMessage());
         } catch (NoSuchAlgorithmException e) {
             log.error("Unable to generate Mac - " + e.getMessage());
         }
+
         return null;
     }
 
     /**
-     * Calculate signature for specified data using a Mac.
+     * Load a public key from a byte array.
      * 
-     * @param data data to calculate signature for
-     * @param mac Mac used to calculate signature
-     * @return calculated signature
+     * @param bytes public key bytes
+     * @return public key
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
      */
-    public static String caclulateSignature(String data, Mac mac) {
-        byte[] rawHmac = mac.doFinal(data.getBytes());
-        return Base64.encodeBytes(rawHmac);
+    public static PublicKey loadPublicKey(byte[] bytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(bytes);
+        KeyFactory keyFactory = KeyFactory.getInstance(DH_ALGORITHM);
+        return keyFactory.generatePublic(x509KeySpec);
+
+    }
+
+    /**
+     * Calculate an XOR on two byte arrays.
+     * 
+     * @param a first byte array
+     * @param b second byte array
+     * @return results of XOR
+     */
+    public static byte[] xor(byte[] a, byte[] b) {
+        BigInteger x = new BigInteger(a);
+        BigInteger y = new BigInteger(b);
+
+        return x.xor(y).toByteArray();
     }
 
 }

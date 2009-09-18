@@ -99,4 +99,5 @@ public class EncodingTest extends BaseTestCase {
             // do nothing
         }
     }
+
 }
