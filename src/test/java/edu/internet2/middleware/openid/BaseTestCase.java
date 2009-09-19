@@ -73,7 +73,7 @@ public abstract class BaseTestCase extends TestCase {
      * @param message the message to be marshalled and compared against the expected map
      */
     public void assertEquals(String failMessage, ParameterMap expectedParameters, Message message) {
-        QName qname = new QName(OpenIDConstants.OPENID_20_NS, message.getMode());
+        QName qname = new QName(OpenIDConstants.OPENID_20_NS, expectedParameters.get(Parameter.mode.QNAME));
         Marshaller marshaller = Configuration.getMarshallers().get(qname);
         if (marshaller == null) {
             fail("Unable to find message marshaller for mode: " + message.getMode());
@@ -95,7 +95,7 @@ public abstract class BaseTestCase extends TestCase {
      */
     protected Message unmarshallMessage(String messageFile) {
         ParameterMap parameters = parseMessageFile(messageFile);
-        return unmarshallMessage(parameters);
+        return unmarshallMessage(parameters, parameters.get(Parameter.mode.QNAME));
     }
 
     /**
@@ -104,8 +104,7 @@ public abstract class BaseTestCase extends TestCase {
      * @param parameters OpenID message parameters
      * @return the OpenID message
      */
-    protected Message unmarshallMessage(ParameterMap parameters) {
-        String mode = parameters.get(Parameter.mode.QNAME);
+    protected Message unmarshallMessage(ParameterMap parameters, String mode) {
         QName qname = new QName(OpenIDConstants.OPENID_20_NS, mode);
         Unmarshaller unmarshaller = Configuration.getUnmarshallers().get(qname);
 
@@ -129,7 +128,13 @@ public abstract class BaseTestCase extends TestCase {
      * @return Map of parameters in message
      */
     protected ParameterMap parseMessageFile(String messageFile) {
+        log.debug("Parsing message file: {}", messageFile);
+
         InputStream input = BaseTestCase.class.getResourceAsStream(messageFile);
+        if (input == null) {
+            fail("Unable to open message file: " + messageFile);
+        }
+
         Scanner scanner = new Scanner(input).useDelimiter("\\Z");
         String message = scanner.next();
         scanner.close();

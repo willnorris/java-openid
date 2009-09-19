@@ -22,13 +22,17 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.namespace.QName;
 
+import org.opensaml.xml.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.BaseMessageProviderTestCase;
+import edu.internet2.middleware.openid.Configuration;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
+import edu.internet2.middleware.openid.security.AssociationUtils;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link AssociationRequest}.
@@ -37,6 +41,9 @@ public class AssociationResponseNoEncryptionTest extends BaseMessageProviderTest
 
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(AssociationResponseNoEncryptionTest.class);
+
+    /** Expected mode. */
+    private String expectedMode;
 
     /** Expected Association handle. */
     private String expectedAssociationHandle;
@@ -62,18 +69,19 @@ public class AssociationResponseNoEncryptionTest extends BaseMessageProviderTest
     public void setUp() throws Exception {
         super.setUp();
 
+        expectedMode = OpenIDConstants.ASSOCIATION_RESPONSE_MODE;
         expectedAssociationHandle = "foobar";
         expectedAssociationType = AssociationType.HMAC_SHA256;
         expectedSessionType = SessionType.no_encryption;
         expectedLifetime = 3600;
 
-        String macKey = "hee0W816z4fMtFK4X3Y7IZPEmRo9eORfWC9QoA/d0hU=";
-        expectedMacKey = new SecretKeySpec(macKey.getBytes(), expectedAssociationType.getAlgorithm());
+        String encodedMacKey = "hee0W816z4fMtFK4X3Y7IZPEmRo9eORfWC9QoA/d0hU=";
+        expectedMacKey = new SecretKeySpec(Base64.decode(encodedMacKey), expectedAssociationType.getAlgorithm());
     }
 
     /** {@inheritDoc} */
     public void testMessageMarshall() {
-        QName qname = new QName(OpenIDConstants.OPENID_20_NS, AssociationResponse.MODE);
+        QName qname = new QName(OpenIDConstants.OPENID_20_NS, expectedMode);
         AssociationResponse response = (AssociationResponse) buildMessage(qname);
 
         response.setAssociationHandle(expectedAssociationHandle);
@@ -82,13 +90,23 @@ public class AssociationResponseNoEncryptionTest extends BaseMessageProviderTest
         response.setLifetime(expectedLifetime);
         response.setMacKey(expectedMacKey);
 
-        assertEquals(expectedParameters, response);
+        Marshaller marshaller = Configuration.getMarshallers().get(qname);
+        if (marshaller == null) {
+            fail("Unable to find message marshaller for mode: " + qname);
+        }
+        try {
+            ParameterMap generatedParameters = marshaller.marshall(response);
+            assertTrue(expectedParameters.equals(generatedParameters));
+        } catch (MarshallingException e) {
+            fail("Unable to marshall message");
+        }
     }
 
     /** {@inheritDoc} */
     public void testMessageUnmarshall() {
-        log.info("testing message unmarshalling");
-        AssociationResponse response = (AssociationResponse) unmarshallMessage(messageFile);
+        ParameterMap parameters = parseMessageFile(messageFile);
+        parameters.put(Parameter.mode.QNAME, expectedMode);
+        AssociationResponse response = (AssociationResponse) unmarshallMessage(parameters, expectedMode);
 
         String associationHandle = response.getAssociationHandle();
         assertEquals("AssociationResponse assoc_handle was " + associationHandle + ", expected "
@@ -109,6 +127,6 @@ public class AssociationResponseNoEncryptionTest extends BaseMessageProviderTest
         Key macKey = response.getMacKey();
         assertEquals("AssociationResponse mac_key was " + macKey + ", expected " + expectedMacKey, expectedMacKey,
                 macKey);
-
     }
+
 }

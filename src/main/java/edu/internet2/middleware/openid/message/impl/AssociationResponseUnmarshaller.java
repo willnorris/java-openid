@@ -16,17 +16,21 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.security.KeyFactory;
+import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
+
+import javax.crypto.spec.SecretKeySpec;
+
+import org.opensaml.xml.util.Base64;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationResponse;
 import edu.internet2.middleware.openid.message.ParameterMap;
+import edu.internet2.middleware.openid.security.AssociationUtils;
 
 /**
  * Marshaller for {@link AssociationResponse} messages.
@@ -43,13 +47,13 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
         response.setSessionType(sessionType);
         response.setLifetime(Integer.parseInt(parameters.get(Parameter.expires_in.QNAME)));
 
+        String encodedMacKey = null;
+
         if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
 
             try {
-                byte[] publicKeyBytes = parameters.get(Parameter.dh_server_public.toString()).getBytes();
-                X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(publicKeyBytes);
-                KeyFactory keyFactory = KeyFactory.getInstance("DH");
-                PublicKey publicKey = keyFactory.generatePublic(x509KeySpec);
+                byte[] publicKeyBytes = parameters.get(Parameter.dh_server_public.QNAME).getBytes();
+                PublicKey publicKey = AssociationUtils.loadPublicKey(publicKeyBytes);
                 response.setDHServerPublic(publicKey);
             } catch (NoSuchAlgorithmException e) {
                 // TODO
@@ -57,10 +61,14 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
                 // TODO
             }
 
-            // TODO
-            // response.setMACKey(parameters.get(Parameter.enc_mac_key.toString()));
+            encodedMacKey = parameters.get(Parameter.enc_mac_key.QNAME);
         } else if (sessionType.equals(SessionType.no_encryption)) {
-            // response.setMACKey(parameters.get(Parameter.mac_key.toString()));
+            encodedMacKey = parameters.get(Parameter.mac_key.QNAME);
+        }
+
+        if (encodedMacKey != null) {
+            Key macKey = new SecretKeySpec(Base64.decode(encodedMacKey), response.getAssociationType().getAlgorithm());
+            response.setMacKey(macKey);
         }
 
     }

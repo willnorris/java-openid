@@ -31,6 +31,9 @@ import edu.internet2.middleware.openid.message.Unmarshaller;
 import edu.internet2.middleware.openid.message.impl.AssociationRequestBuilder;
 import edu.internet2.middleware.openid.message.impl.AssociationRequestMarshaller;
 import edu.internet2.middleware.openid.message.impl.AssociationRequestUnmarshaller;
+import edu.internet2.middleware.openid.message.impl.AssociationResponseBuilder;
+import edu.internet2.middleware.openid.message.impl.AssociationResponseMarshaller;
+import edu.internet2.middleware.openid.message.impl.AssociationResponseUnmarshaller;
 import edu.internet2.middleware.openid.message.impl.AuthenticationRequestBuilder;
 import edu.internet2.middleware.openid.message.impl.AuthenticationRequestMarshaller;
 import edu.internet2.middleware.openid.message.impl.AuthenticationRequestUnmarshaller;
@@ -72,6 +75,12 @@ public class DefaultBootstrap {
         builder = new AssociationRequestBuilder();
         marshaller = new AssociationRequestMarshaller();
         unmarshaller = new AssociationRequestUnmarshaller();
+        initializeObjectProvider(qname, builder, marshaller, unmarshaller);
+
+        qname = new QName(OpenIDConstants.OPENID_20_NS, OpenIDConstants.ASSOCIATION_RESPONSE_MODE);
+        builder = new AssociationResponseBuilder();
+        marshaller = new AssociationResponseMarshaller();
+        unmarshaller = new AssociationResponseUnmarshaller();
         initializeObjectProvider(qname, builder, marshaller, unmarshaller);
 
         qname = new QName(OpenIDConstants.OPENID_20_NS, AuthenticationRequest.MODE_IMMEDIATE);

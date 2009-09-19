@@ -35,6 +35,15 @@ public class AssociationErrorImpl extends ErrorResponseImpl implements Associati
      */
     private SessionType sessionType;
 
+    /**
+     * Throws UnsupportedOperationException. Association errors do not have a mode value.
+     * 
+     * @return mode
+     */
+    public String getMode() {
+        throw new UnsupportedOperationException("Association errors do not have a mode value");
+    }
+
     /** {@inheritDoc} */
     public AssociationType getAssociationType() {
         return associationType;

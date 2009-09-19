@@ -28,6 +28,25 @@ public class OpenIDConstants {
     /** OpenID 2.0 Namespace URI. */
     public static final String OPENID_20_NS = "http://specs.openid.net/auth/2.0";
 
+    /**
+     * Fake mode value for {@link edu.internet2.middleware.openid.message.AssociationResponse} messages.
+     * 
+     * All OpenID indirect messages as well as direct requests include a "mode" parameter to identify to kind of message
+     * it is. Direct response messages technically do not require a "mode" parameter because these messages are always
+     * present in the context of an accompanying request. However, when writing a generic factory for message
+     * {@link edu.internet2.middleware.openid.message.Unmarshaller}s, this lack of a "mode" parameter becomes a problem.
+     * The following fake "mode" values are defined and used within this library solely for the purpose of internal
+     * identification of message builders. If a future version of OpenID adds a "mode" parameter to these messages, the
+     * changes necessary to support that should be quite minimal.
+     */
+    public static final String ASSOCIATION_RESPONSE_MODE = "X-associate_response";
+
+    /** Fake mode value for {@link edu.internet2.middleware.openid.message.AssociationError} messages. */
+    public static final String ASSOCIATION_ERROR_MODE = "X-associate_error";
+
+    /** Fake mode value for {@link edu.internet2.middleware.openid.message.VerifyResponse} messages. */
+    public static final String VERIFICATION_RESPONSE_MODE = "X-check_authentication_response";
+
     /** Default Diffie-Hellman Modulus (in hexadecimal). */
     public static final String DEFAULT_DH_MODULUS_HEX = "DCF93A0B883972EC0E19989AC5A2CE310E1D37717E8D9571BB7623731866E61E"
             + "F75A2E27898B057F9891C2E27A639C3F29B60814581CD3B2CA3986D268370557"

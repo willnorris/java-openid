@@ -18,8 +18,8 @@ package edu.internet2.middleware.openid.message.impl;
 
 import org.opensaml.xml.util.Base64;
 
-import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
+import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationResponse;
 import edu.internet2.middleware.openid.message.ParameterMap;
 
@@ -30,27 +30,22 @@ public class AssociationResponseMarshaller extends AbstractMessageMarshaller<Ass
 
     /** {@inheritDoc} */
     public void marshallParameters(AssociationResponse response, ParameterMap parameters) {
-        AssociationType associationType = response.getAssociationType();
-        if (associationType != null) {
-            parameters.put(Parameter.assoc_type.QNAME, associationType.toString());
+        parameters.put(Parameter.assoc_type.QNAME, response.getAssociationType().toString());
 
-            String macKey = Base64.encodeBytes(response.getMacKey().getEncoded(), Base64.DONT_BREAK_LINES);
+        SessionType sessionType = response.getSessionType();
+        parameters.put(Parameter.session_type.QNAME, sessionType.toString());
 
-            if (associationType.equals(AssociationType.HMAC_SHA1)
-                    || associationType.equals(AssociationType.HMAC_SHA256)) {
+        String macKey = Base64.encodeBytes(response.getMacKey().getEncoded(), Base64.DONT_BREAK_LINES);
 
-                parameters.put(Parameter.enc_mac_key.QNAME, macKey);
-
-                String publicKey = Base64.encodeBytes(response.getDHServerPublic().getEncoded(),
-                        Base64.DONT_BREAK_LINES);
-                parameters.put(Parameter.dh_server_public.QNAME, publicKey);
-            } else {
-                parameters.put(Parameter.mac_key.QNAME, macKey);
-            }
-
+        if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
+            parameters.put(Parameter.enc_mac_key.QNAME, macKey);
+            String publicKey = Base64.encodeBytes(response.getDHServerPublic().getEncoded(), Base64.DONT_BREAK_LINES);
+            parameters.put(Parameter.dh_server_public.QNAME, publicKey);
+        } else {
+            parameters.put(Parameter.mac_key.QNAME, macKey);
         }
 
-        parameters.put(Parameter.session_type.QNAME, response.getSessionType().toString());
+        parameters.put(Parameter.assoc_handle.QNAME, response.getAssociationHandle());
         parameters.put(Parameter.expires_in.QNAME, response.getLifetime().toString());
     }
 

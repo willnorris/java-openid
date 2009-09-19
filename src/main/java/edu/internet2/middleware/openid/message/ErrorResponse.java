@@ -21,6 +21,9 @@ package edu.internet2.middleware.openid.message;
  */
 public interface ErrorResponse extends Message {
 
+    /** Message mode for error messages. */
+    public static final String MODE = "error";
+
     /**
      * A human-readable message indicating the cause of the error.
      * 

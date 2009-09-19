@@ -22,7 +22,6 @@ import java.security.PublicKey;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
-import edu.internet2.middleware.openid.message.AssociationRequest;
 import edu.internet2.middleware.openid.message.AssociationResponse;
 
 /**
@@ -52,9 +51,13 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
      */
     private SessionType sessionType;
 
-    /** {@inheritDoc} */
+    /**
+     * Throws UnsupportedOperationException. Association responses do not have a mode value.
+     * 
+     * @return mode
+     */
     public String getMode() {
-        return "foo";
+        throw new UnsupportedOperationException("Association responses do not have a mode value");
     }
 
     /** {@inheritDoc} */

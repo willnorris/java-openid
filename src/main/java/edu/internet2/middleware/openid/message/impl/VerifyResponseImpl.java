@@ -29,9 +29,13 @@ public class VerifyResponseImpl extends AbstractMessage implements VerifyRespons
     /** If response was valid. */
     private boolean valid;
 
-    /** {@inheritDoc} */
+    /**
+     * Throws UnsupportedOperationException. Verification responses do not have a mode value.
+     * 
+     * @return mode
+     */
     public String getMode() {
-        return null;
+        throw new UnsupportedOperationException("Verification responses do not have a mode value");
     }
 
     /** {@inheritDoc} */

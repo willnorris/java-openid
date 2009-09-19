@@ -32,13 +32,9 @@ public class ErrorResponseImpl extends AbstractMessage implements ErrorResponse 
     /** Reference token. */
     private String reference;
 
-    /**
-     * Throws UnsupportedOperationException. Association errors do not have a mode value.
-     * 
-     * @return mode
-     */
+    /** {@inheritDoc} */
     public String getMode() {
-        throw new UnsupportedOperationException();
+        return ErrorResponse.MODE;
     }
 
     /** {@inheritDoc} */

@@ -39,6 +39,9 @@ public class AssociationRequestTest extends BaseMessageProviderTestCase {
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(AssociationRequestTest.class);
 
+    /** Expected mode. */
+    private String expectedMode;
+
     /** Expected association type. */
     private AssociationType expectedAssociationType;
 
@@ -63,6 +66,7 @@ public class AssociationRequestTest extends BaseMessageProviderTestCase {
     public void setUp() throws Exception {
         super.setUp();
 
+        expectedMode = AssociationRequest.MODE;
         expectedAssociationType = AssociationType.HMAC_SHA256;
         expectedSessionType = SessionType.DH_SHA256;
         expectedModulus = OpenIDConstants.DEFAULT_DH_MODULUS;
@@ -78,7 +82,7 @@ public class AssociationRequestTest extends BaseMessageProviderTestCase {
 
     /** {@inheritDoc} */
     public void testMessageMarshall() {
-        QName qname = new QName(OpenIDConstants.OPENID_20_NS, AssociationRequest.MODE);
+        QName qname = new QName(OpenIDConstants.OPENID_20_NS, expectedMode);
         AssociationRequest request = (AssociationRequest) buildMessage(qname);
 
         request.setAssociationType(expectedAssociationType);
@@ -95,8 +99,7 @@ public class AssociationRequestTest extends BaseMessageProviderTestCase {
         AssociationRequest request = (AssociationRequest) unmarshallMessage(messageFile);
 
         String mode = request.getMode();
-        assertEquals("AssociationRequest mode was " + mode + ", expected " + AssociationRequest.MODE, mode,
-                AssociationRequest.MODE);
+        assertEquals("AssociationRequest mode was " + mode + ", expected " + expectedMode, mode, expectedMode);
 
         AssociationType associationType = request.getAssociationType();
         assertEquals("AssociationRequest assoc_type was " + associationType + ", expected " + expectedAssociationType,
