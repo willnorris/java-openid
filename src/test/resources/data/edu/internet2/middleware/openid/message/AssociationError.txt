@@ -1,0 +1,5 @@
+ns:http://specs.openid.net/auth/2.0
+error:Unsupported association type
+error_code:unsupported-type
+assoc_type:HMAC-SHA256
+session_type:DH-SHA256

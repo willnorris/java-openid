@@ -1,0 +1,5 @@
+ns:http://specs.openid.net/auth/2.0
+mode:error
+error:Error Message
+contact:George P. Burdell
+reference:kb123

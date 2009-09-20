@@ -29,11 +29,9 @@ public class AssociationErrorUnmarshaller extends AbstractMessageUnmarshaller<As
 
     /** {@inheritDoc} */
     public void unmarshallParameters(AssociationError response, ParameterMap parameters) {
-        response.setAssociationType(AssociationType.getType(parameters.get(Parameter.assoc_type)));
-        response.setSessionType(SessionType.getType(parameters.get(Parameter.session_type)));
-        response.setError(parameters.get(Parameter.error));
-        response.setContact(parameters.get(Parameter.contact));
-        response.setReference(parameters.get(Parameter.reference));
+        response.setAssociationType(AssociationType.getType(parameters.get(Parameter.assoc_type.QNAME)));
+        response.setSessionType(SessionType.getType(parameters.get(Parameter.session_type.QNAME)));
+        response.setError(parameters.get(Parameter.error.QNAME));
     }
 
 }

@@ -44,7 +44,8 @@ public class VerifyRequestUnmarshaller extends AbstractMessageUnmarshaller<Verif
             // TODO
         }
         request.setSignature(parameters.get(Parameter.sig.QNAME));
-        request.getSignedFields().addAll(Arrays.asList(Parameter.signed.toString().split(",")));
+        String signedFields = parameters.get(Parameter.signed.QNAME);
+        request.getSignedFields().addAll(Arrays.asList(signedFields.split(",")));
     }
 
 }

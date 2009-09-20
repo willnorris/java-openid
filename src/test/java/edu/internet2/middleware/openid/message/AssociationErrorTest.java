@@ -16,13 +16,8 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.security.Key;
-
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import javax.xml.namespace.QName;
 
-import org.opensaml.xml.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,16 +31,19 @@ import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 /**
  * Test case for creating, marshalling, and unmarshalling {@link AssociationRequest}.
  */
-public class AssociationResponseNoEncryptionTest extends BaseMessageProviderTestCase {
+public class AssociationErrorTest extends BaseMessageProviderTestCase {
 
     /** Logger. */
-    private final Logger log = LoggerFactory.getLogger(AssociationResponseNoEncryptionTest.class);
+    private final Logger log = LoggerFactory.getLogger(AssociationErrorTest.class);
 
     /** Expected mode. */
     private String expectedMode;
 
-    /** Expected Association handle. */
-    private String expectedAssociationHandle;
+    /** Expected error. */
+    private String expectedError;
+
+    /** Expected error code. */
+    private String expectedErrorCode;
 
     /** Expected association type. */
     private AssociationType expectedAssociationType;
@@ -53,41 +51,30 @@ public class AssociationResponseNoEncryptionTest extends BaseMessageProviderTest
     /** Expected session type. */
     private SessionType expectedSessionType;
 
-    /** Expected lifetime. */
-    private Integer expectedLifetime;
-
-    /** Expected MAC key. */
-    private SecretKey expectedMacKey;
-
     /** Constructor. */
-    public AssociationResponseNoEncryptionTest() {
-        messageFile = "/data/edu/internet2/middleware/openid/message/AssociationResponseNoEncryption.txt";
+    public AssociationErrorTest() {
+        messageFile = "/data/edu/internet2/middleware/openid/message/AssociationError.txt";
     }
 
     /** {@inheritDoc} */
     public void setUp() throws Exception {
         super.setUp();
 
-        expectedMode = OpenIDConstants.ASSOCIATION_RESPONSE_MODE;
-        expectedAssociationHandle = "foobar";
+        expectedMode = OpenIDConstants.ASSOCIATION_ERROR_MODE;
+        expectedError = "Unsupported association type";
+        expectedErrorCode = AssociationError.ERROR_CODE;
         expectedAssociationType = AssociationType.HMAC_SHA256;
-        expectedSessionType = SessionType.no_encryption;
-        expectedLifetime = 3600;
-
-        String encodedMacKey = "hee0W816z4fMtFK4X3Y7IZPEmRo9eORfWC9QoA/d0hU=";
-        expectedMacKey = new SecretKeySpec(Base64.decode(encodedMacKey), expectedAssociationType.getAlgorithm());
+        expectedSessionType = SessionType.DH_SHA256;
     }
 
     /** {@inheritDoc} */
     public void testMessageMarshall() {
         QName qname = new QName(OpenIDConstants.OPENID_20_NS, expectedMode);
-        AssociationResponse response = (AssociationResponse) buildMessage(qname);
+        AssociationError response = (AssociationError) buildMessage(qname);
 
-        response.setAssociationHandle(expectedAssociationHandle);
+        response.setError(expectedError);
         response.setAssociationType(expectedAssociationType);
         response.setSessionType(expectedSessionType);
-        response.setLifetime(expectedLifetime);
-        response.setMacKey(expectedMacKey);
 
         // test if maps are equal
         Marshaller marshaller = Configuration.getMarshallers().get(qname);
@@ -106,27 +93,22 @@ public class AssociationResponseNoEncryptionTest extends BaseMessageProviderTest
     public void testMessageUnmarshall() {
         ParameterMap parameters = parseMessageFile(messageFile);
         parameters.put(Parameter.mode.QNAME, expectedMode);
-        AssociationResponse response = (AssociationResponse) unmarshallMessage(parameters, expectedMode);
+        AssociationError response = (AssociationError) unmarshallMessage(parameters, expectedMode);
 
-        String associationHandle = response.getAssociationHandle();
-        assertEquals("AssociationResponse assoc_handle was " + associationHandle + ", expected "
-                + expectedAssociationHandle, expectedAssociationHandle, associationHandle);
+        String error = response.getError();
+        assertEquals("AssociationError error was " + error + ", expected " + expectedError, expectedError, error);
+
+        String errorCode = response.getErrorCode();
+        assertEquals("AssociationError error_code was " + errorCode + ", expected " + expectedErrorCode,
+                expectedErrorCode, errorCode);
 
         AssociationType associationType = response.getAssociationType();
-        assertEquals("AssociationResponse assoc_type was " + associationType + ", expected " + expectedAssociationType,
+        assertEquals("AssociationError assoc_type was " + associationType + ", expected " + expectedAssociationType,
                 expectedAssociationType, associationType);
 
         SessionType sessionType = response.getSessionType();
-        assertEquals("AssociationResponse session_type was " + sessionType + ", expected " + expectedSessionType,
+        assertEquals("AssociationError session_type was " + sessionType + ", expected " + expectedSessionType,
                 expectedSessionType, sessionType);
-
-        Integer lifetime = response.getLifetime();
-        assertEquals("AssociationResponse expires_in was " + lifetime + ", expected " + expectedLifetime,
-                expectedLifetime, lifetime);
-
-        Key macKey = response.getMacKey();
-        assertEquals("AssociationResponse mac_key was " + macKey + ", expected " + expectedMacKey, expectedMacKey,
-                macKey);
     }
 
 }

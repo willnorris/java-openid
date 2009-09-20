@@ -49,7 +49,7 @@ public class VerifyRequestImpl extends AbstractSignedMessage implements VerifyRe
 
     /** {@inheritDoc} */
     public String getMode() {
-        return PositiveAssertion.MODE;
+        return VerifyRequest.MODE;
     }
 
     /** {@inheritDoc} */

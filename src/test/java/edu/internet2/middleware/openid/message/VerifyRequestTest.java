@@ -31,10 +31,10 @@ import edu.internet2.middleware.openid.common.OpenIDConstants;
 /**
  * Test case for creating, marshalling, and unmarshalling {@link AssociationRequest}.
  */
-public class PositiveAssertionTest extends BaseMessageProviderTestCase {
+public class VerifyRequestTest extends BaseMessageProviderTestCase {
 
     /** Logger. */
-    private final Logger log = LoggerFactory.getLogger(PositiveAssertionTest.class);
+    private final Logger log = LoggerFactory.getLogger(VerifyRequestTest.class);
 
     /** Expected mode. */
     private String expectedMode;
@@ -67,15 +67,15 @@ public class PositiveAssertionTest extends BaseMessageProviderTestCase {
     private String expectedSignature;
 
     /** Constructor. */
-    public PositiveAssertionTest() {
-        messageFile = "/data/edu/internet2/middleware/openid/message/PositiveAssertion.txt";
+    public VerifyRequestTest() {
+        messageFile = "/data/edu/internet2/middleware/openid/message/VerifyRequest.txt";
     }
 
     /** {@inheritDoc} */
     public void setUp() throws Exception {
         super.setUp();
 
-        expectedMode = PositiveAssertion.MODE;
+        expectedMode = VerifyRequest.MODE;
         expectedEndpoint = "http://openid.example.com/server";
         expectedClaimedId = "http://example.org/";
         expectedIdentity = "http://example.com/username";
@@ -90,62 +90,62 @@ public class PositiveAssertionTest extends BaseMessageProviderTestCase {
     /** {@inheritDoc} */
     public void testMessageMarshall() {
         QName qname = new QName(OpenIDConstants.OPENID_20_NS, expectedMode);
-        PositiveAssertion response = (PositiveAssertion) buildMessage(qname);
+        VerifyRequest request = (VerifyRequest) buildMessage(qname);
 
-        response.setEndpoint(expectedEndpoint);
-        response.setClaimedId(expectedClaimedId);
-        response.setIdentity(expectedIdentity);
-        response.setReturnTo(expectedReturnTo);
-        response.setResponseNonce(expectedNonce);
-        response.setInvalidateHandle(expectedInvalidateHandle);
-        response.setAssociationHandle(expectedAssociationHandle);
-        response.getSignedFields().addAll(expectedSignedFields);
-        response.setSignature(expectedSignature);
+        request.setEndpoint(expectedEndpoint);
+        request.setClaimedId(expectedClaimedId);
+        request.setIdentity(expectedIdentity);
+        request.setReturnTo(expectedReturnTo);
+        request.setResponseNonce(expectedNonce);
+        request.setInvalidateHandle(expectedInvalidateHandle);
+        request.setAssociationHandle(expectedAssociationHandle);
+        request.getSignedFields().addAll(expectedSignedFields);
+        request.setSignature(expectedSignature);
 
-        assertEquals(expectedParameters, response);
+        assertEquals(expectedParameters, request);
     }
 
     /** {@inheritDoc} */
     public void testMessageUnmarshall() {
-        PositiveAssertion response = (PositiveAssertion) unmarshallMessage(messageFile);
+        VerifyRequest request = (VerifyRequest) unmarshallMessage(messageFile);
 
-        String mode = response.getMode();
-        assertEquals("PositiveAssertion mode was " + mode + ", expected " + expectedMode, expectedMode, mode);
+        String mode = request.getMode();
+        assertEquals("VerifyRequest mode was " + mode + ", expected " + expectedMode, expectedMode, mode);
 
-        String endpoint = response.getEndpoint();
-        assertEquals("PositiveAssertion endpoint was " + endpoint + ", expected " + expectedEndpoint, expectedEndpoint,
+        String endpoint = request.getEndpoint();
+        assertEquals("VerifyRequest endpoint was " + endpoint + ", expected " + expectedEndpoint, expectedEndpoint,
                 endpoint);
 
-        String claimedId = response.getClaimedId();
-        assertEquals("PositiveAssertion claimed_id was " + claimedId + ", expected " + expectedClaimedId,
+        String claimedId = request.getClaimedId();
+        assertEquals("VerifyRequest claimed_id was " + claimedId + ", expected " + expectedClaimedId,
                 expectedClaimedId, claimedId);
 
-        String identity = response.getIdentity();
-        assertEquals("PositiveAssertion identity was " + identity + ", expected " + expectedIdentity, expectedIdentity,
+        String identity = request.getIdentity();
+        assertEquals("VerifyRequest identity was " + identity + ", expected " + expectedIdentity, expectedIdentity,
                 identity);
 
-        URL returnTo = response.getReturnTo();
-        assertEquals("PositiveAssertion return_to was " + returnTo.toString() + ", expected "
+        URL returnTo = request.getReturnTo();
+        assertEquals("VerifyRequest return_to was " + returnTo.toString() + ", expected "
                 + expectedReturnTo.toString(), expectedReturnTo.toString(), returnTo.toString());
 
-        String nonce = response.getResponseNonce();
-        assertEquals("PositiveAssertion response_nonce was " + nonce + ", expected " + expectedNonce, expectedNonce,
+        String nonce = request.getResponseNonce();
+        assertEquals("VerifyRequest response_nonce was " + nonce + ", expected " + expectedNonce, expectedNonce,
                 nonce);
 
-        String invalidateHandle = response.getInvalidateHandle();
-        assertEquals("PositiveAssertion invalidate_handle was " + invalidateHandle + ", expected "
+        String invalidateHandle = request.getInvalidateHandle();
+        assertEquals("VerifyRequest invalidate_handle was " + invalidateHandle + ", expected "
                 + expectedInvalidateHandle, expectedInvalidateHandle, invalidateHandle);
 
-        String handle = response.getAssociationHandle();
-        assertEquals("PositiveAssertion assoc_handle was " + handle + ", expected " + expectedAssociationHandle,
+        String handle = request.getAssociationHandle();
+        assertEquals("VerifyRequest assoc_handle was " + handle + ", expected " + expectedAssociationHandle,
                 expectedAssociationHandle, handle);
 
-        List<String> signedFields = response.getSignedFields();
-        assertEquals("PositiveAssertion signed was " + signedFields + ", expected " + expectedSignedFields,
+        List<String> signedFields = request.getSignedFields();
+        assertEquals("VerifyRequest signed was " + signedFields + ", expected " + expectedSignedFields,
                 expectedSignedFields, signedFields);
 
-        String signature = response.getSignature();
-        assertEquals("PositiveAssertion signature was " + signature + ", expected " + expectedSignature,
+        String signature = request.getSignature();
+        assertEquals("VerifyRequest signature was " + signature + ", expected " + expectedSignature,
                 expectedSignature, signature);
     }
 

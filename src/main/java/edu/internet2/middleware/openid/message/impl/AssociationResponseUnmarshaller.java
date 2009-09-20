@@ -52,8 +52,8 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
         if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
 
             try {
-                byte[] publicKeyBytes = parameters.get(Parameter.dh_server_public.QNAME).getBytes();
-                PublicKey publicKey = AssociationUtils.loadPublicKey(publicKeyBytes);
+                String encodedKey = parameters.get(Parameter.dh_server_public.QNAME);
+                PublicKey publicKey = AssociationUtils.loadPublicKey(Base64.decode(encodedKey));
                 response.setDHServerPublic(publicKey);
             } catch (NoSuchAlgorithmException e) {
                 // TODO

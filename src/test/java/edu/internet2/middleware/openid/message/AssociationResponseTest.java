@@ -17,18 +17,24 @@
 package edu.internet2.middleware.openid.message;
 
 import java.math.BigInteger;
+import java.security.Key;
 import java.security.PublicKey;
 
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.xml.namespace.QName;
 
+import org.opensaml.xml.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.BaseMessageProviderTestCase;
+import edu.internet2.middleware.openid.Configuration;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
+import edu.internet2.middleware.openid.security.AssociationUtils;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link AssociationRequest}.
@@ -38,17 +44,20 @@ public class AssociationResponseTest extends BaseMessageProviderTestCase {
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(AssociationResponseTest.class);
 
+    /** Expected mode. */
+    private String expectedMode;
+
+    /** Expected Association handle. */
+    private String expectedAssociationHandle;
+
     /** Expected association type. */
     private AssociationType expectedAssociationType;
 
     /** Expected session type. */
     private SessionType expectedSessionType;
 
-    /** Expected DH modulus. */
-    private BigInteger expectedModulus;
-
-    /** Expected DH generator. */
-    private BigInteger expectedGenerator;
+    /** Expected lifetime. */
+    private Integer expectedLifetime;
 
     /** Expected DH server public. */
     private PublicKey expectedServerPublic;
@@ -56,74 +65,87 @@ public class AssociationResponseTest extends BaseMessageProviderTestCase {
     /** Expected encrypted MAC key. */
     private SecretKey expectedEncryptedMacKey;
 
-    /** Shared secret used to decrypt the MAC key. */
-    private SecretKey sharedSecret;
-
     /** Constructor. */
     public AssociationResponseTest() {
-        messageFile = "/data/edu/internet2/middleware/openid/message/AssociationRequest.txt";
+        messageFile = "/data/edu/internet2/middleware/openid/message/AssociationResponse.txt";
     }
 
     /** {@inheritDoc} */
     public void setUp() throws Exception {
         super.setUp();
 
+        expectedMode = OpenIDConstants.ASSOCIATION_RESPONSE_MODE;
+        expectedAssociationHandle = "foobar";
         expectedAssociationType = AssociationType.HMAC_SHA256;
         expectedSessionType = SessionType.DH_SHA256;
-        expectedModulus = OpenIDConstants.DEFAULT_DH_MODULUS;
-        expectedGenerator = BigInteger.valueOf(2);
-        expectedServerPublic = null;
+        expectedLifetime = 3600;
+
+        String serverPublicKey = "MIIBIzCBmQYJKoZIhvcNAQMBMIGLAoGBANz5OguIOXLsDhmYmsWizjEOHTdxfo2Vcbt2I3MYZuYe9"
+                + "1ouJ4mLBX+YkcLiemOcPym2CBRYHNOyyjmG0mg3BVd9RcLn5S3IHHoXGHblzqdLFEi/368Ygo79JRnxTkXjgmY0rxlJ5"
+                + "bU1zIKaSDuKdiI+XUkKJX8Fvf8W8vsixYOrAgECAgICAAOBhAACgYAyF/jTzfAxpM62s22/OFZe3p/R0WpKPwIe1xeCV"
+                + "Kw53Kx2LA/yZjtSGJ3LC00zsWnnehbGDDv2nSHHKc9GKxsCyjUu03+G9p280yR/YC+T4/wegDFY/+ueqd98NmEHQFIi+"
+                + "mdFwVnmpVbwqA+Ek1uDfo+mUFeVUfbVpZjI0FeBbw==";
+        expectedServerPublic = AssociationUtils.loadPublicKey(Base64.decode(serverPublicKey));
+
+        String encodedMacKey = "hVGXOx0j7OndhRlCsfa37y1CP4GKapFc1wdz3gK71q4fkr+aTo9mvMaxkjZIzJIzcyGgYqD1XLJSdbfr"
+                + "dSh5uR9ejxqTDAZUW0FwGZWpvfu2BEadoiwq8R4bqtiWFfRgMVIK5YW2hydvJGblZtxjhJfClh0Wbb6TK2xpq3y5NhA=";
+        expectedEncryptedMacKey = new SecretKeySpec(Base64.decode(encodedMacKey), expectedAssociationType
+                .getAlgorithm());
     }
 
     /** {@inheritDoc} */
     public void testMessageMarshall() {
-        log.info("testing message marshalling");
-        QName qname = new QName(OpenIDConstants.OPENID_20_NS, AssociationRequest.MODE);
-        AssociationRequest request = (AssociationRequest) buildMessage(qname);
+        QName qname = new QName(OpenIDConstants.OPENID_20_NS, expectedMode);
+        AssociationResponse response = (AssociationResponse) buildMessage(qname);
 
-        request.setAssociationType(expectedAssociationType);
-        request.setSessionType(expectedSessionType);
-        request.setDHModulus(expectedModulus);
-        request.setDHGen(expectedGenerator);
-        // request.setDHConsumerPublic(expectedServerPublic);
+        response.setAssociationHandle(expectedAssociationHandle);
+        response.setAssociationType(expectedAssociationType);
+        response.setSessionType(expectedSessionType);
+        response.setLifetime(expectedLifetime);
+        response.setDHServerPublic(expectedServerPublic);
+        response.setMacKey(expectedEncryptedMacKey);
 
-        log.info("expected Parameters: {}", expectedParameters.size());
-        for (QName key : expectedParameters.keySet()) {
-            log.info("{} = {}", key, expectedParameters.get(key));
+        // test if maps are equal
+        Marshaller marshaller = Configuration.getMarshallers().get(qname);
+        if (marshaller == null) {
+            fail("Unable to find message marshaller for mode: " + qname);
         }
-
-        assertEquals(expectedParameters, request);
+        try {
+            ParameterMap generatedParameters = marshaller.marshall(response);
+            assertTrue(expectedParameters.equals(generatedParameters));
+        } catch (MarshallingException e) {
+            fail("Unable to marshall message");
+        }
     }
 
     /** {@inheritDoc} */
     public void testMessageUnmarshall() {
-        // log.info("default modulus = {}", Base64.encode(OpenIDConstants.DEFAULT_DH_MODULUS.toByteArray()));
-        log.info("testing message unmarshalling");
-        AssociationRequest request = (AssociationRequest) unmarshallMessage(messageFile);
+        ParameterMap parameters = parseMessageFile(messageFile);
+        parameters.put(Parameter.mode.QNAME, expectedMode);
+        AssociationResponse response = (AssociationResponse) unmarshallMessage(parameters, expectedMode);
 
-        String mode = request.getMode();
-        assertEquals("AssociationRequest mode was " + mode + ", expected " + AssociationRequest.MODE, mode,
-                AssociationRequest.MODE);
+        String associationHandle = response.getAssociationHandle();
+        assertEquals("AssociationResponse assoc_handle was " + associationHandle + ", expected "
+                + expectedAssociationHandle, expectedAssociationHandle, associationHandle);
 
-        AssociationType associationType = request.getAssociationType();
-        assertEquals("AssociationRequest assoc_type was " + associationType + ", expected " + expectedAssociationType,
+        AssociationType associationType = response.getAssociationType();
+        assertEquals("AssociationResponse assoc_type was " + associationType + ", expected " + expectedAssociationType,
                 expectedAssociationType, associationType);
 
-        SessionType sessionType = request.getSessionType();
-        assertEquals("AssociationRequest session_type was " + sessionType + ", expected " + expectedSessionType,
+        SessionType sessionType = response.getSessionType();
+        assertEquals("AssociationResponse session_type was " + sessionType + ", expected " + expectedSessionType,
                 expectedSessionType, sessionType);
 
-        BigInteger modulus = request.getDHModulus();
-        assertEquals("AssociationRequest dh_modulus was " + modulus + ", expected " + expectedModulus, expectedModulus,
-                modulus);
+        Integer lifetime = response.getLifetime();
+        assertEquals("AssociationResponse expires_in was " + lifetime + ", expected " + expectedLifetime,
+                expectedLifetime, lifetime);
 
-        BigInteger generator = request.getDHGen();
-        assertEquals("AssociationRequest dh_gen was " + generator + ", expected " + expectedGenerator,
-                expectedGenerator, generator);
+        PublicKey serverKey = response.getDHServerPublic();
+        assertEquals("AssociationResponse dh_server_public was " + serverKey + ", expected " + expectedServerPublic,
+                expectedServerPublic, serverKey);
 
-        PublicKey consumerPublic = request.getDHConsumerPublic();
-        assertEquals("AssociationRequest dh_consumer_public was " + consumerPublic + ", expected "
-                + expectedServerPublic, expectedServerPublic, consumerPublic);
-
+        Key macKey = response.getMacKey();
+        assertEquals("AssociationResponse enc_mac_key was " + macKey + ", expected " + expectedEncryptedMacKey,
+                expectedEncryptedMacKey, macKey);
     }
 }

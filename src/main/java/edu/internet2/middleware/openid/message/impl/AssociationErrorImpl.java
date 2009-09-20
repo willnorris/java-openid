@@ -23,16 +23,15 @@ import edu.internet2.middleware.openid.message.AssociationError;
 /**
  * Implementation of {@link AssociationError}.
  */
-public class AssociationErrorImpl extends ErrorResponseImpl implements AssociationError {
+public class AssociationErrorImpl extends AbstractMessage implements AssociationError {
 
-    /**
-     * Association type.
-     */
+    /** Error message. */
+    private String error;
+
+    /** Association type. */
     private AssociationType associationType;
 
-    /**
-     * Association session type.
-     */
+    /** Association session type. */
     private SessionType sessionType;
 
     /**
@@ -47,6 +46,16 @@ public class AssociationErrorImpl extends ErrorResponseImpl implements Associati
     /** {@inheritDoc} */
     public AssociationType getAssociationType() {
         return associationType;
+    }
+
+    /** {@inheritDoc} */
+    public String getError() {
+        return error;
+    }
+
+    /** {@inheritDoc} */
+    public void setError(String newError) {
+        error = newError;
     }
 
     /** {@inheritDoc} */

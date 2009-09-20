@@ -32,8 +32,6 @@ public class AssociationErrorMarshaller extends AbstractMessageMarshaller<Associ
 
         parameters.put(Parameter.error.QNAME, response.getError());
         parameters.put(Parameter.error_code.QNAME, response.getErrorCode());
-        parameters.put(Parameter.contact.QNAME, response.getContact());
-        parameters.put(Parameter.reference.QNAME, response.getReference());
     }
 
 }
