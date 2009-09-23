@@ -28,23 +28,45 @@ import edu.internet2.middleware.openid.security.Association;
  */
 public class BasicAssociation implements Association {
 
+    /** Association handle. */
+    private String handle;
+
     /** Association type. */
     private AssociationType associationType;
 
     /** Expiration instant. */
     private DateTime expiration;
 
-    /** Association handle. */
-    private String handle;
+    /** Entity identifier. */
+    private String entity;
 
     /** MAC key. */
     private Key macKey;
+
+    /** {@inheritDoc} */
+    public String getHandle() {
+        return handle;
+    }
+
+    /**
+     * Set the association handle.
+     * 
+     * @param newHandle the association handle
+     */
+    public void setHandle(String newHandle) {
+        handle = newHandle;
+    }
 
     /** {@inheritDoc} */
     public AssociationType getAssociationType() {
         return associationType;
     }
 
+    /**
+     * Set the association type.
+     * 
+     * @param newType the association type
+     */
     public void setAssociationType(AssociationType newType) {
         associationType = newType;
     }
@@ -54,17 +76,27 @@ public class BasicAssociation implements Association {
         return expiration;
     }
 
+    /**
+     * Set the association expiration.
+     * 
+     * @param newExpiration the expiration
+     */
     public void setExpiration(DateTime newExpiration) {
         expiration = newExpiration;
     }
 
     /** {@inheritDoc} */
-    public String getHandle() {
-        return handle;
+    public String getEntity() {
+        return entity;
     }
 
-    public void setHandle(String newHandle) {
-        handle = newHandle;
+    /**
+     * Set the association entity identifier.
+     * 
+     * @param newEntity the entity identifier
+     */
+    public void setEntity(String newEntity) {
+        entity = newEntity;
     }
 
     /** {@inheritDoc} */
@@ -72,6 +104,11 @@ public class BasicAssociation implements Association {
         return macKey;
     }
 
+    /**
+     * Set the MAC key for the association.
+     * 
+     * @param newMacKey the MAC key
+     */
     public void setMacKey(Key newMacKey) {
         macKey = newMacKey;
     }

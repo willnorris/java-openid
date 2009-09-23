@@ -51,6 +51,14 @@ public interface Association {
     public DateTime getExpiration();
 
     /**
+     * Get an identifier for the entity this association is to be used with. OpenID Provider entities are often
+     * identified by their endpoint URL. OpenID Consumer entities are often identified by their realm.
+     * 
+     * @return the entity identifier
+     */
+    public String getEntity();
+
+    /**
      * Get the MAC Key for the association.
      * 
      * @return the MAC Key
