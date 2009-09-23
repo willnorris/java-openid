@@ -77,7 +77,7 @@ public class AssociationErrorTest extends BaseMessageProviderTestCase {
         response.setSessionType(expectedSessionType);
 
         // test if maps are equal
-        Marshaller marshaller = Configuration.getMarshallers().get(qname);
+        Marshaller marshaller = Configuration.getMarshallers().getMarshaller(qname);
         if (marshaller == null) {
             fail("Unable to find message marshaller for mode: " + qname);
         }
@@ -91,9 +91,7 @@ public class AssociationErrorTest extends BaseMessageProviderTestCase {
 
     /** {@inheritDoc} */
     public void testMessageUnmarshall() {
-        ParameterMap parameters = parseMessageFile(messageFile);
-        parameters.put(Parameter.mode.QNAME, expectedMode);
-        AssociationError response = (AssociationError) unmarshallMessage(parameters, expectedMode);
+        AssociationError response = (AssociationError) unmarshallMessage(messageFile);
 
         String error = response.getError();
         assertEquals("AssociationError error was " + error + ", expected " + expectedError, expectedError, error);

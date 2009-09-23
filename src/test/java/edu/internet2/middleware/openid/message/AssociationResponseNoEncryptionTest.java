@@ -30,7 +30,6 @@ import edu.internet2.middleware.openid.BaseMessageProviderTestCase;
 import edu.internet2.middleware.openid.Configuration;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
-import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 
 /**
@@ -90,7 +89,7 @@ public class AssociationResponseNoEncryptionTest extends BaseMessageProviderTest
         response.setMacKey(expectedMacKey);
 
         // test if maps are equal
-        Marshaller marshaller = Configuration.getMarshallers().get(qname);
+        Marshaller marshaller = Configuration.getMarshallers().getMarshaller(qname);
         if (marshaller == null) {
             fail("Unable to find message marshaller for mode: " + qname);
         }
@@ -104,9 +103,7 @@ public class AssociationResponseNoEncryptionTest extends BaseMessageProviderTest
 
     /** {@inheritDoc} */
     public void testMessageUnmarshall() {
-        ParameterMap parameters = parseMessageFile(messageFile);
-        parameters.put(Parameter.mode.QNAME, expectedMode);
-        AssociationResponse response = (AssociationResponse) unmarshallMessage(parameters, expectedMode);
+        AssociationResponse response = (AssociationResponse) unmarshallMessage(messageFile);
 
         String associationHandle = response.getAssociationHandle();
         assertEquals("AssociationResponse assoc_handle was " + associationHandle + ", expected "

@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import edu.internet2.middleware.openid.BaseMessageProviderTestCase;
 import edu.internet2.middleware.openid.Configuration;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
-import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link AssociationRequest}.
@@ -66,7 +65,7 @@ public class VerifyResponseTest extends BaseMessageProviderTestCase {
         response.setInvalidateHandle(expectedInvalidateHandle);
 
         // test if maps are equal
-        Marshaller marshaller = Configuration.getMarshallers().get(qname);
+        Marshaller marshaller = Configuration.getMarshallers().getMarshaller(qname);
         if (marshaller == null) {
             fail("Unable to find message marshaller for mode: " + qname);
         }
@@ -80,9 +79,7 @@ public class VerifyResponseTest extends BaseMessageProviderTestCase {
 
     /** {@inheritDoc} */
     public void testMessageUnmarshall() {
-        ParameterMap parameters = parseMessageFile(messageFile);
-        parameters.put(Parameter.mode.QNAME, expectedMode);
-        VerifyResponse response = (VerifyResponse) unmarshallMessage(parameters, expectedMode);
+        VerifyResponse response = (VerifyResponse) unmarshallMessage(messageFile);
 
         boolean isValid = response.isValid();
         assertEquals("VerifyResponse is_valid was " + isValid + ", expected " + expectedValid, expectedValid, isValid);

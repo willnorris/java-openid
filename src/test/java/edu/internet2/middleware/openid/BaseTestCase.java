@@ -74,7 +74,7 @@ public abstract class BaseTestCase extends TestCase {
      */
     public void assertEquals(String failMessage, ParameterMap expectedParameters, Message message) {
         QName qname = new QName(OpenIDConstants.OPENID_20_NS, expectedParameters.get(Parameter.mode.QNAME));
-        Marshaller marshaller = Configuration.getMarshallers().get(qname);
+        Marshaller marshaller = Configuration.getMarshallers().getMarshaller(qname);
         if (marshaller == null) {
             fail("Unable to find message marshaller for mode: " + message.getMode());
         }
@@ -94,8 +94,7 @@ public abstract class BaseTestCase extends TestCase {
      * @return the OpenID message
      */
     protected Message unmarshallMessage(String messageFile) {
-        ParameterMap parameters = parseMessageFile(messageFile);
-        return unmarshallMessage(parameters, parameters.get(Parameter.mode.QNAME));
+        return unmarshallMessage(parseMessageFile(messageFile));
     }
 
     /**
@@ -104,18 +103,13 @@ public abstract class BaseTestCase extends TestCase {
      * @param parameters OpenID message parameters
      * @return the OpenID message
      */
-    protected Message unmarshallMessage(ParameterMap parameters, String mode) {
-        QName qname = new QName(OpenIDConstants.OPENID_20_NS, mode);
-        Unmarshaller unmarshaller = Configuration.getUnmarshallers().get(qname);
-
-        if (unmarshaller == null) {
-            fail("Unable to find message unmarshaller for mode: " + mode);
-        }
-
+    protected Message unmarshallMessage(ParameterMap parameters) {
+        Unmarshaller unmarshaller;
         try {
+            unmarshaller = Configuration.getUnmarshallers().getUnmarshaller(parameters);
             return unmarshaller.unmarshall(parameters);
         } catch (UnmarshallingException e) {
-            fail("Unable to unmarshall message");
+            fail("Unable to unmarshall message: " + e.getMessage());
         }
 
         return null;
@@ -149,7 +143,7 @@ public abstract class BaseTestCase extends TestCase {
     }
 
     public Message buildMessage(QName qname) {
-        MessageBuilder<Message> builder = Configuration.getBuilders().get(qname);
+        MessageBuilder<Message> builder = Configuration.getBuilders().getBuilder(qname);
 
         if (builder == null) {
             fail("Unable to retrieve builder for message with QName: " + qname);

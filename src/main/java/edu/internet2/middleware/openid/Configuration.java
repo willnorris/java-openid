@@ -16,14 +16,9 @@
 
 package edu.internet2.middleware.openid;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.namespace.QName;
-
-import edu.internet2.middleware.openid.message.Marshaller;
-import edu.internet2.middleware.openid.message.MessageBuilder;
-import edu.internet2.middleware.openid.message.Unmarshaller;
+import edu.internet2.middleware.openid.message.MarshallerFactory;
+import edu.internet2.middleware.openid.message.MessageBuilderFactory;
+import edu.internet2.middleware.openid.message.UnmarshallerFactory;
 
 /**
  * Class for loading library configuration files and retrieving the configured components.
@@ -31,13 +26,13 @@ import edu.internet2.middleware.openid.message.Unmarshaller;
 public class Configuration {
 
     /** Message Builders. */
-    private static Map<QName, MessageBuilder> messageBuilders = new HashMap<QName, MessageBuilder>();
+    private static MessageBuilderFactory messageBuilders = new MessageBuilderFactory();
 
     /** Message Marshallers. */
-    private static Map<QName, Marshaller> messageMarshallers = new HashMap<QName, Marshaller>();
+    private static MarshallerFactory messageMarshallers = new MarshallerFactory();
 
     /** Message Unmarshallers. */
-    private static Map<QName, Unmarshaller> messageUnmarshallers = new HashMap<QName, Unmarshaller>();
+    private static UnmarshallerFactory messageUnmarshallers = new UnmarshallerFactory();
 
     /** Constructor. */
     protected Configuration() {
@@ -48,7 +43,7 @@ public class Configuration {
      * 
      * @return message builders.
      */
-    public static Map<QName, MessageBuilder> getBuilders() {
+    public static MessageBuilderFactory getBuilders() {
         return messageBuilders;
     }
 
@@ -58,7 +53,7 @@ public class Configuration {
      * @return message marshallers.
      */
 
-    public static Map<QName, Marshaller> getMarshallers() {
+    public static MarshallerFactory getMarshallers() {
         return messageMarshallers;
     }
 
@@ -68,7 +63,7 @@ public class Configuration {
      * @return message unmarshallers.
      */
 
-    public static Map<QName, Unmarshaller> getUnmarshallers() {
+    public static UnmarshallerFactory getUnmarshallers() {
         return messageUnmarshallers;
     }
 
