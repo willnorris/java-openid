@@ -215,17 +215,29 @@ public class OpenIDConstants {
         /**
          * Association session type using Diffie-Hellman Key Exchange of 160 bit MAC keys.
          */
-        DH_SHA1,
+        DH_SHA1("HmacSHA1"),
 
         /**
          * Association session type using Diffie-Hellman Key Exchange of 256 bit MAC keys.
          */
-        DH_SHA256,
+        DH_SHA256("HmacSHA256"),
 
         /**
          * Association session type which does not encrypt the MAC key.
          */
-        no_encryption;
+        no_encryption(null);
+
+        /** The algorithm for this type. */
+        private final String algorithm;
+
+        /**
+         * Constructor.
+         * 
+         * @param newAlgorithm algorithm for this type
+         */
+        SessionType(String newAlgorithm) {
+            this.algorithm = newAlgorithm;
+        }
 
         /** {@inheritDoc} */
         public String toString() {
@@ -244,6 +256,15 @@ public class OpenIDConstants {
             }
 
             return SessionType.valueOf(type.replace('-', '_'));
+        }
+
+        /**
+         * Get the algorithm for this type.
+         * 
+         * @return the algorithm for this type
+         */
+        public String getAlgorithm() {
+            return algorithm;
         }
     }
 
