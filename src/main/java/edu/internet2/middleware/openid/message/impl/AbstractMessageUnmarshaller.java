@@ -16,18 +16,13 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.Map;
-
-import javax.xml.namespace.QName;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.Configuration;
-import edu.internet2.middleware.openid.common.OpenIDConstants;
-import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.MessageBuilder;
+import edu.internet2.middleware.openid.message.MessageBuilderFactory;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.Unmarshaller;
 import edu.internet2.middleware.openid.message.UnmarshallingException;
@@ -43,7 +38,7 @@ public abstract class AbstractMessageUnmarshaller<MessageType extends Message> i
     private final Logger log = LoggerFactory.getLogger(AbstractMessageUnmarshaller.class);
 
     /** Message builders. */
-    private Map<QName, MessageBuilder> messageBuilders;
+    private MessageBuilderFactory messageBuilders;
 
     /** Constructor. */
     public AbstractMessageUnmarshaller() {
@@ -83,13 +78,11 @@ public abstract class AbstractMessageUnmarshaller<MessageType extends Message> i
      * @throws UnmarshallingException if unable to build the message
      */
     protected MessageType buildMessage(ParameterMap parameters) throws UnmarshallingException {
-        String mode = parameters.get(Parameter.mode.QNAME);
-        QName qname = new QName(OpenIDConstants.OPENID_20_NS, mode);
-        MessageBuilder builder = messageBuilders.get(qname);
+        MessageBuilder builder = messageBuilders.getBuilder(parameters);
 
         if (builder == null) {
-            log.error("Unable to find builder for mode: {}", mode);
-            throw new UnmarshallingException("Unable to find builder for mode: " + mode);
+            log.error("Unable to find builder for parameter map: {}", parameters);
+            throw new UnmarshallingException("Unable to find builder for parameter map: " + parameters);
         }
 
         return (MessageType) builder.buildObject();
