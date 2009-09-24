@@ -18,7 +18,6 @@ package edu.internet2.middleware.openid.message.impl;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
@@ -44,8 +43,7 @@ public class PositiveAssertionUnmarshaller extends AbstractMessageUnmarshaller<P
             // TODO
         }
         response.setSignature(parameters.get(Parameter.sig.QNAME));
-        String signedFields = parameters.get(Parameter.signed.QNAME);
-        response.getSignedFields().addAll(Arrays.asList(signedFields.split(",")));
+        response.getSignedFields().addAll(parameters.getSignedParameters());
     }
 
 }

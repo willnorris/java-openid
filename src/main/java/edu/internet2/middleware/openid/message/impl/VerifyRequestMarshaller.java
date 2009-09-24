@@ -19,7 +19,6 @@ package edu.internet2.middleware.openid.message.impl;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.VerifyRequest;
-import edu.internet2.middleware.openid.util.StringUtils;
 
 /**
  * Marshaller for {@link VerifyRequest} messages.
@@ -36,7 +35,7 @@ public class VerifyRequestMarshaller extends AbstractMessageMarshaller<VerifyReq
         parameters.put(Parameter.response_nonce.QNAME, request.getResponseNonce());
         parameters.put(Parameter.return_to.QNAME, request.getReturnTo().toString());
         parameters.put(Parameter.sig.QNAME, request.getSignature());
-        parameters.put(Parameter.signed.QNAME, StringUtils.join(request.getSignedFields(), ","));
+        parameters.getSignedParameters().addAll(request.getSignedFields());
     }
 
 }

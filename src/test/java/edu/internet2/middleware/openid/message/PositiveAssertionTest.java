@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.BaseMessageProviderTestCase;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link AssociationRequest}.
@@ -61,7 +62,7 @@ public class PositiveAssertionTest extends BaseMessageProviderTestCase {
     private String expectedInvalidateHandle;
 
     /** Expected list of signed fields. */
-    private List<String> expectedSignedFields;
+    private List<QName> expectedSignedFields;
 
     /** Expected signature. */
     private String expectedSignature;
@@ -83,7 +84,8 @@ public class PositiveAssertionTest extends BaseMessageProviderTestCase {
         expectedNonce = "123";
         expectedInvalidateHandle = "old-handle";
         expectedAssociationHandle = "new-handle";
-        expectedSignedFields = Arrays.asList(new String[] { "mode", "claimed_id", "identity" });
+        expectedSignedFields = Arrays.asList(new QName[] { Parameter.mode.QNAME, Parameter.claimed_id.QNAME,
+                Parameter.identity.QNAME, });
         expectedSignature = "2Vcbt2I3MYZuYe91ouJ4mLBX+YkcLiemOcP";
     }
 
@@ -140,7 +142,7 @@ public class PositiveAssertionTest extends BaseMessageProviderTestCase {
         assertEquals("PositiveAssertion assoc_handle was " + handle + ", expected " + expectedAssociationHandle,
                 expectedAssociationHandle, handle);
 
-        List<String> signedFields = response.getSignedFields();
+        List<QName> signedFields = response.getSignedFields();
         assertEquals("PositiveAssertion signed was " + signedFields + ", expected " + expectedSignedFields,
                 expectedSignedFields, signedFields);
 

@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.BaseMessageProviderTestCase;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
+import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link AssociationRequest}.
@@ -61,7 +62,7 @@ public class VerifyRequestTest extends BaseMessageProviderTestCase {
     private String expectedInvalidateHandle;
 
     /** Expected list of signed fields. */
-    private List<String> expectedSignedFields;
+    private List<QName> expectedSignedFields;
 
     /** Expected signature. */
     private String expectedSignature;
@@ -83,7 +84,8 @@ public class VerifyRequestTest extends BaseMessageProviderTestCase {
         expectedNonce = "123";
         expectedInvalidateHandle = "old-handle";
         expectedAssociationHandle = "new-handle";
-        expectedSignedFields = Arrays.asList(new String[] { "mode", "claimed_id", "identity" });
+        expectedSignedFields = Arrays.asList(new QName[] { Parameter.mode.QNAME, Parameter.claimed_id.QNAME,
+                Parameter.identity.QNAME, });
         expectedSignature = "2Vcbt2I3MYZuYe91ouJ4mLBX+YkcLiemOcP";
     }
 
@@ -125,12 +127,12 @@ public class VerifyRequestTest extends BaseMessageProviderTestCase {
                 identity);
 
         URL returnTo = request.getReturnTo();
-        assertEquals("VerifyRequest return_to was " + returnTo.toString() + ", expected "
-                + expectedReturnTo.toString(), expectedReturnTo.toString(), returnTo.toString());
+        assertEquals(
+                "VerifyRequest return_to was " + returnTo.toString() + ", expected " + expectedReturnTo.toString(),
+                expectedReturnTo.toString(), returnTo.toString());
 
         String nonce = request.getResponseNonce();
-        assertEquals("VerifyRequest response_nonce was " + nonce + ", expected " + expectedNonce, expectedNonce,
-                nonce);
+        assertEquals("VerifyRequest response_nonce was " + nonce + ", expected " + expectedNonce, expectedNonce, nonce);
 
         String invalidateHandle = request.getInvalidateHandle();
         assertEquals("VerifyRequest invalidate_handle was " + invalidateHandle + ", expected "
@@ -140,13 +142,13 @@ public class VerifyRequestTest extends BaseMessageProviderTestCase {
         assertEquals("VerifyRequest assoc_handle was " + handle + ", expected " + expectedAssociationHandle,
                 expectedAssociationHandle, handle);
 
-        List<String> signedFields = request.getSignedFields();
+        List<QName> signedFields = request.getSignedFields();
         assertEquals("VerifyRequest signed was " + signedFields + ", expected " + expectedSignedFields,
                 expectedSignedFields, signedFields);
 
         String signature = request.getSignature();
-        assertEquals("VerifyRequest signature was " + signature + ", expected " + expectedSignature,
-                expectedSignature, signature);
+        assertEquals("VerifyRequest signature was " + signature + ", expected " + expectedSignature, expectedSignature,
+                signature);
     }
 
 }

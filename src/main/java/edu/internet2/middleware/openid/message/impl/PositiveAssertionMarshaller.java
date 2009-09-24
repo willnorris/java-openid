@@ -19,7 +19,6 @@ package edu.internet2.middleware.openid.message.impl;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
-import edu.internet2.middleware.openid.util.StringUtils;
 
 /**
  * Marshaller for {@link PositiveAssertion} messages.
@@ -36,7 +35,7 @@ public class PositiveAssertionMarshaller extends AbstractMessageMarshaller<Posit
         parameters.put(Parameter.response_nonce.QNAME, response.getResponseNonce());
         parameters.put(Parameter.return_to.QNAME, response.getReturnTo().toString());
         parameters.put(Parameter.sig.QNAME, response.getSignature());
-        parameters.put(Parameter.signed.QNAME, StringUtils.join(response.getSignedFields(), ","));
+        parameters.getSignedParameters().addAll(response.getSignedFields());
     }
 
 }

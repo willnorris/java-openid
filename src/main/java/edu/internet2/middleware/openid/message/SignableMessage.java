@@ -18,17 +18,19 @@ package edu.internet2.middleware.openid.message;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 /**
  * Signed OpenID protocol message.
  */
 public interface SignableMessage extends Message {
 
     /**
-     * The message fields that were used to generate the message signature. Fields do not include the "openid." prefix.
+     * The message fields that were used to generate the message signature.
      * 
      * @return the signed fields
      */
-    public List<String> getSignedFields();
+    public List<QName> getSignedFields();
 
     /**
      * The Base64 encoded signature.

@@ -19,6 +19,8 @@ package edu.internet2.middleware.openid.message.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import edu.internet2.middleware.openid.message.SignableMessage;
 
 /**
@@ -30,17 +32,17 @@ public abstract class AbstractSignableMessage extends AbstractMessage implements
     private String signature;
 
     /** Signed Fields. */
-    private List<String> signedFields;
+    private List<QName> signedFields;
 
     /**
      * Constructor.
      */
     public AbstractSignableMessage() {
-        signedFields = new ArrayList<String>();
+        signedFields = new ArrayList<QName>();
     }
 
     /** {@inheritDoc} */
-    public List<String> getSignedFields() {
+    public List<QName> getSignedFields() {
         return signedFields;
     }
 
