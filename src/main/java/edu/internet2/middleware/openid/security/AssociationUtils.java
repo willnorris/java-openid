@@ -30,21 +30,19 @@ import java.security.spec.InvalidKeySpecException;
 
 import javax.crypto.KeyAgreement;
 import javax.crypto.KeyGenerator;
-import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.interfaces.DHPublicKey;
 import javax.crypto.spec.DHParameterSpec;
 import javax.crypto.spec.DHPublicKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.opensaml.xml.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 
 /**
- * Association Utilities.
+ * Utility methods used to establish an OpenID Association, such as implementing Diffie-Hellman key exchange.
  */
 public class AssociationUtils {
 
@@ -164,29 +162,6 @@ public class AssociationUtils {
 
         byte[] decrypted = xor(macKey.getEncoded(), sharedSecret.getEncoded());
         return new SecretKeySpec(decrypted, macKey.getAlgorithm());
-    }
-
-    /**
-     * Calculate signature for specified data using an Association.
-     * 
-     * @param association association
-     * @param data data to calculate signature for
-     * @return calculated signature
-     */
-    public static String calculateSignature(Association association, String data) {
-        try {
-            Mac mac = Mac.getInstance(association.getMacKey().getAlgorithm());
-            mac.init(association.getMacKey());
-
-            byte[] rawHmac = mac.doFinal(data.getBytes());
-            return Base64.encodeBytes(rawHmac, Base64.DONT_BREAK_LINES);
-        } catch (InvalidKeyException e) {
-            log.error("Unable to generate Mac - " + e.getMessage());
-        } catch (NoSuchAlgorithmException e) {
-            log.error("Unable to generate Mac - " + e.getMessage());
-        }
-
-        return null;
     }
 
     /**

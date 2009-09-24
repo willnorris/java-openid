@@ -20,14 +20,12 @@ import java.security.Key;
 import java.security.KeyPair;
 
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.BaseTestCase;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
-import edu.internet2.middleware.openid.security.impl.BasicAssociation;
 
 /**
  * Association test.
@@ -81,22 +79,6 @@ public class AssociationTest extends BaseTestCase {
         Key decryptedKey = AssociationUtils.decryptMacKey(encryptedKey, sharedSecret);
         assertNotNull(decryptedKey);
         assertEquals("Decrypted key doesn't match the original mac key", macKey, decryptedKey);
-    }
-
-    /**
-     * Test signing of data with the MAC.
-     */
-    public void testSignatureCreation() {
-        String algorithm = AssociationType.HMAC_SHA256.getAlgorithm();
-        String encodedMacKey = "qMOYPeeb8PhGk8mlPUV+qBPPlFzY6xHk1AhSiRCQVsk=";
-        Key macKey = new SecretKeySpec(encodedMacKey.getBytes(), algorithm);
-
-        BasicAssociation association = new BasicAssociation();
-        association.setAssociationType(AssociationType.HMAC_SHA256);
-        association.setMacKey(macKey);
-
-        String signature = AssociationUtils.calculateSignature(association, "foo");
-        assertEquals("gp8cxaax9Hynh5JqM/kQ2mLdOC36fwYTrOUvQ4fX8nE=", signature);
     }
 
 }
