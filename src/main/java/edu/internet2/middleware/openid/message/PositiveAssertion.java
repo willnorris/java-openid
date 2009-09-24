@@ -22,7 +22,7 @@ import java.net.URL;
  * Response to an authentication request indicating that the OpenID Provider was successfully able to authenticate the
  * end user.
  */
-public interface PositiveAssertion extends SignedMessage {
+public interface PositiveAssertion extends SignableMessage {
 
     /**
      * Message mode indicating a positive assertion.

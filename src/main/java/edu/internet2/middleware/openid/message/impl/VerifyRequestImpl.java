@@ -24,7 +24,7 @@ import edu.internet2.middleware.openid.message.VerifyRequest;
 /**
  * Implementation of {@link VerifyRequest}.
  */
-public class VerifyRequestImpl extends AbstractSignedMessage implements VerifyRequest {
+public class VerifyRequestImpl extends AbstractSignableMessage implements VerifyRequest {
 
     /** Association handle. */
     private String associationHandle;

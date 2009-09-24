@@ -22,7 +22,7 @@ import java.net.URL;
  * Request to verify a positive authentication assertion. All of the data from the assertion to be verified is included
  * in the verification request.
  */
-public interface VerifyRequest extends SignedMessage {
+public interface VerifyRequest extends SignableMessage {
 
     /**
      * Message mode for verification requests.

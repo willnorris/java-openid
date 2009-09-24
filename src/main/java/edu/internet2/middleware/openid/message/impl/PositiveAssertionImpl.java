@@ -23,7 +23,7 @@ import edu.internet2.middleware.openid.message.PositiveAssertion;
 /**
  * Implementation of {@link PositiveAssertion}.
  */
-public class PositiveAssertionImpl extends AbstractSignedMessage implements PositiveAssertion {
+public class PositiveAssertionImpl extends AbstractSignableMessage implements PositiveAssertion {
 
     /** Association handle. */
     private String associationHandle;

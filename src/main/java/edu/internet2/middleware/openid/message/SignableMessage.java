@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Signed OpenID protocol message.
  */
-public interface SignedMessage extends Message {
+public interface SignableMessage extends Message {
 
     /**
      * The message fields that were used to generate the message signature. Fields do not include the "openid." prefix.
