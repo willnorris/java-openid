@@ -17,6 +17,8 @@
 package edu.internet2.middleware.openid.security.impl;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.common.IdentifierGenerator;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
@@ -30,6 +32,9 @@ import edu.internet2.middleware.openid.security.AssociationUtils;
  */
 public class BasicAssociationBuilder implements AssociationBuilder {
 
+    /** Logger. */
+    private final Logger log = LoggerFactory.getLogger(BasicAssociationBuilder.class);
+
     /** Handle Generator. */
     private IdentifierGenerator handleGenerator;
 
@@ -40,12 +45,14 @@ public class BasicAssociationBuilder implements AssociationBuilder {
 
     /** {@inheritDoc} */
     public Association buildAssociation(AssociationType type, int lifetime, String entity) {
+        log.debug("Building new association of type {}", type);
+
         BasicAssociation association = new BasicAssociation();
         association.setHandle(handleGenerator.generateIdentifier());
         association.setAssociationType(type);
         association.setEntity(entity);
         association.setExpiration(new DateTime().plus(lifetime * 1000));
-        association.setMacKey(AssociationUtils.generateMacKey(type.getAlgorithm()));
+        association.setMacKey(AssociationUtils.generateMacKey(type.getAlgorithm(), type.getKeySize()));
 
         return association;
     }

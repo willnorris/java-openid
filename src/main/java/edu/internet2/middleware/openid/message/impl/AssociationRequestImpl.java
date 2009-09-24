@@ -16,8 +16,8 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.math.BigInteger;
-import java.security.PublicKey;
+import javax.crypto.interfaces.DHPublicKey;
+import javax.crypto.spec.DHParameterSpec;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
@@ -28,24 +28,17 @@ import edu.internet2.middleware.openid.message.AssociationRequest;
  */
 public class AssociationRequestImpl extends AbstractMessage implements AssociationRequest {
 
-    /** Diffie-Hellman public key. */
-    private PublicKey dhConsumerPublic;
-
-    /** Diffie-Hellman generator. */
-    private BigInteger dhGen;
-
-    /** Diffie-Hellman modulus. */
-    private BigInteger dhModulus;
-
-    /**
-     * Association type.
-     */
+    /** Association type. */
     private AssociationType associationType;
 
-    /**
-     * Association session type.
-     */
+    /** Association session type. */
     private SessionType sessionType;
+
+    /** Diffie-Hellman public key. */
+    private DHPublicKey dhConsumerPublic;
+
+    /** Diffie-Hellman parameters. */
+    private DHParameterSpec dhParameters;
 
     /** {@inheritDoc} */
     public String getMode() {
@@ -73,33 +66,23 @@ public class AssociationRequestImpl extends AbstractMessage implements Associati
     }
 
     /** {@inheritDoc} */
-    public PublicKey getDHConsumerPublic() {
+    public DHPublicKey getDHConsumerPublic() {
         return dhConsumerPublic;
     }
 
     /** {@inheritDoc} */
-    public void setDHConsumerPublic(PublicKey newConsumerPublic) {
+    public void setDHConsumerPublic(DHPublicKey newConsumerPublic) {
         dhConsumerPublic = newConsumerPublic;
     }
 
     /** {@inheritDoc} */
-    public BigInteger getDHGen() {
-        return dhGen;
+    public DHParameterSpec getDHParameters() {
+        return dhParameters;
     }
 
     /** {@inheritDoc} */
-    public void setDHGen(BigInteger newGen) {
-        dhGen = newGen;
-    }
-
-    /** {@inheritDoc} */
-    public BigInteger getDHModulus() {
-        return dhModulus;
-    }
-
-    /** {@inheritDoc} */
-    public void setDHModulus(BigInteger newModulus) {
-        dhModulus = newModulus;
+    public void setDHParameters(DHParameterSpec newParameters) {
+        dhParameters = newParameters;
     }
 
 }

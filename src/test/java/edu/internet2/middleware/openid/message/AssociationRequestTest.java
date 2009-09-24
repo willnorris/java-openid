@@ -19,6 +19,8 @@ package edu.internet2.middleware.openid.message;
 import java.math.BigInteger;
 import java.security.PublicKey;
 
+import javax.crypto.interfaces.DHPublicKey;
+import javax.crypto.spec.DHParameterSpec;
 import javax.xml.namespace.QName;
 
 import org.opensaml.xml.util.Base64;
@@ -55,7 +57,7 @@ public class AssociationRequestTest extends BaseMessageProviderTestCase {
     private BigInteger expectedGenerator;
 
     /** Expected DH consumer public key. */
-    private PublicKey expectedConsumerPublic;
+    private DHPublicKey expectedConsumerPublic;
 
     /** Constructor. */
     public AssociationRequestTest() {
@@ -71,13 +73,14 @@ public class AssociationRequestTest extends BaseMessageProviderTestCase {
         expectedSessionType = SessionType.DH_SHA256;
         expectedModulus = OpenIDConstants.DEFAULT_DH_MODULUS;
         expectedGenerator = BigInteger.valueOf(2);
+        DHParameterSpec dhParameters = new DHParameterSpec(expectedModulus, expectedGenerator);
 
         String consumerPublicKey = "MIIBJDCBmQYJKoZIhvcNAQMBMIGLAoGBANz5OguIOXLsDhmYmsWizjEOHTdxfo2Vcbt2I3MYZuYe9"
                 + "1ouJ4mLBX+YkcLiemOcPym2CBRYHNOyyjmG0mg3BVd9RcLn5S3IHHoXGHblzqdLFEi/368Ygo79JRnxTkXjgmY0rxlJ5bU"
                 + "1zIKaSDuKdiI+XUkKJX8Fvf8W8vsixYOrAgECAgICAAOBhQACgYEAo4nggMiy9KMoUd88/PzaN92+tloaeP6K66eTx0IR8"
                 + "IPowmV8bPL1NBiAScSyZ4/eUENfUIZ+UiGRDJDzBlMOWx4N2hlpZRmAM7CZPCu6BjMACFzJBhM3dAPYiTmjjlTexGIKzhs"
                 + "LhAENmWmOlHcaywlYCB91Lgb7gOutS9iN2sw=";
-        expectedConsumerPublic = AssociationUtils.loadPublicKey(Base64.decode(consumerPublicKey));
+        expectedConsumerPublic = AssociationUtils.loadPublicKey(Base64.decode(consumerPublicKey), dhParameters);
     }
 
     /** {@inheritDoc} */
@@ -87,8 +90,7 @@ public class AssociationRequestTest extends BaseMessageProviderTestCase {
 
         request.setAssociationType(expectedAssociationType);
         request.setSessionType(expectedSessionType);
-        request.setDHModulus(expectedModulus);
-        request.setDHGen(expectedGenerator);
+        request.setDHParameters(new DHParameterSpec(expectedModulus, expectedGenerator));
         request.setDHConsumerPublic(expectedConsumerPublic);
 
         assertEquals(expectedParameters, request);
@@ -109,11 +111,11 @@ public class AssociationRequestTest extends BaseMessageProviderTestCase {
         assertEquals("AssociationRequest session_type was " + sessionType + ", expected " + expectedSessionType,
                 expectedSessionType, sessionType);
 
-        BigInteger modulus = request.getDHModulus();
+        BigInteger modulus = request.getDHParameters().getP();
         assertEquals("AssociationRequest dh_modulus was " + modulus + ", expected " + expectedModulus, expectedModulus,
                 modulus);
 
-        BigInteger generator = request.getDHGen();
+        BigInteger generator = request.getDHParameters().getG();
         assertEquals("AssociationRequest dh_gen was " + generator + ", expected " + expectedGenerator,
                 expectedGenerator, generator);
 

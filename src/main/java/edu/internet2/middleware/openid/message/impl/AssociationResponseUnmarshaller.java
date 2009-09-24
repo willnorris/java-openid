@@ -18,13 +18,15 @@ package edu.internet2.middleware.openid.message.impl;
 
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 
+import javax.crypto.interfaces.DHPublicKey;
+import javax.crypto.spec.DHParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.opensaml.xml.util.Base64;
+import org.bouncycastle.util.encoders.Base64;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
@@ -34,6 +36,11 @@ import edu.internet2.middleware.openid.security.AssociationUtils;
 
 /**
  * Marshaller for {@link AssociationResponse} messages.
+ * 
+ * The Server DH Public Key cannot be properly unmarshalled without the {@link DHParameterSpec} from the association
+ * request this response is connected with. Therefore, the server public key is unmarshalled with the default DH
+ * Parameters. Receivers of this unmarshalled message should verify that this is the correct value, and regenerate the
+ * DHPublicKey if it is not.
  */
 public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller<AssociationResponse> {
 
@@ -53,7 +60,9 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
 
             try {
                 String encodedKey = parameters.get(Parameter.dh_server_public.QNAME);
-                PublicKey publicKey = AssociationUtils.loadPublicKey(Base64.decode(encodedKey));
+                // Temporarily unmarshall the public key using the default DHParameterSpec
+                DHPublicKey publicKey = AssociationUtils.loadPublicKey(Base64.decode(encodedKey),
+                        OpenIDConstants.DEFAULT_PARAMETER_SPEC);
                 response.setDHServerPublic(publicKey);
             } catch (NoSuchAlgorithmException e) {
                 // TODO

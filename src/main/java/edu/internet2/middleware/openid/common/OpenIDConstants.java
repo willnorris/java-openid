@@ -18,6 +18,7 @@ package edu.internet2.middleware.openid.common;
 
 import java.math.BigInteger;
 
+import javax.crypto.spec.DHParameterSpec;
 import javax.xml.namespace.QName;
 
 /**
@@ -58,6 +59,9 @@ public class OpenIDConstants {
 
     /** Default Diffie-Hellman Generator. */
     public static final BigInteger DEFAULT_DH_GEN = BigInteger.valueOf(2);
+
+    /** Default Diffie-Hellman Parameter Spec. */
+    public static final DHParameterSpec DEFAULT_PARAMETER_SPEC = new DHParameterSpec(DEFAULT_DH_MODULUS, DEFAULT_DH_GEN);
 
     /**
      * OpenID parameters.
@@ -159,23 +163,28 @@ public class OpenIDConstants {
         /**
          * Association type using the HMAC-SHA1 signature algorithm.
          */
-        HMAC_SHA1("HmacSHA1"),
+        HMAC_SHA1("HmacSHA1", 160),
 
         /**
          * Association type using the HMAC-SHA256 signature algorithm.
          */
-        HMAC_SHA256("HmacSHA256");
+        HMAC_SHA256("HmacSHA256", 256);
 
         /** The algorithm for this type. */
         private final String algorithm;
+
+        /** Key size. */
+        private final int keySize;
 
         /**
          * Constructor.
          * 
          * @param newAlgorithm the algorithm for this type
+         * @param newSize the key size for this type
          */
-        AssociationType(String newAlgorithm) {
+        AssociationType(String newAlgorithm, int newSize) {
             this.algorithm = newAlgorithm;
+            this.keySize = newSize;
         }
 
         /** {@inheritDoc} */
@@ -204,6 +213,15 @@ public class OpenIDConstants {
          */
         public String getAlgorithm() {
             return algorithm;
+        }
+
+        /**
+         * Get the key size for this type.
+         * 
+         * @return key size
+         */
+        public int getKeySize() {
+            return keySize;
         }
     }
 

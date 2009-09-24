@@ -16,8 +16,8 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.math.BigInteger;
-import java.security.PublicKey;
+import javax.crypto.interfaces.DHPublicKey;
+import javax.crypto.spec.DHParameterSpec;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
@@ -61,45 +61,31 @@ public interface AssociationRequest extends Message {
     public void setSessionType(SessionType newSessionType);
 
     /**
-     * Get the Diffie-Hellman modulus.
+     * Get the Diffie-Hellman parameters.
      * 
-     * @return DH modulus
+     * @return DH parameters
      */
-    public BigInteger getDHModulus();
+    public DHParameterSpec getDHParameters();
 
     /**
-     * Set the Diffie-Hellman modulus.
+     * Set the Diffie-Hellman parameters.
      * 
-     * @param newModulus DH modulus
+     * @param newParamaters DH parameters
      */
-    public void setDHModulus(BigInteger newModulus);
-
-    /**
-     * Get the Diffie-Hellman generator.
-     * 
-     * @return the DH generator
-     */
-    public BigInteger getDHGen();
-
-    /**
-     * Set the Diffie-Hellman generator.
-     * 
-     * @param newGen the DH generator
-     */
-    public void setDHGen(BigInteger newGen);
+    public void setDHParameters(DHParameterSpec newParamaters);
 
     /**
      * Get the Relying Party's Diffie-Hellman public key.
      * 
      * @return the DH key
      */
-    public PublicKey getDHConsumerPublic();
+    public DHPublicKey getDHConsumerPublic();
 
     /**
      * Set the Relying Party's Diffie-Hellman public key.
      * 
      * @param newPublicKey the DH key
      */
-    public void setDHConsumerPublic(PublicKey newPublicKey);
+    public void setDHConsumerPublic(DHPublicKey newPublicKey);
 
 }

@@ -17,7 +17,8 @@
 package edu.internet2.middleware.openid.message.impl;
 
 import java.security.Key;
-import java.security.PublicKey;
+
+import javax.crypto.interfaces.DHPublicKey;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
@@ -33,7 +34,7 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
     private String associationHandle;
 
     /** Diffie-Hellman public key. */
-    private PublicKey publicKey;
+    private DHPublicKey publicKey;
 
     /** MAC Key. */
     private Key macKey;
@@ -91,12 +92,12 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
     }
 
     /** {@inheritDoc} */
-    public PublicKey getDHServerPublic() {
+    public DHPublicKey getDHServerPublic() {
         return publicKey;
     }
 
     /** {@inheritDoc} */
-    public void setDHServerPublic(PublicKey newPublicKey) {
+    public void setDHServerPublic(DHPublicKey newPublicKey) {
         publicKey = newPublicKey;
     }
 

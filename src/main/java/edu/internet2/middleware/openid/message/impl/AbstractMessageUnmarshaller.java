@@ -57,8 +57,9 @@ public abstract class AbstractMessageUnmarshaller<MessageType extends Message> i
      * 
      * @param message Message to unmarshall parameters into
      * @param parameters parameter map to unmarshall
+     * @throws UnmarshallingException thrown if an error occurs unmarshalling the Parameter Map into the OpenID Message
      */
-    public void unmarshall(MessageType message, ParameterMap parameters) {
+    public void unmarshall(MessageType message, ParameterMap parameters) throws UnmarshallingException {
         unmarshallParameters(message, parameters);
     }
 
@@ -67,8 +68,10 @@ public abstract class AbstractMessageUnmarshaller<MessageType extends Message> i
      * 
      * @param message Message to unmarshall parameters into
      * @param parameters parameter map to unmarshall
+     * @throws UnmarshallingException thrown if an error occurs unmarshalling the Parameter Map into the OpenID Message
      */
-    public abstract void unmarshallParameters(MessageType message, ParameterMap parameters);
+    public abstract void unmarshallParameters(MessageType message, ParameterMap parameters)
+            throws UnmarshallingException;
 
     /**
      * Build an OpenID message object.

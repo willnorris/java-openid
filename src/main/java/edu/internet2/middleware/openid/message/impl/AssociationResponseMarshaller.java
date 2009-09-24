@@ -16,7 +16,7 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import org.opensaml.xml.util.Base64;
+import org.bouncycastle.util.encoders.Base64;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
@@ -35,11 +35,11 @@ public class AssociationResponseMarshaller extends AbstractMessageMarshaller<Ass
         SessionType sessionType = response.getSessionType();
         parameters.put(Parameter.session_type.QNAME, sessionType.toString());
 
-        String macKey = Base64.encodeBytes(response.getMacKey().getEncoded(), Base64.DONT_BREAK_LINES);
+        String macKey = new String(Base64.encode(response.getMacKey().getEncoded()));
 
         if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
             parameters.put(Parameter.enc_mac_key.QNAME, macKey);
-            String publicKey = Base64.encodeBytes(response.getDHServerPublic().getEncoded(), Base64.DONT_BREAK_LINES);
+            String publicKey = new String(Base64.encode(response.getDHServerPublic().getY().toByteArray()));
             parameters.put(Parameter.dh_server_public.QNAME, publicKey);
         } else {
             parameters.put(Parameter.mac_key.QNAME, macKey);

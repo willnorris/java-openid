@@ -27,13 +27,14 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.KeyAgreement;
 import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
+import javax.crypto.interfaces.DHPublicKey;
 import javax.crypto.spec.DHParameterSpec;
+import javax.crypto.spec.DHPublicKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.opensaml.xml.util.Base64;
@@ -46,10 +47,6 @@ import edu.internet2.middleware.openid.common.OpenIDConstants;
  * Association Utilities.
  */
 public class AssociationUtils {
-
-    /** Default Diffie-Hellman Parameter Spec. */
-    public static final DHParameterSpec DEFAULT_PARAMETER_SPEC = new DHParameterSpec(
-            OpenIDConstants.DEFAULT_DH_MODULUS, OpenIDConstants.DEFAULT_DH_GEN);
 
     /** Diffie-Hellman algorithm. */
     public static final String DH_ALGORITHM = "DH";
@@ -67,7 +64,7 @@ public class AssociationUtils {
      * @return generated key pair
      */
     public static KeyPair generateKeyPair() {
-        return generateKeyPair(AssociationUtils.DEFAULT_PARAMETER_SPEC);
+        return generateKeyPair(OpenIDConstants.DEFAULT_PARAMETER_SPEC);
     }
 
     /**
@@ -79,6 +76,8 @@ public class AssociationUtils {
      * @throws InvalidAlgorithmParameterException
      */
     public static KeyPair generateKeyPair(DHParameterSpec parameters) {
+        log.debug("generating new Diffi-Hellman key pair.");
+
         try {
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance(DH_ALGORITHM);
             keyGen.initialize(parameters);
@@ -101,6 +100,8 @@ public class AssociationUtils {
      * @return generated secret key
      */
     public static SecretKey generateSharedSecret(PrivateKey privateKey, PublicKey publicKey, String algorithm) {
+        log.debug("generating new shared secret");
+
         try {
             KeyAgreement keyAgreement = KeyAgreement.getInstance(DH_ALGORITHM);
             keyAgreement.init(privateKey);
@@ -122,9 +123,13 @@ public class AssociationUtils {
      * @param algorithm algorithm to use for generated key
      * @return generated MAC Key
      */
-    public static SecretKey generateMacKey(String algorithm) {
+    public static SecretKey generateMacKey(String algorithm, int keySize) {
+        log.debug("generating new MAC key of size {} with algorithm: {}", keySize, algorithm);
+
         try {
-            return KeyGenerator.getInstance(algorithm).generateKey();
+            KeyGenerator keyGen = KeyGenerator.getInstance(algorithm);
+            keyGen.init(keySize);
+            return keyGen.generateKey();
         } catch (NoSuchAlgorithmException e) {
             log.error("Unable to generate mac key - " + e.getMessage());
         }
@@ -140,6 +145,8 @@ public class AssociationUtils {
      * @return encrypted MAC Key
      */
     public static SecretKey encryptMacKey(Key macKey, SecretKey sharedSecret) {
+        log.debug("encrypting MAC key");
+
         byte[] encrypted = xor(macKey.getEncoded(), sharedSecret.getEncoded());
         return new SecretKeySpec(encrypted, macKey.getAlgorithm());
     }
@@ -153,6 +160,8 @@ public class AssociationUtils {
      * @return decrypted MAC key
      */
     public static SecretKey decryptMacKey(Key macKey, SecretKey sharedSecret) {
+        log.debug("decrypting MAC key");
+
         byte[] decrypted = xor(macKey.getEncoded(), sharedSecret.getEncoded());
         return new SecretKeySpec(decrypted, macKey.getAlgorithm());
     }
@@ -188,10 +197,11 @@ public class AssociationUtils {
      * @throws NoSuchAlgorithmException if unknown algorithm is request
      * @throws InvalidKeySpecException if key spc is invalid
      */
-    public static PublicKey loadPublicKey(byte[] bytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);
+    public static DHPublicKey loadPublicKey(byte[] bytes, DHParameterSpec parameters) throws NoSuchAlgorithmException,
+            InvalidKeySpecException {
+        DHPublicKeySpec keySpec = new DHPublicKeySpec(new BigInteger(bytes), parameters.getP(), parameters.getG());
         KeyFactory keyFactory = KeyFactory.getInstance("DH");
-        return keyFactory.generatePublic(keySpec);
+        return (DHPublicKey) keyFactory.generatePublic(keySpec);
     }
 
     /**

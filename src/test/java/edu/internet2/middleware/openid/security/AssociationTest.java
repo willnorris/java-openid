@@ -64,13 +64,15 @@ public class AssociationTest extends BaseTestCase {
      * Test encryption of the MAC key.
      */
     public void testMacKeyEncryption() {
-        String algorithm = AssociationType.HMAC_SHA256.getAlgorithm();
+        AssociationType associationType = AssociationType.HMAC_SHA256;
+
         KeyPair keyPair = AssociationUtils.generateKeyPair();
         SecretKey sharedSecret = AssociationUtils.generateSharedSecret(keyPair.getPrivate(), keyPair.getPublic(),
-                algorithm);
+                associationType.getAlgorithm());
 
-        Key macKey = AssociationUtils.generateMacKey(algorithm);
+        Key macKey = AssociationUtils.generateMacKey(associationType.getAlgorithm(), associationType.getKeySize());
         assertNotNull(macKey);
+        assertEquals("Key is not the expected size.", associationType.getKeySize(), macKey.getEncoded().length * 8);
 
         Key encryptedKey = AssociationUtils.encryptMacKey(macKey, sharedSecret);
         assertNotNull(encryptedKey);

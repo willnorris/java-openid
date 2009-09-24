@@ -17,7 +17,8 @@
 package edu.internet2.middleware.openid.message;
 
 import java.security.Key;
-import java.security.PublicKey;
+
+import javax.crypto.interfaces.DHPublicKey;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
@@ -103,13 +104,13 @@ public interface AssociationResponse extends Message {
      * 
      * @return the DH server key
      */
-    public PublicKey getDHServerPublic();
+    public DHPublicKey getDHServerPublic();
 
     /**
      * Set the OpenID Provider's Diffie-Hellman public key.
      * 
      * @param newPublicKey the DH server key
      */
-    public void setDHServerPublic(PublicKey newPublicKey);
+    public void setDHServerPublic(DHPublicKey newPublicKey);
 
 }

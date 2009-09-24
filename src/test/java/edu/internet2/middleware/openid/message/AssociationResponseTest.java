@@ -20,6 +20,7 @@ import java.security.Key;
 import java.security.PublicKey;
 
 import javax.crypto.SecretKey;
+import javax.crypto.interfaces.DHPublicKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.namespace.QName;
 
@@ -58,7 +59,7 @@ public class AssociationResponseTest extends BaseMessageProviderTestCase {
     private Integer expectedLifetime;
 
     /** Expected DH server public. */
-    private PublicKey expectedServerPublic;
+    private DHPublicKey expectedServerPublic;
 
     /** Expected encrypted MAC key. */
     private SecretKey expectedEncryptedMacKey;
@@ -83,7 +84,8 @@ public class AssociationResponseTest extends BaseMessageProviderTestCase {
                 + "bU1zIKaSDuKdiI+XUkKJX8Fvf8W8vsixYOrAgECAgICAAOBhAACgYAyF/jTzfAxpM62s22/OFZe3p/R0WpKPwIe1xeCV"
                 + "Kw53Kx2LA/yZjtSGJ3LC00zsWnnehbGDDv2nSHHKc9GKxsCyjUu03+G9p280yR/YC+T4/wegDFY/+ueqd98NmEHQFIi+"
                 + "mdFwVnmpVbwqA+Ek1uDfo+mUFeVUfbVpZjI0FeBbw==";
-        expectedServerPublic = AssociationUtils.loadPublicKey(Base64.decode(serverPublicKey));
+        expectedServerPublic = AssociationUtils.loadPublicKey(Base64.decode(serverPublicKey),
+                OpenIDConstants.DEFAULT_PARAMETER_SPEC);
 
         String encodedMacKey = "hVGXOx0j7OndhRlCsfa37y1CP4GKapFc1wdz3gK71q4fkr+aTo9mvMaxkjZIzJIzcyGgYqD1XLJSdbfr"
                 + "dSh5uR9ejxqTDAZUW0FwGZWpvfu2BEadoiwq8R4bqtiWFfRgMVIK5YW2hydvJGblZtxjhJfClh0Wbb6TK2xpq3y5NhA=";
@@ -110,6 +112,14 @@ public class AssociationResponseTest extends BaseMessageProviderTestCase {
         }
         try {
             ParameterMap generatedParameters = marshaller.marshall(response);
+            log.info("expected");
+            for (QName key : expectedParameters.keySet()) {
+                log.info("{} = {}", key, expectedParameters.get(key));
+            }
+            log.info("generated");
+            for (QName key : generatedParameters.keySet()) {
+                log.info("{} = {}", key, generatedParameters.get(key));
+            }
             assertTrue(expectedParameters.equals(generatedParameters));
         } catch (MarshallingException e) {
             fail("Unable to marshall message");
