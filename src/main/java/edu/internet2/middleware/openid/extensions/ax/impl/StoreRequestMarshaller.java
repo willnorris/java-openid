@@ -23,8 +23,6 @@ import java.util.Map;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
 import edu.internet2.middleware.openid.extensions.ax.StoreRequest;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
-rameter;
-import edu.internet2.middleware.openid.message.io.Marshaller;
 
 /**
  * StoreRequestMarshaller.

@@ -19,8 +19,6 @@ package edu.internet2.middleware.openid.extensions.ax.impl;
 import java.util.Map;
 
 import edu.internet2.middleware.openid.extensions.ax.FetchRequest;
-t;
-import edu.internet2.middleware.openid.message.io.Unmarshaller;
 
 /**
  * FetchRequestUnmarshaller.

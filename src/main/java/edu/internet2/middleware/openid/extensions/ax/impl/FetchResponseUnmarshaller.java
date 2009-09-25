@@ -19,13 +19,11 @@ package edu.internet2.middleware.openid.extensions.ax.impl;
 import java.util.Map;
 
 import edu.internet2.middleware.openid.extensions.ax.FetchResponse;
-e;
-import edu.internet2.middleware.openid.message.io.Unmarshaller;
 
 /**
  * FetchRequestUnmarshaller.
  */
-public class FetchResponseUnmarshaller  {
+public class FetchResponseUnmarshaller {
 
     /** {@inheritDoc} */
     public FetchResponse unmarshall(Map<String, String> parameters) {

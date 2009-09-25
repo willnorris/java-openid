@@ -24,7 +24,6 @@ import java.util.Map;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
 import edu.internet2.middleware.openid.extensions.ax.FetchResponse;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
-rameter;
 
 /**
  * FetchRequestMarshaller.
