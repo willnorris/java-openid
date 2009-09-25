@@ -11,11 +11,6 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.devzuz.q.maven.jdt.core.mavenIncrementalBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.iam.jdt.core.mavenIncrementalBuilder</name>
 			<arguments>
 			</arguments>
@@ -29,7 +24,6 @@
 	<natures>
 		<nature>org.eclipse.iam.jdt.core.mavenNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>org.devzuz.q.maven.jdt.core.mavenNature</nature>
 		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 	</natures>
 </projectDescription>
