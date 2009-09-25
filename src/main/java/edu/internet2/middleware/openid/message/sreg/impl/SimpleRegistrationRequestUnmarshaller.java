@@ -20,9 +20,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
-import org.opensaml.xml.util.DatatypeHelper;
-
-import edu.internet2.middleware.openid.message.Unmarshaller;
 import edu.internet2.middleware.openid.message.sreg.SimpleRegistrationRequest;
 import edu.internet2.middleware.openid.message.sreg.SimpleRegistration.Field;
 import edu.internet2.middleware.openid.message.sreg.SimpleRegistration.Parameter;
@@ -30,7 +27,7 @@ import edu.internet2.middleware.openid.message.sreg.SimpleRegistration.Parameter
 /**
  * Unmarshaller for a simple registration request.
  */
-public class SimpleRegistrationRequestUnmarshaller  {
+public class SimpleRegistrationRequestUnmarshaller {
 
     /** {@inheritDoc} */
     public SimpleRegistrationRequest unmarshall(Map<String, String> parameters) {
@@ -46,7 +43,7 @@ public class SimpleRegistrationRequestUnmarshaller  {
 
         // required fields
         String requiredFields = parameters.get(Parameter.required.toString());
-        if (!DatatypeHelper.isEmpty(requiredFields)) {
+        if (!requiredFields.isEmpty()) {
             for (String fieldName : requiredFields.split(",")) {
                 try {
                     request.getRequiredFields().add(Field.valueOf(fieldName));
@@ -58,7 +55,7 @@ public class SimpleRegistrationRequestUnmarshaller  {
 
         // optional fields
         String optionalFields = parameters.get(Parameter.optional.toString());
-        if (!DatatypeHelper.isEmpty(optionalFields)) {
+        if (!optionalFields.isEmpty()) {
             for (String fieldName : optionalFields.split(",")) {
                 try {
                     request.getOptionalFields().add(Field.valueOf(fieldName));

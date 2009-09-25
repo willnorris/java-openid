@@ -19,7 +19,7 @@ package edu.internet2.middleware.openid.common.impl;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import org.bouncycastle.util.encoders.Hex;
+import org.apache.commons.codec.binary.Hex;
 
 import edu.internet2.middleware.openid.common.IdentifierGenerator;
 
@@ -60,6 +60,6 @@ public class SecureRandomIdentifierGenerator implements IdentifierGenerator {
     public String generateIdentifier(int size) {
         byte[] buf = new byte[size];
         random.nextBytes(buf);
-        return "_".concat(new String(Hex.encode(buf)));
+        return "_".concat(new String(Hex.encodeHex(buf)));
     }
 }

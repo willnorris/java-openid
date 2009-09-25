@@ -19,7 +19,7 @@ package edu.internet2.middleware.openid.message.impl;
 import javax.crypto.interfaces.DHPublicKey;
 import javax.crypto.spec.DHParameterSpec;
 
-import org.bouncycastle.util.encoders.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
@@ -42,17 +42,17 @@ public class AssociationRequestMarshaller extends AbstractMessageMarshaller<Asso
 
             DHParameterSpec dhParameters = request.getDHParameters();
             if (dhParameters != null) {
-                byte[] modulus = Base64.encode(dhParameters.getP().toByteArray());
+                byte[] modulus = Base64.encodeBase64(dhParameters.getP().toByteArray());
                 parameters.put(Parameter.dh_modulus.QNAME, new String(modulus));
 
-                byte[] gen = Base64.encode(dhParameters.getG().toByteArray());
+                byte[] gen = Base64.encodeBase64(dhParameters.getG().toByteArray());
                 parameters.put(Parameter.dh_gen.QNAME, new String(gen));
 
             }
 
             DHPublicKey consumerPublic = request.getDHConsumerPublic();
             if (consumerPublic != null) {
-                byte[] publicKey = Base64.encode(consumerPublic.getY().toByteArray());
+                byte[] publicKey = Base64.encodeBase64(consumerPublic.getY().toByteArray());
                 parameters.put(Parameter.dh_consumer_public.QNAME, new String(publicKey));
             }
 

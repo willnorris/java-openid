@@ -23,7 +23,7 @@ import java.security.spec.InvalidKeySpecException;
 import javax.crypto.interfaces.DHPublicKey;
 import javax.crypto.spec.DHParameterSpec;
 
-import org.bouncycastle.util.encoders.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
@@ -50,10 +50,10 @@ public class AssociationRequestUnmarshaller extends AbstractMessageUnmarshaller<
             if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
 
                 String encodedGen = parameters.get(Parameter.dh_gen.QNAME);
-                BigInteger gen = new BigInteger(Base64.decode(encodedGen));
+                BigInteger gen = new BigInteger(Base64.decodeBase64(encodedGen.getBytes()));
 
                 String encodedModulus = parameters.get(Parameter.dh_modulus.QNAME);
-                BigInteger modulus = new BigInteger(Base64.decode(encodedModulus));
+                BigInteger modulus = new BigInteger(Base64.decodeBase64(encodedModulus.getBytes()));
 
                 DHParameterSpec dhParameters = new DHParameterSpec(modulus, gen);
                 request.setDHParameters(dhParameters);
@@ -61,7 +61,7 @@ public class AssociationRequestUnmarshaller extends AbstractMessageUnmarshaller<
                 String encodedKey = parameters.get(Parameter.dh_consumer_public.QNAME);
                 if (encodedKey != null) {
                     try {
-                        byte[] publicKeyBytes = Base64.decode(encodedKey);
+                        byte[] publicKeyBytes = Base64.decodeBase64(encodedKey.getBytes());
                         DHPublicKey publicKey = AssociationUtils.loadPublicKey(publicKeyBytes, dhParameters);
                         request.setDHConsumerPublic(publicKey);
                     } catch (NoSuchAlgorithmException e) {

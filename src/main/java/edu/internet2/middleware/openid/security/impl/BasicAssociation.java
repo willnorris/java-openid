@@ -17,8 +17,7 @@
 package edu.internet2.middleware.openid.security.impl;
 
 import java.security.Key;
-
-import org.joda.time.DateTime;
+import java.util.Date;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.security.Association;
@@ -35,7 +34,7 @@ public class BasicAssociation implements Association {
     private AssociationType associationType;
 
     /** Expiration instant. */
-    private DateTime expiration;
+    private Date expiration;
 
     /** Entity identifier. */
     private String entity;
@@ -72,7 +71,7 @@ public class BasicAssociation implements Association {
     }
 
     /** {@inheritDoc} */
-    public DateTime getExpiration() {
+    public Date getExpiration() {
         return expiration;
     }
 
@@ -81,7 +80,7 @@ public class BasicAssociation implements Association {
      * 
      * @param newExpiration the expiration
      */
-    public void setExpiration(DateTime newExpiration) {
+    public void setExpiration(Date newExpiration) {
         expiration = newExpiration;
     }
 

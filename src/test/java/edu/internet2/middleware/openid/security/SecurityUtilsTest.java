@@ -19,21 +19,18 @@ package edu.internet2.middleware.openid.security;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.Key;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.namespace.QName;
 
-import org.opensaml.xml.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.BaseTestCase;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
-import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
 import edu.internet2.middleware.openid.security.impl.BasicAssociation;
 
@@ -91,7 +88,7 @@ public class SecurityUtilsTest extends BaseTestCase {
     private Association getAssociation() {
         AssociationType type = AssociationType.HMAC_SHA256;
         String encodedMacKey = "hee0W816z4fMtFK4X3Y7IZPEmRo9eORfWC9QoA/d0hU=";
-        SecretKey macKey = new SecretKeySpec(Base64.decode(encodedMacKey), type.getAlgorithm());
+        SecretKey macKey = new SecretKeySpec(Base64.decodeBase64(encodedMacKey.getBytes()), type.getAlgorithm());
         String handle = "new-handle";
 
         BasicAssociation association = new BasicAssociation();

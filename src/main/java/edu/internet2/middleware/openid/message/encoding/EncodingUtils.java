@@ -16,6 +16,7 @@
 
 package edu.internet2.middleware.openid.message.encoding;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,6 @@ import java.util.Map;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
-import org.opensaml.xml.util.LazyList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -141,7 +141,7 @@ public final class EncodingUtils {
      * @return comma separated list of encoded parameter names
      */
     public static String encodeSignedFields(List<QName> signedFields, NamespaceMap namespaces) {
-        List<String> encodedFields = new LazyList<String>();
+        List<String> encodedFields = new ArrayList<String>();
 
         for (QName field : signedFields) {
             encodedFields.add(encodeParameterName(field, namespaces));
@@ -151,7 +151,7 @@ public final class EncodingUtils {
     }
 
     public static List<QName> decodeSignedFields(String signedFields, NamespaceMap namespaces) {
-        List<QName> decodedFields = new LazyList<QName>();
+        List<QName> decodedFields = new ArrayList<QName>();
 
         if (signedFields != null) {
             for (String field : signedFields.split(",")) {

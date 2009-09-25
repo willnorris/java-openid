@@ -25,7 +25,7 @@ import java.util.List;
 import javax.crypto.Mac;
 import javax.xml.namespace.QName;
 
-import org.opensaml.xml.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -150,7 +150,7 @@ public final class SecurityUtils {
             mac.init(association.getMacKey());
 
             byte[] rawHmac = mac.doFinal(data.getBytes());
-            return Base64.encodeBytes(rawHmac, Base64.DONT_BREAK_LINES);
+            return new String(Base64.encodeBase64(rawHmac));
         } catch (InvalidKeyException e) {
             log.error("Unable to generate MAC - " + e.getMessage());
             throw new SecurityException("Unable to generate MAC", e);

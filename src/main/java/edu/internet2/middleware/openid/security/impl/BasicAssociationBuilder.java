@@ -16,7 +16,8 @@
 
 package edu.internet2.middleware.openid.security.impl;
 
-import org.joda.time.DateTime;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +52,11 @@ public class BasicAssociationBuilder implements AssociationBuilder {
         association.setHandle(handleGenerator.generateIdentifier());
         association.setAssociationType(type);
         association.setEntity(entity);
-        association.setExpiration(new DateTime().plus(lifetime * 1000));
+
+        Date expiration = new Date();
+        expiration.setTime(expiration.getTime() + (lifetime * 1000));
+        association.setExpiration(expiration);
+
         association.setMacKey(AssociationUtils.generateMacKey(type.getAlgorithm(), type.getKeySize()));
 
         return association;

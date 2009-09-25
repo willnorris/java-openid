@@ -22,7 +22,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.namespace.QName;
 
-import org.opensaml.xml.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,7 +74,8 @@ public class AssociationResponseNoEncryptionTest extends BaseMessageProviderTest
         expectedLifetime = 3600;
 
         String encodedMacKey = "hee0W816z4fMtFK4X3Y7IZPEmRo9eORfWC9QoA/d0hU=";
-        expectedMacKey = new SecretKeySpec(Base64.decode(encodedMacKey), expectedAssociationType.getAlgorithm());
+        expectedMacKey = new SecretKeySpec(Base64.decodeBase64(encodedMacKey.getBytes()), expectedAssociationType
+                .getAlgorithm());
     }
 
     /** {@inheritDoc} */

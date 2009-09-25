@@ -17,8 +17,7 @@
 package edu.internet2.middleware.openid.security;
 
 import java.security.Key;
-
-import org.joda.time.DateTime;
+import java.util.Date;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 
@@ -48,7 +47,7 @@ public interface Association {
      * 
      * @return the expiration instant
      */
-    public DateTime getExpiration();
+    public Date getExpiration();
 
     /**
      * Get an identifier for the entity this association is to be used with. OpenID Provider entities are often

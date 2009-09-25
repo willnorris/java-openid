@@ -20,9 +20,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.opensaml.xml.util.DatatypeHelper;
-
-import edu.internet2.middleware.openid.message.Marshaller;
 import edu.internet2.middleware.openid.message.sreg.SimpleRegistrationRequest;
 import edu.internet2.middleware.openid.message.sreg.SimpleRegistration.Parameter;
 import edu.internet2.middleware.openid.util.StringUtils;
@@ -30,7 +27,7 @@ import edu.internet2.middleware.openid.util.StringUtils;
 /**
  * Marshaller for a simple registration request.
  */
-public class SimpleRegistrationRequestMarshaller  {
+public class SimpleRegistrationRequestMarshaller {
 
     /** {@inheritDoc} */
     public Map<String, String> marshall(SimpleRegistrationRequest request) {
@@ -39,19 +36,19 @@ public class SimpleRegistrationRequestMarshaller  {
 
         // policy URL
         URL policyURL = request.getPolicyURL();
-        if (policyURL != null && !DatatypeHelper.isEmpty(policyURL.toString())) {
+        if (policyURL != null && !policyURL.toString().isEmpty()) {
             parameters.put(Parameter.policy_url.toString(), policyURL.toString());
         }
 
         // required parameters
         fields = StringUtils.join(request.getRequiredFields(), ",");
-        if (!DatatypeHelper.isEmpty(fields)) {
+        if (!fields.isEmpty()) {
             parameters.put(Parameter.required.toString(), fields);
         }
 
         // optional parameters
         fields = StringUtils.join(request.getOptionalFields(), ",");
-        if (!DatatypeHelper.isEmpty(fields)) {
+        if (!fields.isEmpty()) {
             parameters.put(Parameter.optional.toString(), fields);
         }
 

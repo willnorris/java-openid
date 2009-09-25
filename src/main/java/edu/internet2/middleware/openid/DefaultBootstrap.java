@@ -18,8 +18,6 @@ package edu.internet2.middleware.openid;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.xml.ConfigurationException;
-
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.message.AssociationRequest;
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
@@ -69,10 +67,8 @@ public class DefaultBootstrap {
 
     /**
      * Initializes the OpenSAML library, loading default configurations.
-     * 
-     * @throws ConfigurationException thrown if there is a problem initializing the OpenSAML library
      */
-    public static synchronized void bootstrap() throws ConfigurationException {
+    public static synchronized void bootstrap() {
         initializeObjectProviders();
     }
 

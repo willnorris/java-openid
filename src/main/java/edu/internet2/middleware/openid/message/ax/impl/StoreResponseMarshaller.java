@@ -19,9 +19,6 @@ package edu.internet2.middleware.openid.message.ax.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.opensaml.xml.util.DatatypeHelper;
-
-import edu.internet2.middleware.openid.message.Marshaller;
 import edu.internet2.middleware.openid.message.ax.StoreResponse;
 import edu.internet2.middleware.openid.message.ax.AttributeExchange.Parameter;
 
@@ -34,7 +31,7 @@ public class StoreResponseMarshaller {
     public Map<String, String> marshall(StoreResponse response) {
         Map<String, String> parameters = new HashMap<String, String>();
 
-        if (!DatatypeHelper.isEmpty(response.getError())) {
+        if (!response.getError().isEmpty()) {
             parameters.put(Parameter.error.toString(), response.getError());
         }
 

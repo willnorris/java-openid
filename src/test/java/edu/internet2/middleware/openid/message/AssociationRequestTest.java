@@ -23,7 +23,7 @@ import javax.crypto.interfaces.DHPublicKey;
 import javax.crypto.spec.DHParameterSpec;
 import javax.xml.namespace.QName;
 
-import org.opensaml.xml.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,7 +80,8 @@ public class AssociationRequestTest extends BaseMessageProviderTestCase {
                 + "1zIKaSDuKdiI+XUkKJX8Fvf8W8vsixYOrAgECAgICAAOBhQACgYEAo4nggMiy9KMoUd88/PzaN92+tloaeP6K66eTx0IR8"
                 + "IPowmV8bPL1NBiAScSyZ4/eUENfUIZ+UiGRDJDzBlMOWx4N2hlpZRmAM7CZPCu6BjMACFzJBhM3dAPYiTmjjlTexGIKzhs"
                 + "LhAENmWmOlHcaywlYCB91Lgb7gOutS9iN2sw=";
-        expectedConsumerPublic = AssociationUtils.loadPublicKey(Base64.decode(consumerPublicKey), dhParameters);
+        expectedConsumerPublic = AssociationUtils.loadPublicKey(Base64.decodeBase64(consumerPublicKey.getBytes()),
+                dhParameters);
     }
 
     /** {@inheritDoc} */

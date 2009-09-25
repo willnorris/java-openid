@@ -21,9 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.opensaml.xml.util.DatatypeHelper;
-
-import edu.internet2.middleware.openid.message.Marshaller;
 import edu.internet2.middleware.openid.message.ax.AttributeExchange;
 import edu.internet2.middleware.openid.message.ax.FetchResponse;
 import edu.internet2.middleware.openid.message.ax.AttributeExchange.Parameter;
@@ -42,7 +39,7 @@ public class FetchResponseMarshaller {
 
         // update URL
         URL policyURL = response.getUpdateURL();
-        if (policyURL != null && !DatatypeHelper.isEmpty(policyURL.toString())) {
+        if (policyURL != null && !policyURL.toString().isEmpty()) {
             parameters.put(Parameter.update_url.toString(), policyURL.toString());
         }
 

@@ -24,7 +24,7 @@ import javax.crypto.interfaces.DHPublicKey;
 import javax.crypto.spec.DHParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.bouncycastle.util.encoders.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
@@ -61,7 +61,7 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
             try {
                 String encodedKey = parameters.get(Parameter.dh_server_public.QNAME);
                 // Temporarily unmarshall the public key using the default DHParameterSpec
-                DHPublicKey publicKey = AssociationUtils.loadPublicKey(Base64.decode(encodedKey),
+                DHPublicKey publicKey = AssociationUtils.loadPublicKey(Base64.decodeBase64(encodedKey.getBytes()),
                         OpenIDConstants.DEFAULT_PARAMETER_SPEC);
                 response.setDHServerPublic(publicKey);
             } catch (NoSuchAlgorithmException e) {
@@ -76,7 +76,8 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
         }
 
         if (encodedMacKey != null) {
-            Key macKey = new SecretKeySpec(Base64.decode(encodedMacKey), response.getAssociationType().getAlgorithm());
+            Key macKey = new SecretKeySpec(Base64.decodeBase64(encodedMacKey.getBytes()), response.getAssociationType()
+                    .getAlgorithm());
             response.setMacKey(macKey);
         }
 
