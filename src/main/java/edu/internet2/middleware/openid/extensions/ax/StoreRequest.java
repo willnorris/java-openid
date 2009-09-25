@@ -19,7 +19,7 @@ package edu.internet2.middleware.openid.extensions.ax;
 import java.util.List;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.MessageExtension;
+import edu.internet2.middleware.openid.extensions.MessageExtension;
 
 /**
  * Request for an OpenID Provider to store identity information for a user.

@@ -16,7 +16,7 @@
 
 package edu.internet2.middleware.openid.extensions.ax;
 
-import edu.internet2.middleware.openid.message.MessageExtension;
+import edu.internet2.middleware.openid.extensions.MessageExtension;
 
 /**
  * Response to an Attribute Exchange store request.

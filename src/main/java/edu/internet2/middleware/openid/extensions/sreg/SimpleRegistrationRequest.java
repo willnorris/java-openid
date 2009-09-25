@@ -19,8 +19,8 @@ package edu.internet2.middleware.openid.extensions.sreg;
 import java.net.URL;
 import java.util.EnumSet;
 
+import edu.internet2.middleware.openid.extensions.MessageExtension;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
-import edu.internet2.middleware.openid.message.MessageExtension;
 
 /**
  * Simple Registration extension for an OpenID authentication request.

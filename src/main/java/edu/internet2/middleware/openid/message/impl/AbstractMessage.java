@@ -19,8 +19,8 @@ package edu.internet2.middleware.openid.message.impl;
 import java.util.Collection;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
+import edu.internet2.middleware.openid.extensions.MessageExtension;
 import edu.internet2.middleware.openid.message.Message;
-import edu.internet2.middleware.openid.message.MessageExtension;
 
 /**
  * Base class for OpenID message implementation.

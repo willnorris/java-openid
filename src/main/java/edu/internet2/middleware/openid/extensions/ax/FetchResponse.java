@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.MessageExtension;
+import edu.internet2.middleware.openid.extensions.MessageExtension;
 
 /**
  * Response to an Attribute Exchange fetch request.

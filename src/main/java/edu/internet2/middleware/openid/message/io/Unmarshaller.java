@@ -17,8 +17,8 @@
 package edu.internet2.middleware.openid.message.io;
 
 import edu.internet2.middleware.openid.common.ParameterMap;
+import edu.internet2.middleware.openid.extensions.MessageExtension;
 import edu.internet2.middleware.openid.message.Message;
-import edu.internet2.middleware.openid.message.MessageExtension;
 
 /**
  * Unmarshallers are used to unmarshall a {@link ParameterMap} into an OpenID {@link Message} or

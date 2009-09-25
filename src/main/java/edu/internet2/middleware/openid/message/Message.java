@@ -18,6 +18,8 @@ package edu.internet2.middleware.openid.message;
 
 import java.util.Collection;
 
+import edu.internet2.middleware.openid.extensions.MessageExtension;
+
 /**
  * OpenID protocol message.
  */
