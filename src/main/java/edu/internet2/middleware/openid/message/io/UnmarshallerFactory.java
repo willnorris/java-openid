@@ -26,8 +26,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
-import edu.internet2.middleware.openid.message.ParameterMap;
 
 /**
  * Factory for OpenID message unmarshallers. Unmarshallers are registered using a {@link QName} that is made up of a

@@ -27,11 +27,11 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationResponse;
-import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.security.AssociationUtils;
 
 /**

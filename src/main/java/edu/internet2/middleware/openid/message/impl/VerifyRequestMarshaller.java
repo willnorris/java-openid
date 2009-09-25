@@ -16,8 +16,8 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
-import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.VerifyRequest;
 import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 

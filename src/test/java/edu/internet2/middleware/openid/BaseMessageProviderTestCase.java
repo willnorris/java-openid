@@ -16,7 +16,7 @@
 
 package edu.internet2.middleware.openid;
 
-import edu.internet2.middleware.openid.message.ParameterMap;
+import edu.internet2.middleware.openid.common.ParameterMap;
 
 /**
  * Base test case for all OpenID tests that work with Messages.

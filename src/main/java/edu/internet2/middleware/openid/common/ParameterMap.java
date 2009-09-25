@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message;
+package edu.internet2.middleware.openid.common;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

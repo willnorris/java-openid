@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.BaseTestCase;
-import edu.internet2.middleware.openid.message.ParameterMap;
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.message.encoding.impl.KeyValueFormCodec;
 import edu.internet2.middleware.openid.message.encoding.impl.URLFormCodec;
 

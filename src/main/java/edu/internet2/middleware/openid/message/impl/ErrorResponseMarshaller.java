@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ErrorResponse;
-import edu.internet2.middleware.openid.message.ParameterMap;
 
 /**
  * Marshaller for {@link ErrorResponse} messages.

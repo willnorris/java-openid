@@ -20,10 +20,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.Configuration;
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.MessageBuilderFactory;
-import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.io.Unmarshaller;
 import edu.internet2.middleware.openid.message.io.UnmarshallingException;
 

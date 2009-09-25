@@ -19,8 +19,8 @@ package edu.internet2.middleware.openid.message.impl;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
-import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
 import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 

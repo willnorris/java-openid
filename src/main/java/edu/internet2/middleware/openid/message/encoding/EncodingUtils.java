@@ -27,9 +27,9 @@ import javax.xml.namespace.QName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.internet2.middleware.openid.common.NamespaceMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
-import edu.internet2.middleware.openid.message.NamespaceMap;
-import edu.internet2.middleware.openid.message.ParameterMap;
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.util.StringUtils;
 
 /**

@@ -19,9 +19,9 @@ package edu.internet2.middleware.openid.message.impl;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
-import edu.internet2.middleware.openid.message.ParameterMap;
 
 /**
  * Unmarshaller for {@link AuthenticationRequest} messages.

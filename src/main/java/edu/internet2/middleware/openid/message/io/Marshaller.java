@@ -16,8 +16,8 @@
 
 package edu.internet2.middleware.openid.message.io;
 
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.message.Message;
-import edu.internet2.middleware.openid.message.ParameterMap;
 
 /**
  * Marshallers are used to marshall OpenID {@link Message} and {@link MessageExtensions}s into a map of parameters.

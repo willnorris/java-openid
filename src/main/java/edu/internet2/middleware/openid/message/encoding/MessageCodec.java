@@ -18,7 +18,7 @@ package edu.internet2.middleware.openid.message.encoding;
 
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.ParameterMap;
+import edu.internet2.middleware.openid.common.ParameterMap;
 
 /**
  * Encodes and decodes a map of OpenID message parameters into a transport specific format.
