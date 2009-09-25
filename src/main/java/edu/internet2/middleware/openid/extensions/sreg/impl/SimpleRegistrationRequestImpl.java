@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.sreg.impl;
+package edu.internet2.middleware.openid.extensions.sreg.impl;
 
 import java.net.URL;
 import java.util.EnumSet;
 
-import edu.internet2.middleware.openid.message.sreg.SimpleRegistration;
-import edu.internet2.middleware.openid.message.sreg.SimpleRegistrationRequest;
-import edu.internet2.middleware.openid.message.sreg.SimpleRegistration.Field;
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration;
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationRequest;
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
 
 /**
  * SimpleRegistrationRequestImpl.

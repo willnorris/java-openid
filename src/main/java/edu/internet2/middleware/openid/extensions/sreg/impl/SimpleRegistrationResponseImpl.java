@@ -14,15 +14,20 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.sreg.impl;
+package edu.internet2.middleware.openid.extensions.sreg.impl;
 
-import java.util.Map;
+import java.util.EnumMap;
 
-import edu.internet2.middleware.openid.message.io.Unmarshaller;
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationResponse;
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
 
-public class SimpleRegistrationResponseUnmarshaller  {
+public class SimpleRegistrationResponseImpl implements SimpleRegistrationResponse {
 
-    public Object unmarshall(Map parameters) {
+    public EnumMap<Field, String> getFields() {
+        return null;
+    }
+
+    public String getNamespace() {
         return null;
     }
 

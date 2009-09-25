@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.sreg;
+package edu.internet2.middleware.openid.extensions.sreg;
 
 import java.net.URL;
 import java.util.EnumSet;
 
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
 import edu.internet2.middleware.openid.message.MessageExtension;
-import edu.internet2.middleware.openid.message.sreg.SimpleRegistration.Field;
 
 /**
  * Simple Registration extension for an OpenID authentication request.

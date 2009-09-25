@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.sreg.impl;
+package edu.internet2.middleware.openid.extensions.sreg;
 
-import java.util.Map;
+import java.util.EnumMap;
 
-public class SimpleRegistrationResponseMarshaller {
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
+import edu.internet2.middleware.openid.message.MessageExtension;
 
-    public Map marshall(Object object) {
-        return null;
-    }
+/**
+ * Simple Registration extension for an OpenID authentication response.
+ */
+public interface SimpleRegistrationResponse extends MessageExtension {
 
+    /**
+     * Get field map, which maps field names to values.
+     * 
+     * @return the field map
+     */
+    public EnumMap<Field, String> getFields();
 }

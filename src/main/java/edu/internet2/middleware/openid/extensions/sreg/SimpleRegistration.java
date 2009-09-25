@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.sreg;
+package edu.internet2.middleware.openid.extensions.sreg;
 
 /**
  * Simple Registration OpenID Extension.
