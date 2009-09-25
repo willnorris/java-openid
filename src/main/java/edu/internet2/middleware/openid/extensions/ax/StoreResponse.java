@@ -14,36 +14,30 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.ax;
-
-import java.net.URL;
-import java.util.List;
-import java.util.Map;
+package edu.internet2.middleware.openid.extensions.ax;
 
 import edu.internet2.middleware.openid.message.MessageExtension;
 
 /**
- * Response to an Attribute Exchange fetch request.
+ * Response to an Attribute Exchange store request.
  */
-public interface FetchResponse extends MessageExtension {
+public interface StoreResponse extends MessageExtension {
 
     /**
-     * Message mode for attribute exchange fetch responses.
+     * Attribute Exchange mode representing a successful response to a store request.
      */
-    public static final String MODE = "fetch_response";
+    public static final String MODE_SUCCESS = "store_response_success";
 
     /**
-     * AX attributes.
+     * Attribute Exchange mode representing a successful response to a store request.
+     */
+    public static final String MODE_FAILURE = "store_response_failure";
+
+    /**
+     * A human-readable message indicating why the store request failed.
      * 
-     * @return the attributes
+     * @return the error message
      */
-    public Map<String, List<String>> getAttributes();
-
-    /**
-     * The update URL from the AX fetch request, if the OpenID Provider intends to support attribute update.
-     * 
-     * @return the update URL
-     */
-    public URL getUpdateURL();
+    public String getError();
 
 }

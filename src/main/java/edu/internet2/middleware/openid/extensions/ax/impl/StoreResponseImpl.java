@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.ax.impl;
+package edu.internet2.middleware.openid.extensions.ax.impl;
 
-import edu.internet2.middleware.openid.message.ax.StoreResponse;
+import edu.internet2.middleware.openid.extensions.ax.StoreResponse;
 
 /**
  * StoreResponseImpl.

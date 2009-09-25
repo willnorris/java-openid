@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.ax;
+package edu.internet2.middleware.openid.extensions.ax;
 
 /**
  * Attribute Exchange.

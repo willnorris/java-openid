@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.ax.impl;
+package edu.internet2.middleware.openid.extensions.ax.impl;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.ax.AttributeExchange;
-import edu.internet2.middleware.openid.message.ax.FetchResponse;
-import edu.internet2.middleware.openid.message.ax.AttributeExchange.Parameter;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
+import edu.internet2.middleware.openid.extensions.ax.FetchResponse;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
+rameter;
 
 /**
  * FetchRequestMarshaller.

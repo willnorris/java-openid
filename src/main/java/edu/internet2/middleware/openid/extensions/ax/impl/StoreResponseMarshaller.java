@@ -14,21 +14,29 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.ax.impl;
+package edu.internet2.middleware.openid.extensions.ax.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.ax.FetchResponse;
-import edu.internet2.middleware.openid.message.io.Unmarshaller;
+import edu.internet2.middleware.openid.extensions.ax.StoreResponse;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
+eter;
 
 /**
- * FetchRequestUnmarshaller.
+ * StoreResponseMarshaller.
  */
-public class FetchResponseUnmarshaller  {
+public class StoreResponseMarshaller {
 
     /** {@inheritDoc} */
-    public FetchResponse unmarshall(Map<String, String> parameters) {
-        return null;
+    public Map<String, String> marshall(StoreResponse response) {
+        Map<String, String> parameters = new HashMap<String, String>();
+
+        if (response.getError() != null) {
+            parameters.put(Parameter.error.toString(), response.getError());
+        }
+
+        return parameters;
     }
 
 }

@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.ax.impl;
+package edu.internet2.middleware.openid.extensions.ax.impl;
 
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.ax.StoreRequest;
+import edu.internet2.middleware.openid.extensions.ax.StoreRequest;
+t;
 import edu.internet2.middleware.openid.message.io.Unmarshaller;
 
 /**

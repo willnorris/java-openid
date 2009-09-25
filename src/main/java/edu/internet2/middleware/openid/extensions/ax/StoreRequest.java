@@ -14,21 +14,28 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.ax.impl;
+package edu.internet2.middleware.openid.extensions.ax;
 
+import java.util.List;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.ax.FetchRequest;
-import edu.internet2.middleware.openid.message.io.Unmarshaller;
+import edu.internet2.middleware.openid.message.MessageExtension;
 
 /**
- * FetchRequestUnmarshaller.
+ * Request for an OpenID Provider to store identity information for a user.
  */
-public class FetchRequestUnmarshaller {
+public interface StoreRequest extends MessageExtension {
 
-    /** {@inheritDoc} */
-    public FetchRequest unmarshall(Map<String, String> parameters) {
-        return null;
-    }
+    /**
+     * Attribute Exchange mode for a store request.
+     */
+    public static final String MODE = "store_request";
+
+    /**
+     * The attributes to store.
+     * 
+     * @return the attributes
+     */
+    public Map<String, List<String>> getAttributes();
 
 }

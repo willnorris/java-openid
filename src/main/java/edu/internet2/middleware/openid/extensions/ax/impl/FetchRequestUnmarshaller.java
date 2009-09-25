@@ -14,26 +14,22 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.ax.impl;
+package edu.internet2.middleware.openid.extensions.ax.impl;
 
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.ax.StoreResponse;
-import edu.internet2.middleware.openid.message.ax.AttributeExchange.Parameter;
+import edu.internet2.middleware.openid.extensions.ax.FetchRequest;
+t;
 import edu.internet2.middleware.openid.message.io.Unmarshaller;
 
 /**
- * StoreResponseUnmarshaller.
+ * FetchRequestUnmarshaller.
  */
-public class StoreResponseUnmarshaller {
+public class FetchRequestUnmarshaller {
 
     /** {@inheritDoc} */
-    public StoreResponse unmarshall(Map<String, String> parameters) {
-        StoreResponseImpl response = new StoreResponseImpl();
-
-        response.setError(parameters.get(Parameter.error.toString()));
-
-        return response;
+    public FetchRequest unmarshall(Map<String, String> parameters) {
+        return null;
     }
 
 }

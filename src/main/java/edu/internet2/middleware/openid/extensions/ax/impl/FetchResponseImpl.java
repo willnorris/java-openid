@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.ax.impl;
+package edu.internet2.middleware.openid.extensions.ax.impl;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.ax.StoreRequest;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
+import edu.internet2.middleware.openid.extensions.ax.FetchResponse;
 
 /**
- * StoreRequestImpl.
+ * FetchResponseImpl.
  */
-public class StoreRequestImpl implements StoreRequest {
+public class FetchResponseImpl implements FetchResponse {
 
     /**
      * Attributes.
@@ -33,9 +35,14 @@ public class StoreRequestImpl implements StoreRequest {
     private Map<String, List<String>> attributes;
 
     /**
+     * Update URL.
+     */
+    private URL updateURL;
+
+    /**
      * Constructor.
      */
-    public StoreRequestImpl() {
+    public FetchResponseImpl() {
         attributes = new HashMap<String, List<String>>();
     }
 
@@ -45,8 +52,22 @@ public class StoreRequestImpl implements StoreRequest {
     }
 
     /** {@inheritDoc} */
+    public URL getUpdateURL() {
+        return updateURL;
+    }
+
+    /** {@inheritDoc} */
     public String getNamespace() {
-        return StoreRequest.MODE;
+        return AttributeExchange.AX_10_NS;
+    }
+
+    /**
+     * Set update URL.
+     * 
+     * @param newUpdateURL the updateURL to set
+     */
+    public void setUpdateURL(URL newUpdateURL) {
+        updateURL = newUpdateURL;
     }
 
 }

@@ -14,28 +14,39 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.ax.impl;
+package edu.internet2.middleware.openid.extensions.ax.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.ax.StoreResponse;
-import edu.internet2.middleware.openid.message.ax.AttributeExchange.Parameter;
+import edu.internet2.middleware.openid.extensions.ax.StoreRequest;
 
 /**
- * StoreResponseMarshaller.
+ * StoreRequestImpl.
  */
-public class StoreResponseMarshaller {
+public class StoreRequestImpl implements StoreRequest {
+
+    /**
+     * Attributes.
+     */
+    private Map<String, List<String>> attributes;
+
+    /**
+     * Constructor.
+     */
+    public StoreRequestImpl() {
+        attributes = new HashMap<String, List<String>>();
+    }
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(StoreResponse response) {
-        Map<String, String> parameters = new HashMap<String, String>();
+    public Map<String, List<String>> getAttributes() {
+        return attributes;
+    }
 
-        if (response.getError() != null) {
-            parameters.put(Parameter.error.toString(), response.getError());
-        }
-
-        return parameters;
+    /** {@inheritDoc} */
+    public String getNamespace() {
+        return StoreRequest.MODE;
     }
 
 }

@@ -14,25 +14,36 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.ax.impl;
+package edu.internet2.middleware.openid.extensions.ax.impl;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.ax.AttributeExchange;
-import edu.internet2.middleware.openid.message.ax.FetchResponse;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
+import edu.internet2.middleware.openid.extensions.ax.FetchRequest;
 
 /**
- * FetchResponseImpl.
+ * FetchRequestImpl.
  */
-public class FetchResponseImpl implements FetchResponse {
+public class FetchRequestImpl implements FetchRequest {
 
     /**
-     * Attributes.
+     * Optional attributes.
      */
-    private Map<String, List<String>> attributes;
+    private List<String> optionalAttributes;
+
+    /**
+     * Required attributes.
+     */
+    private List<String> requiredAttributes;
+
+    /**
+     * Map of requested number of values for each attribute.
+     */
+    private Map<String, Integer> attributeCount;
 
     /**
      * Update URL.
@@ -42,13 +53,20 @@ public class FetchResponseImpl implements FetchResponse {
     /**
      * Constructor.
      */
-    public FetchResponseImpl() {
-        attributes = new HashMap<String, List<String>>();
+    public FetchRequestImpl() {
+        optionalAttributes = new ArrayList<String>();
+        requiredAttributes = new ArrayList<String>();
+        attributeCount = new HashMap<String, Integer>();
     }
 
     /** {@inheritDoc} */
-    public Map<String, List<String>> getAttributes() {
-        return attributes;
+    public List<String> getOptionalAttributes() {
+        return optionalAttributes;
+    }
+
+    /** {@inheritDoc} */
+    public List<String> getRequiredAttributes() {
+        return requiredAttributes;
     }
 
     /** {@inheritDoc} */
@@ -68,6 +86,11 @@ public class FetchResponseImpl implements FetchResponse {
      */
     public void setUpdateURL(URL newUpdateURL) {
         updateURL = newUpdateURL;
+    }
+
+    /** {@inheritDoc} */
+    public Map<String, Integer> getAttributeCount() {
+        return attributeCount;
     }
 
 }
