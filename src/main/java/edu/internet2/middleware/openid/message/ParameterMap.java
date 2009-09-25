@@ -17,11 +17,12 @@
 package edu.internet2.middleware.openid.message;
 
 import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.xml.util.LazyList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A map of parameters that make up an OpenID message.
@@ -30,33 +31,48 @@ import org.opensaml.xml.util.LazyList;
  * part of the core OpenID specification, the namespace should correspond to the OpenID protocol version. For parameters
  * that are defined by an OpenID extension, the parameter namespace should correspond with the namespace of that
  * extension. A preferred prefix may be included as the prefix portion of the {@link QName}. If different parameters
- * declare different prefixes for the same namesapce, only one will be used.
- * 
- * The 'signed' OpenID parameter is stored separately as a list of {@link QName}s. This is because its value is
- * dependent upon the resulting prefixes that are assigned to each namespace during transport. {@link MessageCodec}s are
- * responsible for properly encoding and decoding the 'signed' parameter value appopriately.
+ * declare different prefixes for the same namespace, only one will be used.
  */
 public class ParameterMap extends LinkedHashMap<QName, String> {
 
     /** Serial Version UID. */
     private static final long serialVersionUID = 2956813358977663257L;
 
-    /** Signed parameters. */
-    private List<QName> signedParameters;
+    /** Logger. */
+    private final Logger log = LoggerFactory.getLogger(ParameterMap.class);
+
+    /** Registered namespaces. */
+    private NamespaceMap namespaces;
 
     /** Constructor. */
     public ParameterMap() {
         super();
-        signedParameters = new LazyList<QName>();
+        namespaces = new NamespaceMap();
+    }
+
+    /** {@inheritDoc} */
+    public String put(QName key, String value) {
+        log.debug("adding parameter to map {} = {}", key, value);
+        namespaces.add(key);
+        return super.put(key, value);
+    }
+
+    /** {@inheritDoc} */
+    public void putAll(Map<? extends QName, ? extends String> m) {
+        for (QName key : m.keySet()) {
+            log.debug("adding parameter to map {} = {}", key, m.get(key));
+            namespaces.add(key);
+        }
+        super.putAll(m);
     }
 
     /**
-     * Get the names of the parameters that are used to generate the signature.
+     * Get map of namespaces used in this ParameterMap.
      * 
-     * @return the signed parameters
+     * @return namespace map
      */
-    public List<QName> getSignedParameters() {
-        return signedParameters;
+    public NamespaceMap getNamespaces() {
+        return namespaces;
     }
 
 }

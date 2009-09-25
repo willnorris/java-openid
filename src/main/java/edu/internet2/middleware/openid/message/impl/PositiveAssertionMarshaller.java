@@ -19,6 +19,7 @@ package edu.internet2.middleware.openid.message.impl;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 
 /**
  * Marshaller for {@link PositiveAssertion} messages.
@@ -27,15 +28,38 @@ public class PositiveAssertionMarshaller extends AbstractMessageMarshaller<Posit
 
     /** {@inheritDoc} */
     public void marshallParameters(PositiveAssertion response, ParameterMap parameters) {
-        parameters.put(Parameter.assoc_handle.QNAME, response.getAssociationHandle());
-        parameters.put(Parameter.claimed_id.QNAME, response.getClaimedId());
-        parameters.put(Parameter.op_endpoint.QNAME, response.getEndpoint());
-        parameters.put(Parameter.identity.QNAME, response.getIdentity());
-        parameters.put(Parameter.invalidate_handle.QNAME, response.getInvalidateHandle());
-        parameters.put(Parameter.response_nonce.QNAME, response.getResponseNonce());
-        parameters.put(Parameter.return_to.QNAME, response.getReturnTo().toString());
-        parameters.put(Parameter.sig.QNAME, response.getSignature());
-        parameters.getSignedParameters().addAll(response.getSignedFields());
+        if (response.getAssociationHandle() != null) {
+            parameters.put(Parameter.assoc_handle.QNAME, response.getAssociationHandle());
+        }
+        if (response.getClaimedId() != null) {
+            parameters.put(Parameter.claimed_id.QNAME, response.getClaimedId());
+        }
+        if (response.getEndpoint() != null) {
+            parameters.put(Parameter.op_endpoint.QNAME, response.getEndpoint());
+        }
+        if (response.getIdentity() != null) {
+            parameters.put(Parameter.identity.QNAME, response.getIdentity());
+        }
+        if (response.getInvalidateHandle() != null) {
+            parameters.put(Parameter.invalidate_handle.QNAME, response.getInvalidateHandle());
+        }
+        if (response.getResponseNonce() != null) {
+            parameters.put(Parameter.response_nonce.QNAME, response.getResponseNonce());
+        }
+        if (response.getReturnTo() != null) {
+            parameters.put(Parameter.return_to.QNAME, response.getReturnTo().toString());
+        }
+        if (response.getSignature() != null) {
+            parameters.put(Parameter.sig.QNAME, response.getSignature());
+        }
+
+        // marshall extensions before signed fields
+
+        if (!response.getSignedFields().isEmpty()) {
+            String signedFields = EncodingUtils.encodeSignedFields(response.getSignedFields(), parameters
+                    .getNamespaces());
+            parameters.put(Parameter.signed.QNAME, signedFields);
+        }
     }
 
 }

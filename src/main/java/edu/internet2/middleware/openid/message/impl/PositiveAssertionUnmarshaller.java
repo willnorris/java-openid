@@ -22,6 +22,7 @@ import java.net.URL;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 
 /**
  * Unmarshaller for {@link PositiveAssertion} messages.
@@ -43,7 +44,9 @@ public class PositiveAssertionUnmarshaller extends AbstractMessageUnmarshaller<P
             // TODO
         }
         response.setSignature(parameters.get(Parameter.sig.QNAME));
-        response.getSignedFields().addAll(parameters.getSignedParameters());
+
+        String signedFields = parameters.get(Parameter.signed.QNAME);
+        response.getSignedFields().addAll(EncodingUtils.decodeSignedFields(signedFields, parameters.getNamespaces()));
     }
 
 }

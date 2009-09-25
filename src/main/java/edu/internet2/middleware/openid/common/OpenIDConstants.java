@@ -63,6 +63,9 @@ public class OpenIDConstants {
     /** Default Diffie-Hellman Parameter Spec. */
     public static final DHParameterSpec DEFAULT_PARAMETER_SPEC = new DHParameterSpec(DEFAULT_DH_MODULUS, DEFAULT_DH_GEN);
 
+    /** Prefix attached to each namespace alias declarations in OpenID Messages. */
+    public static final String MESSAGE_NAMESPACE_PREFIX = "ns";
+
     /**
      * OpenID parameters.
      */

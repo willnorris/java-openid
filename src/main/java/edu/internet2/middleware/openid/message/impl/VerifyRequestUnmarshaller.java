@@ -22,6 +22,7 @@ import java.net.URL;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.VerifyRequest;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 
 /**
  * Unmarshaller for {@link VerifyRequest} messages.
@@ -43,7 +44,9 @@ public class VerifyRequestUnmarshaller extends AbstractMessageUnmarshaller<Verif
             // TODO
         }
         request.setSignature(parameters.get(Parameter.sig.QNAME));
-        request.getSignedFields().addAll(parameters.getSignedParameters());
+
+        String signedFields = parameters.get(Parameter.signed.QNAME);
+        request.getSignedFields().addAll(EncodingUtils.decodeSignedFields(signedFields, parameters.getNamespaces()));
     }
 
 }

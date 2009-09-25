@@ -16,6 +16,8 @@
 
 package edu.internet2.middleware.openid.message.encoding;
 
+import java.util.Map;
+
 import edu.internet2.middleware.openid.message.ParameterMap;
 
 /**
@@ -42,5 +44,14 @@ public interface MessageCodec<EncodedType> {
      * @throws EncodingException if unable to encode message
      */
     public EncodedType encode(ParameterMap parameters) throws EncodingException;
+
+    /**
+     * Encode a simple key-value map of parameters.
+     * 
+     * @param parameters map of parameters
+     * @return encoded message
+     * @throws EncodingException if unable to encode message
+     */
+    public EncodedType encode(Map<String, String> parameters) throws EncodingException;
 
 }

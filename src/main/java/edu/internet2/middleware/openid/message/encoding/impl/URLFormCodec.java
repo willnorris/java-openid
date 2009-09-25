@@ -95,7 +95,7 @@ public class URLFormCodec extends AbstractNamespaceAwareCodec<String> {
     }
 
     /** {@inheritDoc} */
-    public String encodeMessage(Map<String, String> parameters) throws EncodingException {
+    public String encode(Map<String, String> parameters) throws EncodingException {
         StringBuffer buffer = new StringBuffer();
         int keyCount = parameters.size();
 

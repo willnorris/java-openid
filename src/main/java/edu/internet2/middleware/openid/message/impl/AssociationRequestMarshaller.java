@@ -52,7 +52,7 @@ public class AssociationRequestMarshaller extends AbstractMessageMarshaller<Asso
 
             DHPublicKey consumerPublic = request.getDHConsumerPublic();
             if (consumerPublic != null) {
-                byte[] publicKey = Base64.encode(consumerPublic.getEncoded());
+                byte[] publicKey = Base64.encode(consumerPublic.getY().toByteArray());
                 parameters.put(Parameter.dh_consumer_public.QNAME, new String(publicKey));
             }
 

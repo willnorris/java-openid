@@ -155,4 +155,22 @@ public abstract class BaseTestCase extends TestCase {
     public QName buildQName(String name) {
         return new QName(OpenIDConstants.OPENID_20_NS, name);
     }
+
+    protected void logMessageParameters(Message message) {
+        try {
+            Marshaller marshaller = Configuration.getMarshallers().getMarshaller(message);
+            logMessageParameters(marshaller.marshall(message));
+        } catch (MarshallingException e) {
+            log.error("unable to marshall message: {}", e.getMessage());
+        }
+    }
+
+    protected void logMessageParameters(ParameterMap parameters) {
+        try {
+            log.info("Message Parameters: {}", KeyValueFormCodec.getInstance().encode(parameters));
+        } catch (EncodingException e) {
+            log.error("unable to encode message: {}", e.getMessage());
+        }
+    }
+
 }

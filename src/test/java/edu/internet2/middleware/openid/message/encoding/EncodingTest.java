@@ -32,6 +32,11 @@ public class EncodingTest extends BaseTestCase {
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(EncodingTest.class);
 
+    /** {@inheritDoc} */
+    public void setUp() {
+        // do nothing
+    }
+    
     /**
      * Test encoding and decoding using the URLFormCodec.
      * 

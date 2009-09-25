@@ -76,11 +76,12 @@ public class KeyValueFormCodec extends AbstractNamespaceAwareCodec<String> {
     }
 
     /** {@inheritDoc} */
-    public String encodeMessage(Map<String, String> parameters) throws EncodingException {
+    public String encode(Map<String, String> parameters) throws EncodingException {
         StringBuffer buffer = new StringBuffer();
 
         for (String key : parameters.keySet()) {
             String value = parameters.get(key);
+            log.debug("Encoding {}: {}", key, value);
 
             if (key.contains(":")) {
                 log.warn("Message parameter cannot contain a colon ':': {}", key);
@@ -92,7 +93,7 @@ public class KeyValueFormCodec extends AbstractNamespaceAwareCodec<String> {
                 throw new EncodingException("Message parameter name cannot contain a newline: " + key);
             }
 
-            if (value.contains("\n")) {
+            if (value != null && value.contains("\n")) {
                 log.warn("Message parameter value cannot contain a newline: {}", value);
                 throw new EncodingException("Message parameter value cannot contain a newline: " + value);
             }
