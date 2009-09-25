@@ -22,11 +22,9 @@ import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.message.AssociationRequest;
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
 import edu.internet2.middleware.openid.message.ErrorResponse;
-import edu.internet2.middleware.openid.message.Marshaller;
 import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.NegativeAssertion;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
-import edu.internet2.middleware.openid.message.Unmarshaller;
 import edu.internet2.middleware.openid.message.VerifyRequest;
 import edu.internet2.middleware.openid.message.impl.AssociationErrorBuilder;
 import edu.internet2.middleware.openid.message.impl.AssociationErrorMarshaller;
@@ -55,6 +53,8 @@ import edu.internet2.middleware.openid.message.impl.VerifyRequestUnmarshaller;
 import edu.internet2.middleware.openid.message.impl.VerifyResponseBuilder;
 import edu.internet2.middleware.openid.message.impl.VerifyResponseMarshaller;
 import edu.internet2.middleware.openid.message.impl.VerifyResponseUnmarshaller;
+import edu.internet2.middleware.openid.message.io.Marshaller;
+import edu.internet2.middleware.openid.message.io.Unmarshaller;
 
 /**
  * This class can be used to bootstrap the OpenXRD library with the default configurations that ship with the library.

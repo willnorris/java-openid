@@ -18,9 +18,9 @@ package edu.internet2.middleware.openid.message.ax.impl;
 
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.Unmarshaller;
 import edu.internet2.middleware.openid.message.ax.StoreResponse;
 import edu.internet2.middleware.openid.message.ax.AttributeExchange.Parameter;
+import edu.internet2.middleware.openid.message.io.Unmarshaller;
 
 /**
  * StoreResponseUnmarshaller.

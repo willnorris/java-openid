@@ -18,7 +18,7 @@ package edu.internet2.middleware.openid.message.sreg.impl;
 
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.Unmarshaller;
+import edu.internet2.middleware.openid.message.io.Unmarshaller;
 
 public class SimpleRegistrationResponseUnmarshaller  {
 

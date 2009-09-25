@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message;
+package edu.internet2.middleware.openid.message.io;
 
 import java.util.Collections;
 import java.util.Map;
@@ -26,6 +26,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
+import edu.internet2.middleware.openid.message.AssociationError;
+import edu.internet2.middleware.openid.message.AssociationResponse;
+import edu.internet2.middleware.openid.message.Message;
+import edu.internet2.middleware.openid.message.VerifyResponse;
 
 /**
  * Factory for OpenID message marshallers. Marshallers are registered using a {@link QName} that is made up of a

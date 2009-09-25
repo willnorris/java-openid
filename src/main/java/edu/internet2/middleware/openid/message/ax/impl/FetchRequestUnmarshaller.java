@@ -18,8 +18,8 @@ package edu.internet2.middleware.openid.message.ax.impl;
 
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.Unmarshaller;
 import edu.internet2.middleware.openid.message.ax.FetchRequest;
+import edu.internet2.middleware.openid.message.io.Unmarshaller;
 
 /**
  * FetchRequestUnmarshaller.

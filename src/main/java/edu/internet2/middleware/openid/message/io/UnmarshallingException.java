@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message;
+package edu.internet2.middleware.openid.message.io;
 
 /**
  * Exception thrown when error occurs unmarshalling an OpenID Message to a Parameter Map.

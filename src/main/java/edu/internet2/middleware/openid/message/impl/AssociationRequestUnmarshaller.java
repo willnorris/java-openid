@@ -30,7 +30,7 @@ import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.UnmarshallingException;
+import edu.internet2.middleware.openid.message.io.UnmarshallingException;
 import edu.internet2.middleware.openid.security.AssociationUtils;
 
 /**

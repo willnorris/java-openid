@@ -16,9 +16,9 @@
 
 package edu.internet2.middleware.openid;
 
-import edu.internet2.middleware.openid.message.MarshallerFactory;
 import edu.internet2.middleware.openid.message.MessageBuilderFactory;
-import edu.internet2.middleware.openid.message.UnmarshallerFactory;
+import edu.internet2.middleware.openid.message.io.MarshallerFactory;
+import edu.internet2.middleware.openid.message.io.UnmarshallerFactory;
 
 /**
  * Class for loading library configuration files and retrieving the configured components.

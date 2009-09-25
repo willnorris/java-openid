@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
+import edu.internet2.middleware.openid.message.io.UnmarshallingException;
 
 /**
  * Factory for OpenID message builders. Builders are registered using a {@link QName} that is made up of a namespace URI

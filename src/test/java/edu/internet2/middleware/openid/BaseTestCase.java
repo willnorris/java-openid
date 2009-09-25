@@ -28,15 +28,15 @@ import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
-import edu.internet2.middleware.openid.message.Marshaller;
-import edu.internet2.middleware.openid.message.MarshallingException;
 import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Unmarshaller;
-import edu.internet2.middleware.openid.message.UnmarshallingException;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
 import edu.internet2.middleware.openid.message.encoding.impl.KeyValueFormCodec;
+import edu.internet2.middleware.openid.message.io.Marshaller;
+import edu.internet2.middleware.openid.message.io.MarshallingException;
+import edu.internet2.middleware.openid.message.io.Unmarshaller;
+import edu.internet2.middleware.openid.message.io.UnmarshallingException;
 
 /**
  * Intermediate class that serves to initialize the configuration environment for other base test classes.

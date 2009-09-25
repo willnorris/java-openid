@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message;
+package edu.internet2.middleware.openid.message.io;
 
 import java.util.Collections;
 import java.util.Map;
@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
+import edu.internet2.middleware.openid.message.ParameterMap;
 
 /**
  * Factory for OpenID message unmarshallers. Unmarshallers are registered using a {@link QName} that is made up of a

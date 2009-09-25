@@ -17,9 +17,9 @@
 package edu.internet2.middleware.openid.message.impl;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
-import edu.internet2.middleware.openid.message.Marshaller;
 import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.ParameterMap;
+import edu.internet2.middleware.openid.message.io.Marshaller;
 
 /**
  * Base class for message marshallers.

@@ -31,12 +31,12 @@ import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.Configuration;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
-import edu.internet2.middleware.openid.message.Marshaller;
-import edu.internet2.middleware.openid.message.MarshallingException;
 import edu.internet2.middleware.openid.message.ParameterMap;
 import edu.internet2.middleware.openid.message.SignableMessage;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
 import edu.internet2.middleware.openid.message.encoding.impl.KeyValueFormCodec;
+import edu.internet2.middleware.openid.message.io.Marshaller;
+import edu.internet2.middleware.openid.message.io.MarshallingException;
 
 /**
  * Security utilities.

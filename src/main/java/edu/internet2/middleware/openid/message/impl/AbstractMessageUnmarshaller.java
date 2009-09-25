@@ -24,8 +24,8 @@ import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.MessageBuilderFactory;
 import edu.internet2.middleware.openid.message.ParameterMap;
-import edu.internet2.middleware.openid.message.Unmarshaller;
-import edu.internet2.middleware.openid.message.UnmarshallingException;
+import edu.internet2.middleware.openid.message.io.Unmarshaller;
+import edu.internet2.middleware.openid.message.io.UnmarshallingException;
 
 /**
  * Base class for OpenID message unmarshallers.
