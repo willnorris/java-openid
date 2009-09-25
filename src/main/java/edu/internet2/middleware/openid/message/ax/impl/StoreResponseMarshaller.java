@@ -31,7 +31,7 @@ public class StoreResponseMarshaller {
     public Map<String, String> marshall(StoreResponse response) {
         Map<String, String> parameters = new HashMap<String, String>();
 
-        if (!response.getError().isEmpty()) {
+        if (response.getError() != null) {
             parameters.put(Parameter.error.toString(), response.getError());
         }
 

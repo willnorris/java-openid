@@ -43,7 +43,7 @@ public class SimpleRegistrationRequestUnmarshaller {
 
         // required fields
         String requiredFields = parameters.get(Parameter.required.toString());
-        if (!requiredFields.isEmpty()) {
+        if (requiredFields != null) {
             for (String fieldName : requiredFields.split(",")) {
                 try {
                     request.getRequiredFields().add(Field.valueOf(fieldName));
@@ -55,7 +55,7 @@ public class SimpleRegistrationRequestUnmarshaller {
 
         // optional fields
         String optionalFields = parameters.get(Parameter.optional.toString());
-        if (!optionalFields.isEmpty()) {
+        if (optionalFields != null) {
             for (String fieldName : optionalFields.split(",")) {
                 try {
                     request.getOptionalFields().add(Field.valueOf(fieldName));

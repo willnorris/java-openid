@@ -36,19 +36,19 @@ public class SimpleRegistrationRequestMarshaller {
 
         // policy URL
         URL policyURL = request.getPolicyURL();
-        if (policyURL != null && !policyURL.toString().isEmpty()) {
+        if (policyURL != null) {
             parameters.put(Parameter.policy_url.toString(), policyURL.toString());
         }
 
         // required parameters
         fields = StringUtils.join(request.getRequiredFields(), ",");
-        if (!fields.isEmpty()) {
+        if (fields != null) {
             parameters.put(Parameter.required.toString(), fields);
         }
 
         // optional parameters
         fields = StringUtils.join(request.getOptionalFields(), ",");
-        if (!fields.isEmpty()) {
+        if (fields != null) {
             parameters.put(Parameter.optional.toString(), fields);
         }
 

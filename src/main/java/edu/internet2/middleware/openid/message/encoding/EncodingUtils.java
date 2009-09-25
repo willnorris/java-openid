@@ -116,7 +116,7 @@ public final class EncodingUtils {
         String parameter = qname.getLocalPart();
         String ns = namespaces.getAlias(qname.getNamespaceURI());
 
-        if (parameter.isEmpty()) {
+        if (parameter.equals("")) {
             // parameter name is for a namespace declaration
             parameter = "ns";
 

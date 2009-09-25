@@ -39,7 +39,7 @@ public class FetchResponseMarshaller {
 
         // update URL
         URL policyURL = response.getUpdateURL();
-        if (policyURL != null && !policyURL.toString().isEmpty()) {
+        if (policyURL != null) {
             parameters.put(Parameter.update_url.toString(), policyURL.toString());
         }
 
