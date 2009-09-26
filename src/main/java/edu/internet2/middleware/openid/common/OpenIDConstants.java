@@ -35,10 +35,10 @@ public class OpenIDConstants {
      * All OpenID indirect messages as well as direct requests include a "mode" parameter to identify to kind of message
      * it is. Direct response messages technically do not require a "mode" parameter because these messages are always
      * present in the context of an accompanying request. However, when writing a generic factory for message
-     * {@link edu.internet2.middleware.openid.message.io.Unmarshaller}s, this lack of a "mode" parameter becomes a problem.
-     * The following fake "mode" values are defined and used within this library solely for the purpose of internal
-     * identification of message builders. If a future version of OpenID adds a "mode" parameter to these messages, the
-     * changes necessary to support that should be quite minimal.
+     * {@link edu.internet2.middleware.openid.message.io.Unmarshaller}s, this lack of a "mode" parameter becomes a
+     * problem. The following fake "mode" values are defined and used within this library solely for the purpose of
+     * internal identification of message builders. If a future version of OpenID adds a "mode" parameter to these
+     * messages, the changes necessary to support that should be quite minimal.
      */
     public static final String ASSOCIATION_RESPONSE_MODE = "X-associate_response";
 
@@ -236,12 +236,12 @@ public class OpenIDConstants {
         /**
          * Association session type using Diffie-Hellman Key Exchange of 160 bit MAC keys.
          */
-        DH_SHA1("HmacSHA1"),
+        DH_SHA1("SHA-1"),
 
         /**
          * Association session type using Diffie-Hellman Key Exchange of 256 bit MAC keys.
          */
-        DH_SHA256("HmacSHA256"),
+        DH_SHA256("SHA-256"),
 
         /**
          * Association session type which does not encrypt the MAC key.
