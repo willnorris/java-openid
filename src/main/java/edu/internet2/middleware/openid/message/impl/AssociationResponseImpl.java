@@ -16,8 +16,7 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.security.Key;
-
+import javax.crypto.SecretKey;
 import javax.crypto.interfaces.DHPublicKey;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
@@ -37,7 +36,7 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
     private DHPublicKey publicKey;
 
     /** MAC Key. */
-    private Key macKey;
+    private SecretKey macKey;
 
     /** Lifetime of the association. */
     private int lifetime;
@@ -112,12 +111,12 @@ public class AssociationResponseImpl extends AbstractMessage implements Associat
     }
 
     /** {@inheritDoc} */
-    public Key getMacKey() {
+    public SecretKey getMacKey() {
         return macKey;
     }
 
     /** {@inheritDoc} */
-    public void setMacKey(Key newMacKey) {
+    public void setMacKey(SecretKey newMacKey) {
         macKey = newMacKey;
     }
 

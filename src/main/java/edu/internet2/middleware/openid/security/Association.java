@@ -16,8 +16,9 @@
 
 package edu.internet2.middleware.openid.security;
 
-import java.security.Key;
 import java.util.Date;
+
+import javax.crypto.SecretKey;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 
@@ -62,6 +63,6 @@ public interface Association {
      * 
      * @return the MAC Key
      */
-    public Key getMacKey();
+    public SecretKey getMacKey();
 
 }

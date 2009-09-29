@@ -16,8 +16,9 @@
 
 package edu.internet2.middleware.openid.security.impl;
 
-import java.security.Key;
 import java.util.Date;
+
+import javax.crypto.SecretKey;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.security.Association;
@@ -40,7 +41,7 @@ public class BasicAssociation implements Association {
     private String entity;
 
     /** MAC key. */
-    private Key macKey;
+    private SecretKey macKey;
 
     /** {@inheritDoc} */
     public String getHandle() {
@@ -99,7 +100,7 @@ public class BasicAssociation implements Association {
     }
 
     /** {@inheritDoc} */
-    public Key getMacKey() {
+    public SecretKey getMacKey() {
         return macKey;
     }
 
@@ -108,7 +109,7 @@ public class BasicAssociation implements Association {
      * 
      * @param newMacKey the MAC key
      */
-    public void setMacKey(Key newMacKey) {
+    public void setMacKey(SecretKey newMacKey) {
         macKey = newMacKey;
     }
 

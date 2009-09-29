@@ -18,7 +18,6 @@ package edu.internet2.middleware.openid.security;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.Key;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -50,7 +49,7 @@ public class SecurityUtilsTest extends BaseTestCase {
     public void testSignatureCreation() throws SecurityException {
         String algorithm = AssociationType.HMAC_SHA256.getAlgorithm();
         String encodedMacKey = "qMOYPeeb8PhGk8mlPUV+qBPPlFzY6xHk1AhSiRCQVsk=";
-        Key macKey = new SecretKeySpec(encodedMacKey.getBytes(), algorithm);
+        SecretKey macKey = new SecretKeySpec(encodedMacKey.getBytes(), algorithm);
 
         BasicAssociation association = new BasicAssociation();
         association.setAssociationType(AssociationType.HMAC_SHA256);

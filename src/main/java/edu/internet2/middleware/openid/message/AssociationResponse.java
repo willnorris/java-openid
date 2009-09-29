@@ -16,8 +16,7 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.security.Key;
-
+import javax.crypto.SecretKey;
 import javax.crypto.interfaces.DHPublicKey;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
@@ -90,14 +89,14 @@ public interface AssociationResponse extends Message {
      * 
      * @return the MAC key
      */
-    public Key getMacKey();
+    public SecretKey getMacKey();
 
     /**
      * Set the MAC key for the association.
      * 
      * @param newKey the MAC key
      */
-    public void setMacKey(Key newKey);
+    public void setMacKey(SecretKey newKey);
 
     /**
      * The OpenID Provider's Diffie-Hellman public key.
