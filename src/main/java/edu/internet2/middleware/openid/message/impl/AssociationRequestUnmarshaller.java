@@ -30,8 +30,8 @@ import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 import edu.internet2.middleware.openid.message.io.UnmarshallingException;
-import edu.internet2.middleware.openid.security.AssociationUtils;
 
 /**
  * Unmarshaller for {@link AssociationRequest} message.
@@ -61,8 +61,7 @@ public class AssociationRequestUnmarshaller extends AbstractMessageUnmarshaller<
                 String encodedKey = parameters.get(Parameter.dh_consumer_public.QNAME);
                 if (encodedKey != null) {
                     try {
-                        byte[] publicKeyBytes = Base64.decodeBase64(encodedKey.getBytes());
-                        DHPublicKey publicKey = AssociationUtils.loadPublicKey(publicKeyBytes, dhParameters);
+                        DHPublicKey publicKey = EncodingUtils.decodePublicKey(encodedKey, dhParameters);
                         request.setDHConsumerPublic(publicKey);
                     } catch (NoSuchAlgorithmException e) {
                         throw new UnmarshallingException(e);

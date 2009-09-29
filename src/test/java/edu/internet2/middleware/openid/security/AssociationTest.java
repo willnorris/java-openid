@@ -16,18 +16,17 @@
 
 package edu.internet2.middleware.openid.security;
 
-import java.security.Key;
 import java.security.KeyPair;
 
 import javax.crypto.SecretKey;
 
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.BaseTestCase;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 
 /**
  * Association test.
@@ -71,19 +70,20 @@ public class AssociationTest extends BaseTestCase {
         SecretKey sharedSecret = AssociationUtils.generateSharedSecret(keyPair.getPrivate(), keyPair.getPublic(),
                 sessionType.getAlgorithm());
 
-        Key macKey = AssociationUtils.generateMacKey(associationType.getAlgorithm(), associationType.getKeySize());
+        SecretKey macKey = AssociationUtils
+                .generateMacKey(associationType.getAlgorithm(), associationType.getKeySize());
         assertNotNull(macKey);
-        log.info("mac key: {}", new String(Base64.encodeBase64(macKey.getEncoded())));
+        log.info("mac key: {}", EncodingUtils.encodeSecretKey(macKey));
         assertEquals("Key is not the expected size.", associationType.getKeySize(), macKey.getEncoded().length * 8);
 
-        Key encryptedKey = AssociationUtils.encryptMacKey(macKey, sharedSecret);
+        SecretKey encryptedKey = AssociationUtils.encryptMacKey(macKey, sharedSecret);
         assertNotNull(encryptedKey);
-        log.info("encrypted key: {}", new String(Base64.encodeBase64(encryptedKey.getEncoded())));
+        log.info("encrypted key: {}", EncodingUtils.encodeSecretKey(encryptedKey));
         assertFalse("Encrypted key didn't change.", macKey.equals(encryptedKey));
 
-        Key decryptedKey = AssociationUtils.decryptMacKey(encryptedKey, sharedSecret);
+        SecretKey decryptedKey = AssociationUtils.decryptMacKey(encryptedKey, sharedSecret);
         assertNotNull(decryptedKey);
-        log.info("derypted key: {}", new String(Base64.encodeBase64(decryptedKey.getEncoded())));
+        log.info("derypted key: {}", EncodingUtils.encodeSecretKey(decryptedKey));
         assertEquals("Decrypted key doesn't match the original mac key", macKey, decryptedKey);
     }
 

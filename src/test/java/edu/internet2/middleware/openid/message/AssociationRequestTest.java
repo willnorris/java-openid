@@ -23,7 +23,6 @@ import javax.crypto.interfaces.DHPublicKey;
 import javax.crypto.spec.DHParameterSpec;
 import javax.xml.namespace.QName;
 
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +30,7 @@ import edu.internet2.middleware.openid.BaseMessageProviderTestCase;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
-import edu.internet2.middleware.openid.security.AssociationUtils;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link AssociationRequest}.
@@ -80,8 +79,7 @@ public class AssociationRequestTest extends BaseMessageProviderTestCase {
                 + "1zIKaSDuKdiI+XUkKJX8Fvf8W8vsixYOrAgECAgICAAOBhQACgYEAo4nggMiy9KMoUd88/PzaN92+tloaeP6K66eTx0IR8"
                 + "IPowmV8bPL1NBiAScSyZ4/eUENfUIZ+UiGRDJDzBlMOWx4N2hlpZRmAM7CZPCu6BjMACFzJBhM3dAPYiTmjjlTexGIKzhs"
                 + "LhAENmWmOlHcaywlYCB91Lgb7gOutS9iN2sw=";
-        expectedConsumerPublic = AssociationUtils.loadPublicKey(Base64.decodeBase64(consumerPublicKey.getBytes()),
-                dhParameters);
+        expectedConsumerPublic = EncodingUtils.decodePublicKey(consumerPublicKey, dhParameters);
     }
 
     /** {@inheritDoc} */

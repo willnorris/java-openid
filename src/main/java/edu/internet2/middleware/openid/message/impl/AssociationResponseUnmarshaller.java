@@ -16,15 +16,12 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
+import javax.crypto.SecretKey;
 import javax.crypto.interfaces.DHPublicKey;
 import javax.crypto.spec.DHParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.apache.commons.codec.binary.Base64;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.ParameterMap;
@@ -32,7 +29,7 @@ import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationResponse;
-import edu.internet2.middleware.openid.security.AssociationUtils;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 
 /**
  * Marshaller for {@link AssociationResponse} messages.
@@ -61,7 +58,7 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
             try {
                 String encodedKey = parameters.get(Parameter.dh_server_public.QNAME);
                 // Temporarily unmarshall the public key using the default DHParameterSpec
-                DHPublicKey publicKey = AssociationUtils.loadPublicKey(Base64.decodeBase64(encodedKey.getBytes()),
+                DHPublicKey publicKey = EncodingUtils.decodePublicKey(encodedKey,
                         OpenIDConstants.DEFAULT_PARAMETER_SPEC);
                 response.setDHServerPublic(publicKey);
             } catch (NoSuchAlgorithmException e) {
@@ -76,7 +73,7 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
         }
 
         if (encodedMacKey != null) {
-            Key macKey = new SecretKeySpec(Base64.decodeBase64(encodedMacKey.getBytes()), response.getAssociationType()
+            SecretKey macKey = EncodingUtils.decodeSecretKey(encodedMacKey, response.getAssociationType()
                     .getAlgorithm());
             response.setMacKey(macKey);
         }

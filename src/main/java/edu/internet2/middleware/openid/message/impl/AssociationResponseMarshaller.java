@@ -16,12 +16,11 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import org.apache.commons.codec.binary.Base64;
-
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationResponse;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 
 /**
  * Marshaller for {@link AssociationResponse} messages.
@@ -35,11 +34,11 @@ public class AssociationResponseMarshaller extends AbstractMessageMarshaller<Ass
         SessionType sessionType = response.getSessionType();
         parameters.put(Parameter.session_type.QNAME, sessionType.toString());
 
-        String macKey = new String(Base64.encodeBase64(response.getMacKey().getEncoded()));
+        String macKey = EncodingUtils.encodeSecretKey(response.getMacKey());
 
         if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
             parameters.put(Parameter.enc_mac_key.QNAME, macKey);
-            String publicKey = new String(Base64.encodeBase64(response.getDHServerPublic().getY().toByteArray()));
+            String publicKey = EncodingUtils.encodePublicKey(response.getDHServerPublic());
             parameters.put(Parameter.dh_server_public.QNAME, publicKey);
         } else {
             parameters.put(Parameter.mac_key.QNAME, macKey);

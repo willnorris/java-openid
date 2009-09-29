@@ -21,10 +21,8 @@ import java.security.PublicKey;
 
 import javax.crypto.SecretKey;
 import javax.crypto.interfaces.DHPublicKey;
-import javax.crypto.spec.SecretKeySpec;
 import javax.xml.namespace.QName;
 
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,9 +32,9 @@ import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 import edu.internet2.middleware.openid.message.io.Marshaller;
 import edu.internet2.middleware.openid.message.io.MarshallingException;
-import edu.internet2.middleware.openid.security.AssociationUtils;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link AssociationRequest}.
@@ -87,13 +85,11 @@ public class AssociationResponseTest extends BaseMessageProviderTestCase {
                 + "bU1zIKaSDuKdiI+XUkKJX8Fvf8W8vsixYOrAgECAgICAAOBhAACgYAyF/jTzfAxpM62s22/OFZe3p/R0WpKPwIe1xeCV"
                 + "Kw53Kx2LA/yZjtSGJ3LC00zsWnnehbGDDv2nSHHKc9GKxsCyjUu03+G9p280yR/YC+T4/wegDFY/+ueqd98NmEHQFIi+"
                 + "mdFwVnmpVbwqA+Ek1uDfo+mUFeVUfbVpZjI0FeBbw==";
-        expectedServerPublic = AssociationUtils.loadPublicKey(Base64.decodeBase64(serverPublicKey.getBytes()),
-                OpenIDConstants.DEFAULT_PARAMETER_SPEC);
+        expectedServerPublic = EncodingUtils.decodePublicKey(serverPublicKey, OpenIDConstants.DEFAULT_PARAMETER_SPEC);
 
         String encodedMacKey = "hVGXOx0j7OndhRlCsfa37y1CP4GKapFc1wdz3gK71q4fkr+aTo9mvMaxkjZIzJIzcyGgYqD1XLJSdbfr"
                 + "dSh5uR9ejxqTDAZUW0FwGZWpvfu2BEadoiwq8R4bqtiWFfRgMVIK5YW2hydvJGblZtxjhJfClh0Wbb6TK2xpq3y5NhA=";
-        expectedEncryptedMacKey = new SecretKeySpec(Base64.decodeBase64(encodedMacKey.getBytes()),
-                expectedAssociationType.getAlgorithm());
+        expectedEncryptedMacKey = EncodingUtils.decodeSecretKey(encodedMacKey, expectedAssociationType.getAlgorithm());
     }
 
     /** {@inheritDoc} */
@@ -116,13 +112,9 @@ public class AssociationResponseTest extends BaseMessageProviderTestCase {
         try {
             ParameterMap generatedParameters = marshaller.marshall(response);
             log.info("expected");
-            for (QName key : expectedParameters.keySet()) {
-                log.info("{} = {}", key, expectedParameters.get(key));
-            }
+            logMessageParameters(expectedParameters);
             log.info("generated");
-            for (QName key : generatedParameters.keySet()) {
-                log.info("{} = {}", key, generatedParameters.get(key));
-            }
+            logMessageParameters(generatedParameters);
             assertTrue(expectedParameters.equals(generatedParameters));
         } catch (MarshallingException e) {
             fail("Unable to marshall message");

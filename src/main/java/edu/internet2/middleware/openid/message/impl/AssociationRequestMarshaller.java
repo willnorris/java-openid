@@ -25,6 +25,7 @@ import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 
 /**
  * Marshaller for {@link AssociationRequest} message.
@@ -52,8 +53,8 @@ public class AssociationRequestMarshaller extends AbstractMessageMarshaller<Asso
 
             DHPublicKey consumerPublic = request.getDHConsumerPublic();
             if (consumerPublic != null) {
-                byte[] publicKey = Base64.encodeBase64(consumerPublic.getY().toByteArray());
-                parameters.put(Parameter.dh_consumer_public.QNAME, new String(publicKey));
+                String publicKey = EncodingUtils.encodePublicKey(consumerPublic);
+                parameters.put(Parameter.dh_consumer_public.QNAME, publicKey);
             }
 
         }
