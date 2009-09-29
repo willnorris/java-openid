@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 /**
  * OpenID Constants.
  */
-public class OpenIDConstants {
+public final class OpenIDConstants {
 
     /** OpenID 2.0 Namespace URI. */
     public static final String OPENID_20_NS = "http://specs.openid.net/auth/2.0";
@@ -65,6 +65,9 @@ public class OpenIDConstants {
 
     /** Prefix attached to each namespace alias declarations in OpenID Messages. */
     public static final String MESSAGE_NAMESPACE_PREFIX = "ns";
+
+    /** Internet Date/Time format, specified by RFC 3339. */
+    public static final String INTERNET_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     /**
      * OpenID parameters.

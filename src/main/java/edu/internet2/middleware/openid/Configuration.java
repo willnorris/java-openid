@@ -16,6 +16,11 @@
 
 package edu.internet2.middleware.openid;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
+import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.message.MessageBuilderFactory;
 import edu.internet2.middleware.openid.message.io.MarshallerFactory;
 import edu.internet2.middleware.openid.message.io.UnmarshallerFactory;
@@ -33,6 +38,9 @@ public class Configuration {
 
     /** Message Unmarshallers. */
     private static UnmarshallerFactory messageUnmarshallers = new UnmarshallerFactory();
+
+    /** Date Format to use when generating nonces. */
+    private static DateFormat nonceDateFormat;
 
     /** Constructor. */
     protected Configuration() {
@@ -52,7 +60,6 @@ public class Configuration {
      * 
      * @return message marshallers.
      */
-
     public static MarshallerFactory getMarshallers() {
         return messageMarshallers;
     }
@@ -62,9 +69,22 @@ public class Configuration {
      * 
      * @return message unmarshallers.
      */
-
     public static UnmarshallerFactory getUnmarshallers() {
         return messageUnmarshallers;
+    }
+
+    /**
+     * Get the nonce date format.
+     * 
+     * @return the nonce date format
+     */
+    public static DateFormat getNonceDateFormat() {
+        if (nonceDateFormat == null) {
+            nonceDateFormat = new SimpleDateFormat(OpenIDConstants.INTERNET_DATE_FORMAT);
+            nonceDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        }
+
+        return nonceDateFormat;
     }
 
 }
