@@ -77,11 +77,13 @@ public final class SecurityUtils {
             signedParameters.add(nsQName);
         }
         signedParameters.addAll(messageParameters.keySet());
-        signedParameters.removeAll(Arrays.asList(new QName[] { Parameter.sig.QNAME, Parameter.signed.QNAME, }));
+        signedParameters.removeAll(Arrays.asList(new QName[] { Parameter.sig.QNAME, Parameter.signed.QNAME,
+                Parameter.mode.QNAME, }));
 
-        log.info("signable parameters = {}", signedParameters);
+        log.debug("signable parameters = {}", signedParameters);
 
         String signatureData = buildSignatureData(messageParameters, signedParameters);
+        log.debug("signature data = {}", signatureData);
         String signature = calculateSignature(association, signatureData);
 
         message.getSignedFields().addAll(signedParameters);
@@ -107,6 +109,7 @@ public final class SecurityUtils {
         }
 
         String signatureData = buildSignatureData(messageParameters, message.getSignedFields());
+        log.debug("validating signature data: {}", signatureData);
         String signature = calculateSignature(association, signatureData);
         return signature.equals(message.getSignature());
     }
@@ -125,7 +128,11 @@ public final class SecurityUtils {
         ParameterMap signedParameters = new ParameterMap();
 
         for (QName field : signedFields) {
-            signedParameters.put(field, parameters.get(field));
+            if (field.getLocalPart().equals("")) {
+                signedParameters.put(field, field.getNamespaceURI());
+            } else {
+                signedParameters.put(field, parameters.get(field));
+            }
         }
 
         try {
