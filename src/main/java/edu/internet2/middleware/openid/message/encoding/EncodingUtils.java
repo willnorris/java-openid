@@ -16,14 +16,31 @@
 
 package edu.internet2.middleware.openid.message.encoding;
 
+import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.SecretKey;
+import javax.crypto.interfaces.DHPrivateKey;
+import javax.crypto.interfaces.DHPublicKey;
+import javax.crypto.spec.DHParameterSpec;
+import javax.crypto.spec.DHPrivateKeySpec;
+import javax.crypto.spec.DHPublicKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.http.client.utils.URIUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -150,6 +167,13 @@ public final class EncodingUtils {
         return StringUtils.join(encodedFields, ",");
     }
 
+    /**
+     * Decode the comma separated list of encoded parameter names into QNames.
+     * 
+     * @param signedFields comma separated list of encoded parameter names
+     * @param namespaces namespaces map of registered namespaces
+     * @return QNames of the signed fields
+     */
     public static List<QName> decodeSignedFields(String signedFields, NamespaceMap namespaces) {
         List<QName> decodedFields = new ArrayList<QName>();
 
@@ -161,4 +185,131 @@ public final class EncodingUtils {
 
         return decodedFields;
     }
+
+    /**
+     * Append the URL encoded OpenID message parameters to the query string of the provided URL.
+     * 
+     * @param url URL to append OpenID message parameter to
+     * @param message URL encoded OpenID message parameters
+     * @return URL with message parameters appended
+     */
+    public static URL appendMessageParameters(URL url, String message) {
+        try {
+            return appendMessageParameters(url.toURI(), message).toURL();
+        } catch (MalformedURLException e) {
+            log.error("Unable to append message parameters to URL: {}", e);
+        } catch (URISyntaxException e) {
+            log.error("Unable to append message parameters to URL: {}", e);
+        }
+
+        return null;
+    }
+
+    /**
+     * Append the URL encoded OpenID message parameters to the query string of the provided URI.
+     * 
+     * @param uri URI to append OpenID message parameter to
+     * @param message URL encoded OpenID message parameters
+     * @return URI with message parameters appended
+     */
+    public static URI appendMessageParameters(URI uri, String message) {
+        if (uri == null || message == null) {
+            return uri;
+        }
+
+        // build new query string
+        StringBuffer queryBuffer = new StringBuffer();
+        if (uri.getRawQuery() != null) {
+            queryBuffer.append(uri.getRawQuery());
+        }
+        if (queryBuffer.length() > 0 && queryBuffer.charAt(queryBuffer.length() - 1) != '&') {
+            queryBuffer.append('&');
+        }
+        queryBuffer.append(message);
+
+        try {
+            return URIUtils.createURI(uri.getScheme(), uri.getHost(), uri.getPort(), uri.getPath(), queryBuffer
+                    .toString(), uri.getFragment());
+        } catch (URISyntaxException e) {
+            log.error("Unable to append message parameters to URI: {}", e);
+        }
+
+        return null;
+    }
+
+    /**
+     * Encode a DH public key.
+     * 
+     * @param publicKey DH public key to encode
+     * @return encoded public key
+     */
+    public static String encodePublicKey(DHPublicKey publicKey) {
+        return new String(Base64.encodeBase64(publicKey.getY().toByteArray()));
+    }
+
+    /**
+     * Decode a DH public key.
+     * 
+     * @param encodedKey public key to decode
+     * @param parameters DH parameters used in decoding
+     * @return decoded public key
+     * @throws NoSuchAlgorithmException if DH algorithm is unavailable
+     * @throws InvalidKeySpecException if unable to build a valid DH key spec
+     */
+    public static DHPublicKey decodePublicKey(String encodedKey, DHParameterSpec parameters)
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
+        byte[] keyBytes = Base64.decodeBase64(encodedKey.getBytes());
+        DHPublicKeySpec keySpec = new DHPublicKeySpec(new BigInteger(keyBytes), parameters.getP(), parameters.getG());
+        KeyFactory keyFactory = KeyFactory.getInstance("DH");
+        return (DHPublicKey) keyFactory.generatePublic(keySpec);
+    }
+
+    /**
+     * Encode a DH private key.
+     * 
+     * @param privateKey DH private key to encode
+     * @return encoded private key
+     */
+    public static String encodePrivateKey(DHPrivateKey privateKey) {
+        return new String(Base64.encodeBase64(privateKey.getX().toByteArray()));
+    }
+
+    /**
+     * Decode a DH private key.
+     * 
+     * @param encodedKey private key to decode
+     * @param parameters DH parameters used in decoding
+     * @return decoded private key
+     * @throws NoSuchAlgorithmException if DH algorithm is unavailable
+     * @throws InvalidKeySpecException if unable to build a valid DH key spec
+     */
+    public static DHPrivateKey decodePrivateKey(String encodedKey, DHParameterSpec parameters)
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
+        byte[] keyBytes = Base64.decodeBase64(encodedKey.getBytes());
+        DHPrivateKeySpec keySpec = new DHPrivateKeySpec(new BigInteger(keyBytes), parameters.getP(), parameters.getG());
+        KeyFactory keyFactory = KeyFactory.getInstance("DH");
+        return (DHPrivateKey) keyFactory.generatePrivate(keySpec);
+    }
+
+    /**
+     * Encode a secret key. This can be used on DH shared secrets as well as MAC keys.
+     * 
+     * @param key secret key to encode
+     * @return encoded secret key
+     */
+    public static String encodeSecretKey(SecretKey key) {
+        return new String(Base64.encodeBase64(key.getEncoded()));
+    }
+
+    /**
+     * Decode a secret key. This can be used on DH shared secrets as well as MAC keys.
+     * 
+     * @param encodedKey secret key to decode
+     * @param algorithm algorithm to set on the decoded key
+     * @return decoded secret key
+     */
+    public static SecretKey decodeSecretKey(String encodedKey, String algorithm) {
+        return new SecretKeySpec(Base64.decodeBase64(encodedKey.getBytes()), algorithm);
+    }
+
 }

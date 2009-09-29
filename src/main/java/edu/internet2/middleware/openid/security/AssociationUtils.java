@@ -39,6 +39,7 @@ import javax.crypto.spec.DHPrivateKeySpec;
 import javax.crypto.spec.DHPublicKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -183,38 +184,6 @@ public final class AssociationUtils {
         }
 
         return null;
-    }
-
-    /**
-     * Load a public key from a byte array.
-     * 
-     * @param bytes public key bytes
-     * @param parameters parameter spec used to load the key
-     * @return public key
-     * @throws NoSuchAlgorithmException if unknown algorithm is request
-     * @throws InvalidKeySpecException if key spec is invalid
-     */
-    public static DHPublicKey loadPublicKey(byte[] bytes, DHParameterSpec parameters) throws NoSuchAlgorithmException,
-            InvalidKeySpecException {
-        DHPublicKeySpec keySpec = new DHPublicKeySpec(new BigInteger(bytes), parameters.getP(), parameters.getG());
-        KeyFactory keyFactory = KeyFactory.getInstance("DH");
-        return (DHPublicKey) keyFactory.generatePublic(keySpec);
-    }
-
-    /**
-     * Load a private key from a byte array.
-     * 
-     * @param bytes private key bytes
-     * @param parameters parameter spec used to load the key
-     * @return public key
-     * @throws NoSuchAlgorithmException if unknown algorithm is request
-     * @throws InvalidKeySpecException if key spec is invalid
-     */
-    public static DHPrivateKey loadPrivateKey(byte[] bytes, DHParameterSpec parameters)
-            throws NoSuchAlgorithmException, InvalidKeySpecException {
-        DHPrivateKeySpec keySpec = new DHPrivateKeySpec(new BigInteger(bytes), parameters.getP(), parameters.getG());
-        KeyFactory keyFactory = KeyFactory.getInstance("DH");
-        return (DHPrivateKey) keyFactory.generatePrivate(keySpec);
     }
 
     /**
