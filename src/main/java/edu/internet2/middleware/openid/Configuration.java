@@ -21,6 +21,9 @@ import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
+import edu.internet2.middleware.openid.extensions.MessageExtensionBuilderFactory;
+import edu.internet2.middleware.openid.extensions.MessageExtensionMarshallerFactory;
+import edu.internet2.middleware.openid.extensions.MessageExtensionUnmarshallerFactory;
 import edu.internet2.middleware.openid.message.MessageBuilderFactory;
 import edu.internet2.middleware.openid.message.io.MarshallerFactory;
 import edu.internet2.middleware.openid.message.io.UnmarshallerFactory;
@@ -38,6 +41,15 @@ public class Configuration {
 
     /** Message Unmarshallers. */
     private static UnmarshallerFactory messageUnmarshallers = new UnmarshallerFactory();
+
+    /** Message Extension Builders. */
+    private static MessageExtensionBuilderFactory extensionBuilders = new MessageExtensionBuilderFactory();
+
+    /** Message Extension Marshallers. */
+    private static MessageExtensionMarshallerFactory extensionMarshallers = new MessageExtensionMarshallerFactory();
+
+    /** Message Extension Unmarshallers. */
+    private static MessageExtensionUnmarshallerFactory extensionUnmarshallers = new MessageExtensionUnmarshallerFactory();
 
     /** Date Format to use when generating nonces. */
     private static DateFormat nonceDateFormat;
@@ -71,6 +83,33 @@ public class Configuration {
      */
     public static UnmarshallerFactory getMessageUnmarshallers() {
         return messageUnmarshallers;
+    }
+
+    /**
+     * Get message extension builders.
+     * 
+     * @return message extension builders.
+     */
+    public static MessageExtensionBuilderFactory getExtensionBuilders() {
+        return extensionBuilders;
+    }
+
+    /**
+     * Get message extension marshallers.
+     * 
+     * @return message extension marshallers.
+     */
+    public static MessageExtensionMarshallerFactory getExtensionMarshallers() {
+        return extensionMarshallers;
+    }
+
+    /**
+     * Get message extension unmarshallers.
+     * 
+     * @return message extension unmarshallers.
+     */
+    public static MessageExtensionUnmarshallerFactory getExtensionUnmarshallers() {
+        return extensionUnmarshallers;
     }
 
     /**
