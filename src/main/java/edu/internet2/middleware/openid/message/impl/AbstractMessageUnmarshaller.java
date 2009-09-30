@@ -42,7 +42,7 @@ public abstract class AbstractMessageUnmarshaller<MessageType extends Message> i
 
     /** Constructor. */
     public AbstractMessageUnmarshaller() {
-        messageBuilders = Configuration.getBuilders();
+        messageBuilders = Configuration.getMessageBuilders();
     }
 
     /** {@inheritDoc} */

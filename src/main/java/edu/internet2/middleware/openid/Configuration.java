@@ -51,7 +51,7 @@ public class Configuration {
      * 
      * @return message builders.
      */
-    public static MessageBuilderFactory getBuilders() {
+    public static MessageBuilderFactory getMessageBuilders() {
         return messageBuilders;
     }
 
@@ -60,7 +60,7 @@ public class Configuration {
      * 
      * @return message marshallers.
      */
-    public static MarshallerFactory getMarshallers() {
+    public static MarshallerFactory getMessageMarshallers() {
         return messageMarshallers;
     }
 
@@ -69,7 +69,7 @@ public class Configuration {
      * 
      * @return message unmarshallers.
      */
-    public static UnmarshallerFactory getUnmarshallers() {
+    public static UnmarshallerFactory getMessageUnmarshallers() {
         return messageUnmarshallers;
     }
 

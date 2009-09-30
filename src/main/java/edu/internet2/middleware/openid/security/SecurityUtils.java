@@ -63,7 +63,7 @@ public final class SecurityUtils {
     public static void signMessage(SignableMessage message, Association association) throws SecurityException {
         ParameterMap messageParameters;
         try {
-            Marshaller marshaller = Configuration.getMarshallers().getMarshaller(message);
+            Marshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
             messageParameters = marshaller.marshall(message);
         } catch (MarshallingException e) {
             log.error("Unable to sign message - " + e.getMessage());
@@ -101,7 +101,7 @@ public final class SecurityUtils {
     public static boolean signatureIsValid(SignableMessage message, Association association) throws SecurityException {
         ParameterMap messageParameters;
         try {
-            Marshaller marshaller = Configuration.getMarshallers().getMarshaller(message);
+            Marshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
             messageParameters = marshaller.marshall(message);
         } catch (MarshallingException e) {
             log.error("Unable verify message signature - " + e.getMessage());

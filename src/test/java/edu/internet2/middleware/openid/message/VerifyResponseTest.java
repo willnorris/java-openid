@@ -68,7 +68,7 @@ public class VerifyResponseTest extends BaseMessageProviderTestCase {
         response.setInvalidateHandle(expectedInvalidateHandle);
 
         // test if maps are equal
-        Marshaller marshaller = Configuration.getMarshallers().getMarshaller(qname);
+        Marshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(qname);
         if (marshaller == null) {
             fail("Unable to find message marshaller for mode: " + qname);
         }

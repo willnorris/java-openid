@@ -147,9 +147,9 @@ public class DefaultBootstrap {
     public static void initializeObjectProvider(QName qname, MessageBuilder builder, Marshaller marshaller,
             Unmarshaller unmarshaller) {
 
-        Configuration.getBuilders().registerBuilder(qname, builder);
-        Configuration.getMarshallers().registerMarshaller(qname, marshaller);
-        Configuration.getUnmarshallers().registerUnmarshaller(qname, unmarshaller);
+        Configuration.getMessageBuilders().registerBuilder(qname, builder);
+        Configuration.getMessageMarshallers().registerMarshaller(qname, marshaller);
+        Configuration.getMessageUnmarshallers().registerUnmarshaller(qname, unmarshaller);
 
     }
 

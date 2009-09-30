@@ -74,7 +74,7 @@ public abstract class BaseTestCase extends TestCase {
      */
     public void assertEquals(String failMessage, ParameterMap expectedParameters, Message message) {
         QName qname = new QName(OpenIDConstants.OPENID_20_NS, expectedParameters.get(Parameter.mode.QNAME));
-        Marshaller marshaller = Configuration.getMarshallers().getMarshaller(qname);
+        Marshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(qname);
         if (marshaller == null) {
             fail("Unable to find message marshaller for mode: " + message.getMode());
         }
@@ -106,7 +106,7 @@ public abstract class BaseTestCase extends TestCase {
     protected Message unmarshallMessage(ParameterMap parameters) {
         Unmarshaller unmarshaller;
         try {
-            unmarshaller = Configuration.getUnmarshallers().getUnmarshaller(parameters);
+            unmarshaller = Configuration.getMessageUnmarshallers().getUnmarshaller(parameters);
             return unmarshaller.unmarshall(parameters);
         } catch (UnmarshallingException e) {
             fail("Unable to unmarshall message: " + e.getMessage());
@@ -143,7 +143,7 @@ public abstract class BaseTestCase extends TestCase {
     }
 
     public Message buildMessage(QName qname) {
-        MessageBuilder<Message> builder = Configuration.getBuilders().getBuilder(qname);
+        MessageBuilder<Message> builder = Configuration.getMessageBuilders().getBuilder(qname);
 
         if (builder == null) {
             fail("Unable to retrieve builder for message with QName: " + qname);
@@ -158,7 +158,7 @@ public abstract class BaseTestCase extends TestCase {
 
     protected void logMessageParameters(Message message) {
         try {
-            Marshaller marshaller = Configuration.getMarshallers().getMarshaller(message);
+            Marshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
             logMessageParameters(marshaller.marshall(message));
         } catch (MarshallingException e) {
             log.error("unable to marshall message: {}", e.getMessage());
