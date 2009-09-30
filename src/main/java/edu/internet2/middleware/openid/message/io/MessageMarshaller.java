@@ -25,7 +25,7 @@ import edu.internet2.middleware.openid.message.Message;
  * 
  * @param <MessageType> type of message this marshaller handles
  */
-public interface Marshaller<MessageType extends Message> {
+public interface MessageMarshaller<MessageType extends Message> {
 
     /**
      * Marshall the object.

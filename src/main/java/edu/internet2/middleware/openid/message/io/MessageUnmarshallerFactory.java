@@ -34,17 +34,17 @@ import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
  * namespace URI representing the OpenID message version, and a local part which is the value of the OpenID message
  * mode.
  */
-public class UnmarshallerFactory {
+public class MessageUnmarshallerFactory {
 
     /** Logger. */
-    private final Logger log = LoggerFactory.getLogger(UnmarshallerFactory.class);
+    private final Logger log = LoggerFactory.getLogger(MessageUnmarshallerFactory.class);
 
     /** Message unmarshallers. */
-    private Map<QName, Unmarshaller> messageUnmarshallers;
+    private Map<QName, MessageUnmarshaller> messageUnmarshallers;
 
     /** Constructor. */
-    public UnmarshallerFactory() {
-        messageUnmarshallers = new ConcurrentHashMap<QName, Unmarshaller>();
+    public MessageUnmarshallerFactory() {
+        messageUnmarshallers = new ConcurrentHashMap<QName, MessageUnmarshaller>();
     }
 
     /**
@@ -53,7 +53,7 @@ public class UnmarshallerFactory {
      * @param key key to get unmarshaller for
      * @return unmarshaller for the specified key
      */
-    public Unmarshaller getUnmarshaller(QName key) {
+    public MessageUnmarshaller getUnmarshaller(QName key) {
         if (key == null) {
             return null;
         }
@@ -71,7 +71,7 @@ public class UnmarshallerFactory {
      * @return message unmarshaller for the parameter map
      * @throws UnmarshallingException if unable to determine unmarshaller for the message
      */
-    public Unmarshaller getUnmarshaller(ParameterMap parameterMap) throws UnmarshallingException {
+    public MessageUnmarshaller getUnmarshaller(ParameterMap parameterMap) throws UnmarshallingException {
         String mode = parameterMap.get(Parameter.mode.QNAME);
         if (mode == null) {
             if (parameterMap.containsKey(Parameter.is_valid.QNAME)) {
@@ -96,7 +96,7 @@ public class UnmarshallerFactory {
      * 
      * @return all message unmarshallers
      */
-    public Map<QName, Unmarshaller> getUnmarshallers() {
+    public Map<QName, MessageUnmarshaller> getUnmarshallers() {
         return Collections.unmodifiableMap(messageUnmarshallers);
     }
 
@@ -106,7 +106,7 @@ public class UnmarshallerFactory {
      * @param key QName consisting of message namespace and mode value
      * @param unmarshaller unmarshaller to register.
      */
-    public void registerUnmarshaller(QName key, Unmarshaller unmarshaller) {
+    public void registerUnmarshaller(QName key, MessageUnmarshaller unmarshaller) {
         log.debug("Registering unmmarshaller, {}, for OpenID message mode {}", unmarshaller.getClass().getName(), key);
         if (key != null) {
             messageUnmarshallers.put(key, unmarshaller);
@@ -119,7 +119,7 @@ public class UnmarshallerFactory {
      * @param key key of unmarshaller to deregeister
      * @return the deregistered unmarshaller
      */
-    public Unmarshaller deregisterUnmarshaller(QName key) {
+    public MessageUnmarshaller deregisterUnmarshaller(QName key) {
         log.debug("Deregistering unmmarshaller for object type {}", key);
         if (key != null) {
             return messageUnmarshallers.remove(key);

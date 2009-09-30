@@ -53,8 +53,8 @@ import edu.internet2.middleware.openid.message.impl.VerifyRequestUnmarshaller;
 import edu.internet2.middleware.openid.message.impl.VerifyResponseBuilder;
 import edu.internet2.middleware.openid.message.impl.VerifyResponseMarshaller;
 import edu.internet2.middleware.openid.message.impl.VerifyResponseUnmarshaller;
-import edu.internet2.middleware.openid.message.io.Marshaller;
-import edu.internet2.middleware.openid.message.io.Unmarshaller;
+import edu.internet2.middleware.openid.message.io.MessageMarshaller;
+import edu.internet2.middleware.openid.message.io.MessageUnmarshaller;
 
 /**
  * This class can be used to bootstrap the OpenXRD library with the default configurations that ship with the library.
@@ -78,8 +78,8 @@ public class DefaultBootstrap {
     public static void initializeObjectProviders() {
         QName qname;
         MessageBuilder builder;
-        Marshaller marshaller;
-        Unmarshaller unmarshaller;
+        MessageMarshaller marshaller;
+        MessageUnmarshaller unmarshaller;
 
         qname = new QName(OpenIDConstants.OPENID_20_NS, AssociationRequest.MODE);
         builder = new AssociationRequestBuilder();
@@ -144,8 +144,8 @@ public class DefaultBootstrap {
         initializeObjectProvider(qname, builder, marshaller, unmarshaller);
     }
 
-    public static void initializeObjectProvider(QName qname, MessageBuilder builder, Marshaller marshaller,
-            Unmarshaller unmarshaller) {
+    public static void initializeObjectProvider(QName qname, MessageBuilder builder, MessageMarshaller marshaller,
+            MessageUnmarshaller unmarshaller) {
 
         Configuration.getMessageBuilders().registerBuilder(qname, builder);
         Configuration.getMessageMarshallers().registerMarshaller(qname, marshaller);

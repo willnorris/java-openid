@@ -35,7 +35,7 @@ import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.SignableMessage;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
 import edu.internet2.middleware.openid.message.encoding.impl.KeyValueFormCodec;
-import edu.internet2.middleware.openid.message.io.Marshaller;
+import edu.internet2.middleware.openid.message.io.MessageMarshaller;
 import edu.internet2.middleware.openid.message.io.MarshallingException;
 
 /**
@@ -63,7 +63,7 @@ public final class SecurityUtils {
     public static void signMessage(SignableMessage message, Association association) throws SecurityException {
         ParameterMap messageParameters;
         try {
-            Marshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
+            MessageMarshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
             messageParameters = marshaller.marshall(message);
         } catch (MarshallingException e) {
             log.error("Unable to sign message - " + e.getMessage());
@@ -101,7 +101,7 @@ public final class SecurityUtils {
     public static boolean signatureIsValid(SignableMessage message, Association association) throws SecurityException {
         ParameterMap messageParameters;
         try {
-            Marshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
+            MessageMarshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
             messageParameters = marshaller.marshall(message);
         } catch (MarshallingException e) {
             log.error("Unable verify message signature - " + e.getMessage());

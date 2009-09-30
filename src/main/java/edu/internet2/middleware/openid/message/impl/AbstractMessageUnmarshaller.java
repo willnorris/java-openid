@@ -24,7 +24,7 @@ import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.MessageBuilderFactory;
-import edu.internet2.middleware.openid.message.io.Unmarshaller;
+import edu.internet2.middleware.openid.message.io.MessageUnmarshaller;
 import edu.internet2.middleware.openid.message.io.UnmarshallingException;
 
 /**
@@ -32,7 +32,7 @@ import edu.internet2.middleware.openid.message.io.UnmarshallingException;
  * 
  * @param <MessageType> type of OpenID Message to be unmarshalled
  */
-public abstract class AbstractMessageUnmarshaller<MessageType extends Message> implements Unmarshaller<MessageType> {
+public abstract class AbstractMessageUnmarshaller<MessageType extends Message> implements MessageUnmarshaller<MessageType> {
 
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(AbstractMessageUnmarshaller.class);

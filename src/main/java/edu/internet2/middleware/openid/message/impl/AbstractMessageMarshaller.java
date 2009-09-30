@@ -19,14 +19,14 @@ package edu.internet2.middleware.openid.message.impl;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.Message;
-import edu.internet2.middleware.openid.message.io.Marshaller;
+import edu.internet2.middleware.openid.message.io.MessageMarshaller;
 
 /**
  * Base class for message marshallers.
  * 
  * @param <MessageType> type of OpenID Message to be marshalled
  */
-public abstract class AbstractMessageMarshaller<MessageType extends Message> implements Marshaller<MessageType> {
+public abstract class AbstractMessageMarshaller<MessageType extends Message> implements MessageMarshaller<MessageType> {
 
     /** {@inheritDoc} */
     public ParameterMap marshall(MessageType message) {

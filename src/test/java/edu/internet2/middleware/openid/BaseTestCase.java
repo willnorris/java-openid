@@ -33,9 +33,9 @@ import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
 import edu.internet2.middleware.openid.message.encoding.impl.KeyValueFormCodec;
-import edu.internet2.middleware.openid.message.io.Marshaller;
+import edu.internet2.middleware.openid.message.io.MessageMarshaller;
 import edu.internet2.middleware.openid.message.io.MarshallingException;
-import edu.internet2.middleware.openid.message.io.Unmarshaller;
+import edu.internet2.middleware.openid.message.io.MessageUnmarshaller;
 import edu.internet2.middleware.openid.message.io.UnmarshallingException;
 
 /**
@@ -74,7 +74,7 @@ public abstract class BaseTestCase extends TestCase {
      */
     public void assertEquals(String failMessage, ParameterMap expectedParameters, Message message) {
         QName qname = new QName(OpenIDConstants.OPENID_20_NS, expectedParameters.get(Parameter.mode.QNAME));
-        Marshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(qname);
+        MessageMarshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(qname);
         if (marshaller == null) {
             fail("Unable to find message marshaller for mode: " + message.getMode());
         }
@@ -104,7 +104,7 @@ public abstract class BaseTestCase extends TestCase {
      * @return the OpenID message
      */
     protected Message unmarshallMessage(ParameterMap parameters) {
-        Unmarshaller unmarshaller;
+        MessageUnmarshaller unmarshaller;
         try {
             unmarshaller = Configuration.getMessageUnmarshallers().getUnmarshaller(parameters);
             return unmarshaller.unmarshall(parameters);
@@ -158,7 +158,7 @@ public abstract class BaseTestCase extends TestCase {
 
     protected void logMessageParameters(Message message) {
         try {
-            Marshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
+            MessageMarshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
             logMessageParameters(marshaller.marshall(message));
         } catch (MarshallingException e) {
             log.error("unable to marshall message: {}", e.getMessage());

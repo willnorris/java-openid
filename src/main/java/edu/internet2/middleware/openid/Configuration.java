@@ -25,8 +25,8 @@ import edu.internet2.middleware.openid.extensions.MessageExtensionBuilderFactory
 import edu.internet2.middleware.openid.extensions.MessageExtensionMarshallerFactory;
 import edu.internet2.middleware.openid.extensions.MessageExtensionUnmarshallerFactory;
 import edu.internet2.middleware.openid.message.MessageBuilderFactory;
-import edu.internet2.middleware.openid.message.io.MarshallerFactory;
-import edu.internet2.middleware.openid.message.io.UnmarshallerFactory;
+import edu.internet2.middleware.openid.message.io.MessageMarshallerFactory;
+import edu.internet2.middleware.openid.message.io.MessageUnmarshallerFactory;
 
 /**
  * Class for loading library configuration files and retrieving the configured components.
@@ -37,10 +37,10 @@ public class Configuration {
     private static MessageBuilderFactory messageBuilders = new MessageBuilderFactory();
 
     /** Message Marshallers. */
-    private static MarshallerFactory messageMarshallers = new MarshallerFactory();
+    private static MessageMarshallerFactory messageMarshallers = new MessageMarshallerFactory();
 
     /** Message Unmarshallers. */
-    private static UnmarshallerFactory messageUnmarshallers = new UnmarshallerFactory();
+    private static MessageUnmarshallerFactory messageUnmarshallers = new MessageUnmarshallerFactory();
 
     /** Message Extension Builders. */
     private static MessageExtensionBuilderFactory extensionBuilders = new MessageExtensionBuilderFactory();
@@ -72,7 +72,7 @@ public class Configuration {
      * 
      * @return message marshallers.
      */
-    public static MarshallerFactory getMessageMarshallers() {
+    public static MessageMarshallerFactory getMessageMarshallers() {
         return messageMarshallers;
     }
 
@@ -81,7 +81,7 @@ public class Configuration {
      * 
      * @return message unmarshallers.
      */
-    public static UnmarshallerFactory getMessageUnmarshallers() {
+    public static MessageUnmarshallerFactory getMessageUnmarshallers() {
         return messageUnmarshallers;
     }
 

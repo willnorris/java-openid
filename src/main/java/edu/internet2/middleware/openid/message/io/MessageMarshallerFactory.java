@@ -36,17 +36,17 @@ import edu.internet2.middleware.openid.message.VerifyResponse;
  * namespace URI representing the OpenID message version, and a local part which is the value of the OpenID message
  * mode.
  */
-public class MarshallerFactory {
+public class MessageMarshallerFactory {
 
     /** Logger. */
-    private final Logger log = LoggerFactory.getLogger(MarshallerFactory.class);
+    private final Logger log = LoggerFactory.getLogger(MessageMarshallerFactory.class);
 
     /** Message marshallers. */
-    private Map<QName, Marshaller> messageMarshallers;
+    private Map<QName, MessageMarshaller> messageMarshallers;
 
     /** Constructor. */
-    public MarshallerFactory() {
-        messageMarshallers = new ConcurrentHashMap<QName, Marshaller>();
+    public MessageMarshallerFactory() {
+        messageMarshallers = new ConcurrentHashMap<QName, MessageMarshaller>();
     }
 
     /**
@@ -55,7 +55,7 @@ public class MarshallerFactory {
      * @param key key to get marshaller for
      * @return marshaller for the specified key
      */
-    public Marshaller getMarshaller(QName key) {
+    public MessageMarshaller getMarshaller(QName key) {
         if (key == null) {
             return null;
         }
@@ -72,7 +72,7 @@ public class MarshallerFactory {
      * @return message marshaller for the message
      * @throws MarshallingException if unable to determine marshaller for the message
      */
-    public Marshaller getMarshaller(Message message) throws MarshallingException {
+    public MessageMarshaller getMarshaller(Message message) throws MarshallingException {
         String mode = null;
 
         try {
@@ -99,7 +99,7 @@ public class MarshallerFactory {
      * 
      * @return all message marshallers
      */
-    public Map<QName, Marshaller> getMarshallers() {
+    public Map<QName, MessageMarshaller> getMarshallers() {
         return Collections.unmodifiableMap(messageMarshallers);
     }
 
@@ -109,7 +109,7 @@ public class MarshallerFactory {
      * @param key QName consisting of message namespace and mode value
      * @param marshaller marshaller to register.
      */
-    public void registerMarshaller(QName key, Marshaller marshaller) {
+    public void registerMarshaller(QName key, MessageMarshaller marshaller) {
         log.debug("Registering marshaller, {}, for OpenID message mode {}", marshaller.getClass().getName(), key);
         messageMarshallers.put(key, marshaller);
     }
@@ -120,7 +120,7 @@ public class MarshallerFactory {
      * @param key key of marshaller to deregeister
      * @return the deregistered marshaller
      */
-    public Marshaller deregisterMarshaller(QName key) {
+    public MessageMarshaller deregisterMarshaller(QName key) {
         log.debug("Deregistering marshaller for object type {}", key);
         if (key != null) {
             return messageMarshallers.remove(key);

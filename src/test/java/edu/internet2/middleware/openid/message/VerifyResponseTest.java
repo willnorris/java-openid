@@ -25,7 +25,7 @@ import edu.internet2.middleware.openid.BaseMessageProviderTestCase;
 import edu.internet2.middleware.openid.Configuration;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.ParameterMap;
-import edu.internet2.middleware.openid.message.io.Marshaller;
+import edu.internet2.middleware.openid.message.io.MessageMarshaller;
 import edu.internet2.middleware.openid.message.io.MarshallingException;
 
 /**
@@ -68,7 +68,7 @@ public class VerifyResponseTest extends BaseMessageProviderTestCase {
         response.setInvalidateHandle(expectedInvalidateHandle);
 
         // test if maps are equal
-        Marshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(qname);
+        MessageMarshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(qname);
         if (marshaller == null) {
             fail("Unable to find message marshaller for mode: " + qname);
         }

@@ -26,7 +26,7 @@ import edu.internet2.middleware.openid.message.Message;
  * 
  * @param <MessageType> type of object this unmarshaller handles
  */
-public interface Unmarshaller<MessageType extends Message> {
+public interface MessageUnmarshaller<MessageType extends Message> {
 
     /**
      * Unmarshall the parameters.

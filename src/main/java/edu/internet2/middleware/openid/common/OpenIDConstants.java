@@ -35,7 +35,7 @@ public final class OpenIDConstants {
      * All OpenID indirect messages as well as direct requests include a "mode" parameter to identify to kind of message
      * it is. Direct response messages technically do not require a "mode" parameter because these messages are always
      * present in the context of an accompanying request. However, when writing a generic factory for message
-     * {@link edu.internet2.middleware.openid.message.io.Unmarshaller}s, this lack of a "mode" parameter becomes a
+     * {@link edu.internet2.middleware.openid.message.io.MessageUnmarshaller}s, this lack of a "mode" parameter becomes a
      * problem. The following fake "mode" values are defined and used within this library solely for the purpose of
      * internal identification of message builders. If a future version of OpenID adds a "mode" parameter to these
      * messages, the changes necessary to support that should be quite minimal.
