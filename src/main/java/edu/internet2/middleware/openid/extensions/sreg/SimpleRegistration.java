@@ -16,6 +16,8 @@
 
 package edu.internet2.middleware.openid.extensions.sreg;
 
+import javax.xml.namespace.QName;
+
 /**
  * Simple Registration OpenID Extension.
  * 
@@ -51,6 +53,14 @@ public final class SimpleRegistration {
          * Parameter used for the relying party's policy URL.
          */
         policy_url;
+
+        /** QName. */
+        public final QName QNAME;
+
+        /** Constructor. */
+        Parameter() {
+            this.QNAME = new QName(SREG_11_NS, this.toString());
+        }
     }
 
     /**

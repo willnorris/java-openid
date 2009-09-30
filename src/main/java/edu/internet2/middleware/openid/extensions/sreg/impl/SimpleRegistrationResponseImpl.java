@@ -18,17 +18,32 @@ package edu.internet2.middleware.openid.extensions.sreg.impl;
 
 import java.util.EnumMap;
 
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationResponse;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
 
+/**
+ * Implementation of {@link SimpleRegistrationResponse}.
+ */
 public class SimpleRegistrationResponseImpl implements SimpleRegistrationResponse {
 
-    public EnumMap<Field, String> getFields() {
-        return null;
+    /** Message fields. */
+    private EnumMap<Field, String> fields;
+
+    /** Constructor. */
+    public SimpleRegistrationResponseImpl() {
+        fields = new EnumMap(Field.class);
     }
 
+    /** {@inheritDoc} */
     public String getNamespace() {
-        return null;
+        // TODO handle SREG_10_NS
+        return SimpleRegistration.SREG_11_NS;
+    }
+
+    /** {@inheritDoc} */
+    public EnumMap<Field, String> getFields() {
+        return fields;
     }
 
 }

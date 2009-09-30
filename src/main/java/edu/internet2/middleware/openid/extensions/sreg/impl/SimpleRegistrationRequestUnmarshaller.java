@@ -18,8 +18,9 @@ package edu.internet2.middleware.openid.extensions.sreg.impl;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Map;
 
+import edu.internet2.middleware.openid.common.ParameterMap;
+import edu.internet2.middleware.openid.extensions.MessageExtensionUnmarshaller;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationRequest;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Parameter;
@@ -27,22 +28,22 @@ import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Parame
 /**
  * Unmarshaller for a simple registration request.
  */
-public class SimpleRegistrationRequestUnmarshaller {
+public class SimpleRegistrationRequestUnmarshaller implements MessageExtensionUnmarshaller<SimpleRegistrationRequest> {
 
     /** {@inheritDoc} */
-    public SimpleRegistrationRequest unmarshall(Map<String, String> parameters) {
+    public SimpleRegistrationRequest unmarshall(ParameterMap parameters) {
         SimpleRegistrationRequestImpl request = new SimpleRegistrationRequestImpl();
 
         // policy URL
         try {
-            URL policyURL = new URL(parameters.get(Parameter.policy_url.toString()));
+            URL policyURL = new URL(parameters.get(Parameter.policy_url.QNAME));
             request.setPolicyURL(policyURL);
         } catch (MalformedURLException e) {
             // do nothing
         }
 
         // required fields
-        String requiredFields = parameters.get(Parameter.required.toString());
+        String requiredFields = parameters.get(Parameter.required.QNAME);
         if (requiredFields != null) {
             for (String fieldName : requiredFields.split(",")) {
                 try {
@@ -54,7 +55,7 @@ public class SimpleRegistrationRequestUnmarshaller {
         }
 
         // optional fields
-        String optionalFields = parameters.get(Parameter.optional.toString());
+        String optionalFields = parameters.get(Parameter.optional.QNAME);
         if (optionalFields != null) {
             for (String fieldName : optionalFields.split(",")) {
                 try {

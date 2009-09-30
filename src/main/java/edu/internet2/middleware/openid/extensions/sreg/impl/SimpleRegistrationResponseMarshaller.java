@@ -16,11 +16,17 @@
 
 package edu.internet2.middleware.openid.extensions.sreg.impl;
 
-import java.util.Map;
+import edu.internet2.middleware.openid.common.ParameterMap;
+import edu.internet2.middleware.openid.extensions.MessageExtensionMarshaller;
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationResponse;
 
-public class SimpleRegistrationResponseMarshaller {
+/**
+ * Marshaller for {@link SimpleRegistrationResponse} message extensions.
+ */
+public class SimpleRegistrationResponseMarshaller implements MessageExtensionMarshaller<SimpleRegistrationResponse> {
 
-    public Map marshall(Object object) {
+    /** {@inheritDoc} */
+    public ParameterMap marshall(SimpleRegistrationResponse response) {
         return null;
     }
 

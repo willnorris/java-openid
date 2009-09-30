@@ -24,7 +24,7 @@ import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationRequest
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
 
 /**
- * SimpleRegistrationRequestImpl.
+ * Implementation of {@link SimpleRegistrationRequest}.
  */
 public class SimpleRegistrationRequestImpl implements SimpleRegistrationRequest {
 
@@ -52,13 +52,14 @@ public class SimpleRegistrationRequestImpl implements SimpleRegistrationRequest 
     }
 
     /** {@inheritDoc} */
-    public EnumSet<Field> getOptionalFields() {
-        return optionalFields;
+    public String getNamespace() {
+        // TODO handle SREG_10_NS
+        return SimpleRegistration.SREG_11_NS;
     }
 
     /** {@inheritDoc} */
-    public URL getPolicyURL() {
-        return policyURL;
+    public EnumSet<Field> getOptionalFields() {
+        return optionalFields;
     }
 
     /** {@inheritDoc} */
@@ -67,16 +68,11 @@ public class SimpleRegistrationRequestImpl implements SimpleRegistrationRequest 
     }
 
     /** {@inheritDoc} */
-    public String getNamespace() {
-        // TODO handle SREG_10_NS
-        return SimpleRegistration.SREG_11_NS;
+    public URL getPolicyURL() {
+        return policyURL;
     }
 
-    /**
-     * Set the policy URL.
-     * 
-     * @param newPolicyURL the policyURL to set
-     */
+    /** {@inheritDoc} */
     public void setPolicyURL(URL newPolicyURL) {
         policyURL = newPolicyURL;
     }

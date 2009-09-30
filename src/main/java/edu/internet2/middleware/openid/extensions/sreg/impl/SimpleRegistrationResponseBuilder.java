@@ -1,5 +1,5 @@
 /*
- * Copyright [2009] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2009 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,17 @@
 
 package edu.internet2.middleware.openid.extensions.sreg.impl;
 
-import edu.internet2.middleware.openid.common.ParameterMap;
-import edu.internet2.middleware.openid.extensions.MessageExtensionUnmarshaller;
+import edu.internet2.middleware.openid.extensions.MessageExtensionBuilder;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationResponse;
 
 /**
- * Unmarshaller for {@link SimpleRegistrationResponse} message extensions.
+ * Builder of {@link SimpleRegistrationResponse} message extensions.
  */
-public class SimpleRegistrationResponseUnmarshaller implements MessageExtensionUnmarshaller<SimpleRegistrationResponse> {
+public class SimpleRegistrationResponseBuilder implements MessageExtensionBuilder<SimpleRegistrationResponse> {
 
     /** {@inheritDoc} */
-    public SimpleRegistrationResponse unmarshall(ParameterMap parameters) {
-        return null;
+    public SimpleRegistrationResponse buildObject() {
+        return new SimpleRegistrationResponseImpl();
     }
 
 }

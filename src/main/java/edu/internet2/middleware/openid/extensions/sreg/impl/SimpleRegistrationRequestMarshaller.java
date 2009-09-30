@@ -17,9 +17,9 @@
 package edu.internet2.middleware.openid.extensions.sreg.impl;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
+import edu.internet2.middleware.openid.common.ParameterMap;
+import edu.internet2.middleware.openid.extensions.MessageExtensionMarshaller;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationRequest;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Parameter;
 import edu.internet2.middleware.openid.util.StringUtils;
@@ -27,29 +27,28 @@ import edu.internet2.middleware.openid.util.StringUtils;
 /**
  * Marshaller for a simple registration request.
  */
-public class SimpleRegistrationRequestMarshaller {
+public class SimpleRegistrationRequestMarshaller implements MessageExtensionMarshaller<SimpleRegistrationRequest> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(SimpleRegistrationRequest request) {
-        Map<String, String> parameters = new HashMap<String, String>();
-        String fields;
+    public ParameterMap marshall(SimpleRegistrationRequest request) {
+        ParameterMap parameters = new ParameterMap();
 
         // policy URL
         URL policyURL = request.getPolicyURL();
         if (policyURL != null) {
-            parameters.put(Parameter.policy_url.toString(), policyURL.toString());
+            parameters.put(Parameter.policy_url.QNAME, policyURL.toString());
         }
 
         // required parameters
-        fields = StringUtils.join(request.getRequiredFields(), ",");
-        if (fields != null) {
-            parameters.put(Parameter.required.toString(), fields);
+        String requiredFields = StringUtils.join(request.getRequiredFields(), ",");
+        if (requiredFields != null) {
+            parameters.put(Parameter.required.QNAME, requiredFields);
         }
 
         // optional parameters
-        fields = StringUtils.join(request.getOptionalFields(), ",");
-        if (fields != null) {
-            parameters.put(Parameter.optional.toString(), fields);
+        String optionalFields = StringUtils.join(request.getOptionalFields(), ",");
+        if (optionalFields != null) {
+            parameters.put(Parameter.optional.QNAME, optionalFields);
         }
 
         return parameters;

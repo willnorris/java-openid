@@ -50,4 +50,11 @@ public interface SimpleRegistrationRequest extends MessageExtension {
      * @return the policy URL
      */
     public URL getPolicyURL();
+
+    /**
+     * Set the policy URL.
+     * 
+     * @param policyURL the policy URL
+     */
+    public void setPolicyURL(URL policyURL);
 }
