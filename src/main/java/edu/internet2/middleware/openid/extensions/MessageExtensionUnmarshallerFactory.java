@@ -32,12 +32,12 @@ public class MessageExtensionUnmarshallerFactory {
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(MessageExtensionUnmarshallerFactory.class);
 
-    /** Message unmarshallers. */
-    private Map<String, MessageExtensionUnmarshaller> messageUnmarshallers;
+    /** Unmarshallers. */
+    private Map<String, MessageExtensionUnmarshaller> unmarshallers;
 
     /** Constructor. */
     public MessageExtensionUnmarshallerFactory() {
-        messageUnmarshallers = new ConcurrentHashMap<String, MessageExtensionUnmarshaller>();
+        unmarshallers = new ConcurrentHashMap<String, MessageExtensionUnmarshaller>();
     }
 
     /**
@@ -46,12 +46,12 @@ public class MessageExtensionUnmarshallerFactory {
      * @param key key to get unmarshaller for
      * @return unmarshaller for the specified key
      */
-    public MessageExtensionUnmarshaller getMarshaller(String key) {
+    public MessageExtensionUnmarshaller getUnmarshaller(String key) {
         if (key == null) {
             return null;
         }
 
-        return messageUnmarshallers.get(key);
+        return unmarshallers.get(key);
     }
 
     /**
@@ -59,8 +59,8 @@ public class MessageExtensionUnmarshallerFactory {
      * 
      * @return all message unmarshallers
      */
-    public Map<String, MessageExtensionUnmarshaller> getMarshallers() {
-        return Collections.unmodifiableMap(messageUnmarshallers);
+    public Map<String, MessageExtensionUnmarshaller> getUnmarshallers() {
+        return Collections.unmodifiableMap(unmarshallers);
     }
 
     /**
@@ -69,21 +69,21 @@ public class MessageExtensionUnmarshallerFactory {
      * @param key namespace URI of the message extension
      * @param unmarshaller unmarshaller to register.
      */
-    public void registerMarshaller(String key, MessageExtensionUnmarshaller unmarshaller) {
+    public void registerUnmarshaller(String key, MessageExtensionUnmarshaller unmarshaller) {
         log.debug("Registering marshaller, {}, for OpenID message mode {}", unmarshaller.getClass().getName(), key);
-        messageUnmarshallers.put(key, unmarshaller);
+        unmarshallers.put(key, unmarshaller);
     }
 
     /**
      * Deregister a message unmarshaller.
      * 
-     * @param key key of unmarshaller to deregeister
+     * @param key key of unmarshaller to deregister
      * @return the deregistered unmarshaller
      */
-    public MessageExtensionUnmarshaller deregisterMarshaller(String key) {
+    public MessageExtensionUnmarshaller deregisterUnmarshaller(String key) {
         log.debug("Deregistering builder for object type {}", key);
         if (key != null) {
-            return messageUnmarshallers.remove(key);
+            return unmarshallers.remove(key);
         }
 
         return null;

@@ -32,11 +32,11 @@ public class MessageExtensionBuilderFactory {
     private final Logger log = LoggerFactory.getLogger(MessageExtensionBuilderFactory.class);
 
     /** Message builders. */
-    private Map<String, MessageExtensionBuilder> messageBuilders;
+    private Map<Class, MessageExtensionBuilder> messageBuilders;
 
     /** Constructor. */
     public MessageExtensionBuilderFactory() {
-        messageBuilders = new ConcurrentHashMap<String, MessageExtensionBuilder>();
+        messageBuilders = new ConcurrentHashMap<Class, MessageExtensionBuilder>();
     }
 
     /**
@@ -45,7 +45,7 @@ public class MessageExtensionBuilderFactory {
      * @param key key to get builder for
      * @return builder for the specified key
      */
-    public MessageExtensionBuilder getBuilder(String key) {
+    public MessageExtensionBuilder getBuilder(Class key) {
         if (key == null) {
             return null;
         }
@@ -58,7 +58,7 @@ public class MessageExtensionBuilderFactory {
      * 
      * @return all message builders
      */
-    public Map<String, MessageExtensionBuilder> getBuilders() {
+    public Map<Class, MessageExtensionBuilder> getBuilders() {
         return Collections.unmodifiableMap(messageBuilders);
     }
 
@@ -68,7 +68,7 @@ public class MessageExtensionBuilderFactory {
      * @param key QName consisting of message namespace and mode value
      * @param builder builder to register.
      */
-    public void registerBuilder(String key, MessageExtensionBuilder builder) {
+    public void registerBuilder(Class key, MessageExtensionBuilder builder) {
         log.debug("Registering builder {} for OpenID message extension {}", builder.getClass().getName(), key);
         messageBuilders.put(key, builder);
     }
@@ -79,7 +79,7 @@ public class MessageExtensionBuilderFactory {
      * @param key key of builder to deregeister
      * @return the deregistered builder
      */
-    public MessageExtensionBuilder deregisterBuilder(String key) {
+    public MessageExtensionBuilder deregisterBuilder(Class key) {
         log.debug("Deregistering builder for message extension {}", key);
         if (key != null) {
             return messageBuilders.remove(key);

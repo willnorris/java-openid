@@ -16,7 +16,10 @@
 
 package edu.internet2.middleware.openid.extensions;
 
-import edu.internet2.middleware.openid.common.ParameterMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import edu.internet2.middleware.openid.Configuration;
 import edu.internet2.middleware.openid.message.io.UnmarshallingException;
 
 /**
@@ -27,17 +30,33 @@ import edu.internet2.middleware.openid.message.io.UnmarshallingException;
 public abstract class AbstractMessageExtensionUnmarshaller<MessageExtensionType extends MessageExtension> implements
         MessageExtensionUnmarshaller<MessageExtensionType> {
 
-    /** {@inheritDoc} */
-    public MessageExtensionType unmarshall(ParameterMap parameters) throws UnmarshallingException {
-        return null;
+    /** Logger. */
+    private final Logger log = LoggerFactory.getLogger(AbstractMessageExtensionUnmarshaller.class);
+
+    /** Message builders. */
+    private MessageExtensionBuilderFactory extensionBuilders;
+
+    /** Constructor. */
+    public AbstractMessageExtensionUnmarshaller() {
+        extensionBuilders = Configuration.getExtensionBuilders();
     }
 
     /**
-     * Marshall message parameters into the parameter map.
+     * Build an OpenID message extension object.
      * 
-     * @param message message to marshall
-     * @param parameters parameter map to marshall message into
+     * @param type class or interface of message extension type to build
+     * @return constructed OpenID message
+     * @throws UnmarshallingException if unable to build the message
      */
-    public abstract void marshall(MessageExtensionType message, ParameterMap parameters);
+    protected MessageExtensionType buildMessage(Class type) throws UnmarshallingException {
+        MessageExtensionBuilder builder = extensionBuilders.getBuilder(type);
+
+        if (builder == null) {
+            log.error("Unable to find builder for class: {}", type);
+            throw new UnmarshallingException("Unable to find builder for class: " + type.toString());
+        }
+
+        return (MessageExtensionType) builder.buildObject();
+    }
 
 }

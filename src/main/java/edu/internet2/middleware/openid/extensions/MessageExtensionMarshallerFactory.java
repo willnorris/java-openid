@@ -32,12 +32,12 @@ public class MessageExtensionMarshallerFactory {
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(MessageExtensionMarshallerFactory.class);
 
-    /** Message marshallers. */
-    private Map<String, MessageExtensionMarshaller> messageMarshallers;
+    /** Marshallers. */
+    private Map<String, MessageExtensionMarshaller> marshallers;
 
     /** Constructor. */
     public MessageExtensionMarshallerFactory() {
-        messageMarshallers = new ConcurrentHashMap<String, MessageExtensionMarshaller>();
+        marshallers = new ConcurrentHashMap<String, MessageExtensionMarshaller>();
     }
 
     /**
@@ -51,7 +51,7 @@ public class MessageExtensionMarshallerFactory {
             return null;
         }
 
-        return messageMarshallers.get(key);
+        return marshallers.get(key);
     }
 
     /**
@@ -60,7 +60,7 @@ public class MessageExtensionMarshallerFactory {
      * @return all message marshallers
      */
     public Map<String, MessageExtensionMarshaller> getMarshallers() {
-        return Collections.unmodifiableMap(messageMarshallers);
+        return Collections.unmodifiableMap(marshallers);
     }
 
     /**
@@ -71,7 +71,7 @@ public class MessageExtensionMarshallerFactory {
      */
     public void registerMarshaller(String key, MessageExtensionMarshaller marshaller) {
         log.debug("Registering marshaller, {}, for OpenID message mode {}", marshaller.getClass().getName(), key);
-        messageMarshallers.put(key, marshaller);
+        marshallers.put(key, marshaller);
     }
 
     /**
@@ -83,7 +83,7 @@ public class MessageExtensionMarshallerFactory {
     public MessageExtensionMarshaller deregisterMarshaller(String key) {
         log.debug("Deregistering builder for object type {}", key);
         if (key != null) {
-            return messageMarshallers.remove(key);
+            return marshallers.remove(key);
         }
 
         return null;
