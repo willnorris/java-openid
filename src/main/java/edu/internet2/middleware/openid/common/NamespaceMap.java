@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Maintains a mapping of aliases for namespaces URIs.
+ * Maintains a mapping of aliases for namespace URIs.
  */
 public class NamespaceMap {
 

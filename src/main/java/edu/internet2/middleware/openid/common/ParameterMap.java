@@ -75,4 +75,29 @@ public class ParameterMap extends LinkedHashMap<QName, String> {
         return namespaces;
     }
 
+    /**
+     * Get a submap containing only those parameters in the given namespace.
+     * 
+     * TODO: this should probably be using a sub-view pattern, rather than creating whole new map
+     * 
+     * @param namespace namespace URI of parameters to include in submap
+     * @return parameter submap
+     */
+    public ParameterMap subMap(String namespace) {
+        log.debug("getting parameter sub map for namespace: {}", namespace);
+
+        ParameterMap map = new ParameterMap();
+
+        if (namespace != null && namespaces.containsURI(namespace)) {
+            map.getNamespaces().add(namespace, namespaces.getAlias(namespace));
+            for (QName qname : this.keySet()) {
+                if (namespace.equals(qname.getNamespaceURI())) {
+                    map.put(qname, this.get(qname));
+                }
+            }
+        }
+        
+        return map;
+    }
+
 }
