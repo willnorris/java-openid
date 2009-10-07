@@ -1,5 +1,5 @@
 /*
- * Copyright [2009] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2009 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,11 @@
 
 package edu.internet2.middleware.openid.extensions.sreg;
 
-import java.util.EnumMap;
-
-import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
+import edu.internet2.middleware.openid.extensions.MessageExtension;
 
 /**
- * Simple Registration extension for an OpenID authentication response.
+ * A Simple Registration Message.
+ * 
+ * This interface contains no methods or constants. Its only purpose is to group and provide type safety.
  */
-public interface SimpleRegistrationResponse extends SimpleRegistrationMessage {
-
-    /**
-     * Get field map, which maps field names to values.
-     * 
-     * @return the field map
-     */
-    public EnumMap<Field, String> getFields();
-}
+public interface SimpleRegistrationMessage extends MessageExtension {}

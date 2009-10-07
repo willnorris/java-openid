@@ -36,6 +36,11 @@ public final class SimpleRegistration {
     public static final String SREG_11_NS = "http://openid.net/extensions/sreg/1.1";
 
     /**
+     * Preferred namespace alias for Simple Registration message parameters.
+     */
+    public static final String SREG_NS_ALIAS = "sreg";
+
+    /**
      * Simple Registration Parameters.
      */
     public static enum Parameter {
@@ -59,7 +64,7 @@ public final class SimpleRegistration {
 
         /** Constructor. */
         Parameter() {
-            this.QNAME = new QName(SREG_11_NS, this.toString());
+            this.QNAME = new QName(SREG_11_NS, this.toString(), SREG_NS_ALIAS);
         }
     }
 
@@ -109,6 +114,17 @@ public final class SimpleRegistration {
          * @see <a href="http://en.wikipedia.org/wiki/List_of_zoneinfo_timezones">Zoneinfo Timezone</a>
          */
         timezone;
+
+        /** QName. */
+        public final QName QNAME;
+
+        /** Constructor. */
+        Field() {
+            this.QNAME = new QName(SREG_11_NS, this.toString(), SREG_NS_ALIAS);
+        }
     };
 
+    /** Constructor. */
+    protected SimpleRegistration() {
+    }
 }
