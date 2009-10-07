@@ -28,21 +28,38 @@ public class VerifyRequestMarshaller extends AbstractMessageMarshaller<VerifyReq
 
     /** {@inheritDoc} */
     public void marshallParameters(VerifyRequest request, ParameterMap parameters) {
-        parameters.put(Parameter.assoc_handle.QNAME, request.getAssociationHandle());
-        parameters.put(Parameter.claimed_id.QNAME, request.getClaimedId());
-        parameters.put(Parameter.op_endpoint.QNAME, request.getEndpoint());
-        parameters.put(Parameter.identity.QNAME, request.getIdentity());
-        parameters.put(Parameter.invalidate_handle.QNAME, request.getInvalidateHandle());
-        parameters.put(Parameter.response_nonce.QNAME, request.getResponseNonce());
-        parameters.put(Parameter.return_to.QNAME, request.getReturnTo().toString());
-        parameters.put(Parameter.sig.QNAME, request.getSignature());
-
-        if (!request.getSignedFields().isEmpty()) {
-            String signedFields = EncodingUtils.encodeFieldList(request.getSignedFields(), parameters
-                    .getNamespaces());
-            parameters.put(Parameter.signed.QNAME, signedFields);
+        if (request.getAssociationHandle() != null) {
+            parameters.put(Parameter.assoc_handle.QNAME, request.getAssociationHandle());
+        }
+        if (request.getClaimedId() != null) {
+            parameters.put(Parameter.claimed_id.QNAME, request.getClaimedId());
+        }
+        if (request.getEndpoint() != null) {
+            parameters.put(Parameter.op_endpoint.QNAME, request.getEndpoint());
+        }
+        if (request.getIdentity() != null) {
+            parameters.put(Parameter.identity.QNAME, request.getIdentity());
+        }
+        if (request.getInvalidateHandle() != null) {
+            parameters.put(Parameter.invalidate_handle.QNAME, request.getInvalidateHandle());
+        }
+        if (request.getResponseNonce() != null) {
+            parameters.put(Parameter.response_nonce.QNAME, request.getResponseNonce());
+        }
+        if (request.getReturnTo() != null) {
+            parameters.put(Parameter.return_to.QNAME, request.getReturnTo().toString());
+        }
+        if (request.getSignature() != null) {
+            parameters.put(Parameter.sig.QNAME, request.getSignature());
         }
 
+        // marshall extensions before signed fields
+        marshallExtensions(request, parameters);
+
+        if (!request.getSignedFields().isEmpty()) {
+            String signedFields = EncodingUtils.encodeFieldList(request.getSignedFields(), parameters.getNamespaces());
+            parameters.put(Parameter.signed.QNAME, signedFields);
+        }
     }
 
 }
