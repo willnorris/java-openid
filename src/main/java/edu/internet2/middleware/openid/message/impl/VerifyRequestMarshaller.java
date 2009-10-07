@@ -38,7 +38,7 @@ public class VerifyRequestMarshaller extends AbstractMessageMarshaller<VerifyReq
         parameters.put(Parameter.sig.QNAME, request.getSignature());
 
         if (!request.getSignedFields().isEmpty()) {
-            String signedFields = EncodingUtils.encodeSignedFields(request.getSignedFields(), parameters
+            String signedFields = EncodingUtils.encodeFieldList(request.getSignedFields(), parameters
                     .getNamespaces());
             parameters.put(Parameter.signed.QNAME, signedFields);
         }

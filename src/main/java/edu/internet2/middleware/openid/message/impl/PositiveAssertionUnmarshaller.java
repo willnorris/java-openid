@@ -46,7 +46,7 @@ public class PositiveAssertionUnmarshaller extends AbstractMessageUnmarshaller<P
         response.setSignature(parameters.get(Parameter.sig.QNAME));
 
         String signedFields = parameters.get(Parameter.signed.QNAME);
-        response.getSignedFields().addAll(EncodingUtils.decodeSignedFields(signedFields, parameters.getNamespaces()));
+        response.getSignedFields().addAll(EncodingUtils.decodeFieldList(signedFields, parameters.getNamespaces()));
     }
 
 }

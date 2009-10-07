@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 import edu.internet2.middleware.openid.common.NamespaceMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.ParameterMap;
-import edu.internet2.middleware.openid.util.StringUtils;
+import edu.internet2.middleware.openid.util.DatatypeHelper;
 
 /**
  * Encoding Utilities.
@@ -157,14 +157,14 @@ public final class EncodingUtils {
      * @param namespaces map of registered namespaces
      * @return comma separated list of encoded parameter names
      */
-    public static String encodeSignedFields(List<QName> signedFields, NamespaceMap namespaces) {
+    public static String encodeFieldList(List<QName> signedFields, NamespaceMap namespaces) {
         List<String> encodedFields = new ArrayList<String>();
 
         for (QName field : signedFields) {
             encodedFields.add(encodeParameterName(field, namespaces));
         }
 
-        return StringUtils.join(encodedFields, ",");
+        return DatatypeHelper.listToStringValue(encodedFields, ",");
     }
 
     /**
@@ -174,7 +174,7 @@ public final class EncodingUtils {
      * @param namespaces namespaces map of registered namespaces
      * @return QNames of the signed fields
      */
-    public static List<QName> decodeSignedFields(String signedFields, NamespaceMap namespaces) {
+    public static List<QName> decodeFieldList(String signedFields, NamespaceMap namespaces) {
         List<QName> decodedFields = new ArrayList<QName>();
 
         if (signedFields != null) {

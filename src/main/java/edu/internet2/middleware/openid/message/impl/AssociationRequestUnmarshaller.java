@@ -25,6 +25,7 @@ import javax.crypto.spec.DHParameterSpec;
 
 import org.apache.commons.codec.binary.Base64;
 
+import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
@@ -32,6 +33,7 @@ import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
 import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 import edu.internet2.middleware.openid.message.io.UnmarshallingException;
+import edu.internet2.middleware.openid.util.DatatypeHelper;
 
 /**
  * Unmarshaller for {@link AssociationRequest} message.
@@ -50,16 +52,27 @@ public class AssociationRequestUnmarshaller extends AbstractMessageUnmarshaller<
             if (sessionType.equals(SessionType.DH_SHA1) || sessionType.equals(SessionType.DH_SHA256)) {
 
                 String encodedGen = parameters.get(Parameter.dh_gen.QNAME);
-                BigInteger gen = new BigInteger(Base64.decodeBase64(encodedGen.getBytes()));
-
                 String encodedModulus = parameters.get(Parameter.dh_modulus.QNAME);
-                BigInteger modulus = new BigInteger(Base64.decodeBase64(encodedModulus.getBytes()));
+
+                BigInteger gen;
+                if (!DatatypeHelper.isEmpty(encodedGen)) {
+                    gen = new BigInteger(Base64.decodeBase64(encodedGen.getBytes()));
+                } else {
+                    gen = OpenIDConstants.DEFAULT_DH_GEN;
+                }
+
+                BigInteger modulus;
+                if (!DatatypeHelper.isEmpty(encodedModulus)) {
+                    modulus = new BigInteger(Base64.decodeBase64(encodedModulus.getBytes()));
+                } else {
+                    modulus = OpenIDConstants.DEFAULT_DH_MODULUS;
+                }
 
                 DHParameterSpec dhParameters = new DHParameterSpec(modulus, gen);
                 request.setDHParameters(dhParameters);
 
                 String encodedKey = parameters.get(Parameter.dh_consumer_public.QNAME);
-                if (encodedKey != null) {
+                if (!DatatypeHelper.isEmpty(encodedKey)) {
                     try {
                         DHPublicKey publicKey = EncodingUtils.decodePublicKey(encodedKey, dhParameters);
                         request.setDHConsumerPublic(publicKey);

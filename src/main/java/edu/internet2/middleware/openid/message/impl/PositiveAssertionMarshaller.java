@@ -54,10 +54,10 @@ public class PositiveAssertionMarshaller extends AbstractMessageMarshaller<Posit
         }
 
         // marshall extensions before signed fields
+        marshallExtensions(response, parameters);
 
         if (!response.getSignedFields().isEmpty()) {
-            String signedFields = EncodingUtils.encodeSignedFields(response.getSignedFields(), parameters
-                    .getNamespaces());
+            String signedFields = EncodingUtils.encodeFieldList(response.getSignedFields(), parameters.getNamespaces());
             parameters.put(Parameter.signed.QNAME, signedFields);
         }
     }
