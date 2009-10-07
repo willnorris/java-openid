@@ -16,6 +16,7 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
@@ -31,6 +32,11 @@ public abstract class AbstractMessage implements Message {
      * Message extensions.
      */
     private Collection<MessageExtension> extensions;
+
+    /** Constructor. */
+    public AbstractMessage() {
+        extensions = new ArrayList<MessageExtension>();
+    }
 
     /** {@inheritDoc} */
     public String getNamespace() {

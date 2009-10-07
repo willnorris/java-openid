@@ -20,7 +20,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.Configuration;
+import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.ParameterMap;
+import edu.internet2.middleware.openid.extensions.MessageExtension;
+import edu.internet2.middleware.openid.extensions.MessageExtensionUnmarshaller;
+import edu.internet2.middleware.openid.extensions.MessageExtensionUnmarshallerFactory;
 import edu.internet2.middleware.openid.message.Message;
 import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.MessageBuilderFactory;
@@ -32,7 +36,8 @@ import edu.internet2.middleware.openid.message.io.UnmarshallingException;
  * 
  * @param <MessageType> type of OpenID Message to be unmarshalled
  */
-public abstract class AbstractMessageUnmarshaller<MessageType extends Message> implements MessageUnmarshaller<MessageType> {
+public abstract class AbstractMessageUnmarshaller<MessageType extends Message> implements
+        MessageUnmarshaller<MessageType> {
 
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(AbstractMessageUnmarshaller.class);
@@ -40,9 +45,13 @@ public abstract class AbstractMessageUnmarshaller<MessageType extends Message> i
     /** Message builders. */
     private MessageBuilderFactory messageBuilders;
 
+    /** Message extension unmarshallers. */
+    private MessageExtensionUnmarshallerFactory extensionUnmarshallers;
+
     /** Constructor. */
     public AbstractMessageUnmarshaller() {
         messageBuilders = Configuration.getMessageBuilders();
+        extensionUnmarshallers = Configuration.getExtensionUnmarshallers();
     }
 
     /** {@inheritDoc} */
@@ -61,6 +70,7 @@ public abstract class AbstractMessageUnmarshaller<MessageType extends Message> i
      */
     public void unmarshall(MessageType message, ParameterMap parameters) throws UnmarshallingException {
         unmarshallParameters(message, parameters);
+        unmarshallExtensions(message, parameters);
     }
 
     /**
@@ -72,6 +82,34 @@ public abstract class AbstractMessageUnmarshaller<MessageType extends Message> i
      */
     public abstract void unmarshallParameters(MessageType message, ParameterMap parameters)
             throws UnmarshallingException;
+
+    /**
+     * Unmarshall any message extensions attached to this message.
+     * 
+     * @param message message to unmarshall extensions to
+     * @param parameters parameter map to unmarshall extensions from
+     */
+    protected void unmarshallExtensions(MessageType message, ParameterMap parameters) {
+        for (String namespace : parameters.getNamespaces().getURIs()) {
+            if (!OpenIDConstants.OPENID_20_NS.equals(namespace)) {
+                MessageExtensionUnmarshaller unmarshaller = extensionUnmarshallers.getUnmarshaller(namespace);
+
+                if (unmarshaller == null) {
+                    log.error("Unable to find unmarshaller for message extension namespace: {}", namespace);
+                    continue;
+                }
+
+                try {
+                    log.info("unmarshalling message extension: {}", namespace);
+                    ParameterMap extensionParameters = parameters.subMap(namespace);
+                    MessageExtension extension = unmarshaller.unmarshall(extensionParameters);
+                    message.getExtensions().add(extension);
+                } catch (UnmarshallingException e) {
+                    log.error("Error while unmarshalling message extension: {}", e.getMessage());
+                }
+            }
+        }
+    }
 
     /**
      * Build an OpenID message object.
@@ -90,4 +128,5 @@ public abstract class AbstractMessageUnmarshaller<MessageType extends Message> i
 
         return (MessageType) builder.buildObject();
     }
+
 }
