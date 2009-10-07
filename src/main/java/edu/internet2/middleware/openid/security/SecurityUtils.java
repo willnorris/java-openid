@@ -20,7 +20,9 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.crypto.Mac;
 import javax.xml.namespace.QName;
@@ -34,9 +36,10 @@ import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.SignableMessage;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 import edu.internet2.middleware.openid.message.encoding.impl.KeyValueFormCodec;
-import edu.internet2.middleware.openid.message.io.MessageMarshaller;
 import edu.internet2.middleware.openid.message.io.MarshallingException;
+import edu.internet2.middleware.openid.message.io.MessageMarshaller;
 
 /**
  * Security utilities.
@@ -61,6 +64,8 @@ public final class SecurityUtils {
      * @throws SecurityException if unable to sign the message
      */
     public static void signMessage(SignableMessage message, Association association) throws SecurityException {
+        log.info("signing message with association: {}", association.getHandle());
+
         ParameterMap messageParameters;
         try {
             MessageMarshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
@@ -70,22 +75,11 @@ public final class SecurityUtils {
             throw new SecurityException("Unable to sign message", e);
         }
 
-        // Build list of message parameters to include in signature
-        List<QName> signedParameters = new ArrayList();
-        for (String nsURI : messageParameters.getNamespaces().getURIs()) {
-            QName nsQName = new QName(nsURI, "", messageParameters.getNamespaces().getAlias(nsURI));
-            signedParameters.add(nsQName);
-        }
-        signedParameters.addAll(messageParameters.keySet());
-        signedParameters.removeAll(Arrays.asList(new QName[] { Parameter.sig.QNAME, Parameter.signed.QNAME,
-                Parameter.mode.QNAME, }));
-
-        log.debug("signable parameters = {}", signedParameters);
-
+        List<QName> signedParameters = buildSignedParameters(messageParameters);
         String signatureData = buildSignatureData(messageParameters, signedParameters);
-        log.debug("signature data = {}", signatureData);
         String signature = calculateSignature(association, signatureData);
 
+        message.getSignedFields().clear();
         message.getSignedFields().addAll(signedParameters);
         message.setSignature(signature);
     }
@@ -99,6 +93,8 @@ public final class SecurityUtils {
      * @throws SecurityException if unable to validate the signature
      */
     public static boolean signatureIsValid(SignableMessage message, Association association) throws SecurityException {
+        log.info("validating message signature");
+
         ParameterMap messageParameters;
         try {
             MessageMarshaller marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
@@ -109,9 +105,29 @@ public final class SecurityUtils {
         }
 
         String signatureData = buildSignatureData(messageParameters, message.getSignedFields());
-        log.debug("validating signature data: {}", signatureData);
         String signature = calculateSignature(association, signatureData);
         return signature.equals(message.getSignature());
+    }
+
+    /**
+     * Build default list of parameters that should be signed from a given parameter map. This will include all message
+     * parameters and namespace declarations with the exception of signature related parameters and the mode parameter.
+     * 
+     * @param parameters parameter map to build signed parameter list for
+     * @return list of parameter names that should be signed
+     */
+    public static List<QName> buildSignedParameters(ParameterMap parameters) {
+        // Build list of message parameters to include in signature
+        List<QName> signedParameters = new ArrayList();
+        for (String nsURI : parameters.getNamespaces().getURIs()) {
+            QName nsQName = new QName(nsURI, "", parameters.getNamespaces().getAlias(nsURI));
+            signedParameters.add(nsQName);
+        }
+        signedParameters.addAll(parameters.keySet());
+        signedParameters.removeAll(Arrays.asList(new QName[] { Parameter.sig.QNAME, Parameter.signed.QNAME,
+                Parameter.mode.QNAME, }));
+
+        return signedParameters;
     }
 
     /**
@@ -125,13 +141,14 @@ public final class SecurityUtils {
      */
     public static String buildSignatureData(ParameterMap parameters, List<QName> signedFields) throws SecurityException {
         log.debug("building signature data with parameters: {}", signedFields);
-        ParameterMap signedParameters = new ParameterMap();
+        Map<String, String> signedParameters = new LinkedHashMap<String, String>();
 
         for (QName field : signedFields) {
+            String parameterName = EncodingUtils.encodeParameterName(field, parameters.getNamespaces());
             if (field.getLocalPart().equals("")) {
-                signedParameters.put(field, field.getNamespaceURI());
+                signedParameters.put(parameterName, field.getNamespaceURI());
             } else {
-                signedParameters.put(field, parameters.get(field));
+                signedParameters.put(parameterName, parameters.get(field));
             }
         }
 
@@ -152,6 +169,9 @@ public final class SecurityUtils {
      * @throws SecurityException if unable to calculate the signature
      */
     public static String calculateSignature(Association association, String data) throws SecurityException {
+        log.debug("calculating signature using association: {}", association.getHandle());
+        log.debug("signature data = {}", data);
+
         try {
             Mac mac = Mac.getInstance(association.getMacKey().getAlgorithm());
             mac.init(association.getMacKey());

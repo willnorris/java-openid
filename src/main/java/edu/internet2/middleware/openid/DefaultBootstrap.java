@@ -19,6 +19,15 @@ package edu.internet2.middleware.openid;
 import javax.xml.namespace.QName;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
+import edu.internet2.middleware.openid.extensions.MessageExtensionMarshaller;
+import edu.internet2.middleware.openid.extensions.MessageExtensionUnmarshaller;
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration;
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationMessageMarshaller;
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationMessageUnmarshaller;
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationRequest;
+import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationResponse;
+import edu.internet2.middleware.openid.extensions.sreg.impl.SimpleRegistrationRequestBuilder;
+import edu.internet2.middleware.openid.extensions.sreg.impl.SimpleRegistrationResponseBuilder;
 import edu.internet2.middleware.openid.message.AssociationRequest;
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
 import edu.internet2.middleware.openid.message.ErrorResponse;
@@ -70,6 +79,7 @@ public class DefaultBootstrap {
      */
     public static synchronized void bootstrap() {
         initializeObjectProviders();
+        initializeExtensionProviders();
     }
 
     /**
@@ -153,4 +163,26 @@ public class DefaultBootstrap {
 
     }
 
+    /** Initialize extension object providers. */
+    public static void initializeExtensionProviders() {
+        MessageExtensionMarshaller marshaller;
+        MessageExtensionUnmarshaller unmarshaller;
+
+        marshaller = new SimpleRegistrationMessageMarshaller();
+        unmarshaller = new SimpleRegistrationMessageUnmarshaller();
+        //initializeExtensionProvider(SimpleRegistration.SREG_10_NS, marshaller, unmarshaller);
+        initializeExtensionProvider(SimpleRegistration.SREG_11_NS, marshaller, unmarshaller);
+
+        Configuration.getExtensionBuilders().registerBuilder(SimpleRegistrationRequest.class,
+                new SimpleRegistrationRequestBuilder());
+        Configuration.getExtensionBuilders().registerBuilder(SimpleRegistrationResponse.class,
+                new SimpleRegistrationResponseBuilder());
+    }
+
+    public static void initializeExtensionProvider(String namespace, MessageExtensionMarshaller marshaller,
+            MessageExtensionUnmarshaller unmarshaller) {
+
+        Configuration.getExtensionMarshallers().registerMarshaller(namespace, marshaller);
+        Configuration.getExtensionUnmarshallers().registerUnmarshaller(namespace, unmarshaller);
+    }
 }
