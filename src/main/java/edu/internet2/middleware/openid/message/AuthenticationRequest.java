@@ -111,4 +111,12 @@ public interface AuthenticationRequest extends Message {
      * @param newMode the mode of this message
      */
     public void setMode(String newMode);
+
+    /**
+     * Check if this authentication request is an immediate request.
+     * 
+     * @return if this is an immediate authentication request
+     */
+    public boolean isImmediate();
+
 }

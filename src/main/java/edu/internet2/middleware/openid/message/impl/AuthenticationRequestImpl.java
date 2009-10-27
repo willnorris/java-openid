@@ -103,4 +103,9 @@ public class AuthenticationRequestImpl extends AbstractMessage implements Authen
         returnTo = newReturnTo;
     }
 
+    /** {@inheritDoc} */
+    public boolean isImmediate() {
+        return AuthenticationRequest.MODE_IMMEDIATE.equals(mode);
+    }
+
 }
