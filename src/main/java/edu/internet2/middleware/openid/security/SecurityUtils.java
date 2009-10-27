@@ -77,11 +77,7 @@ public final class SecurityUtils {
         }
 
         List<QName> signedParameters = buildSignedParameters(messageParameters);
-        for (QName qname : signedParameters) {
-            log.info("signed parameter: {}", qname);
-        }
         String signatureData = buildSignatureData(messageParameters, signedParameters);
-        log.info("signature data: {}", signatureData);
         String signature = calculateSignature(association, signatureData);
 
         message.getSignedFields().clear();
