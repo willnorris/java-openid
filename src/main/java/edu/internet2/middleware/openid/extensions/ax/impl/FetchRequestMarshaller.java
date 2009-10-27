@@ -39,7 +39,7 @@ public class FetchRequestMarshaller implements AttributeExchangeMarshaller<Fetch
     public void marshall(FetchRequest request, ParameterMap parameters) {
 
         NamespaceMap types = new NamespaceMap();
-        types.setAliasPrefix("a");
+        types.setAliasPrefix(AttributeExchange.ALIAS_PREFIX);
 
         // update URL
         URL policyURL = request.getUpdateURL();

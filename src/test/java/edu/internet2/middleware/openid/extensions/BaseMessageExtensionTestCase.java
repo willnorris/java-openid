@@ -127,7 +127,7 @@ public abstract class BaseMessageExtensionTestCase extends BaseMessageProviderTe
     protected MessageExtension unmarshallMessageExtension(ParameterMap parameters) {
         String[] namespaces = parameters.getNamespaces().getURIs().toArray(new String[] {});
         if (namespaces == null || namespaces.length != 1) {
-            fail("Unable to unmarshall message extension: Wrong number of registered namespaces.");
+            fail("Unable to unmarshall message extension: expecting one namespace, but found " + namespaces.length);
         }
 
         MessageExtensionUnmarshaller unmarshaller;

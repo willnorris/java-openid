@@ -30,7 +30,7 @@ public final class AttributeExchange {
     public static final String AX_NS_ALIAS = "ax";
 
     /** Prefix for AX attribute aliases. */
-    public static final String ALIAS_PREFIX = "attr";
+    public static final String ALIAS_PREFIX = "a";
 
     /** Special count value which signifies no limit. */
     public static final String COUNT_UNLIMITED = "unlimited";
