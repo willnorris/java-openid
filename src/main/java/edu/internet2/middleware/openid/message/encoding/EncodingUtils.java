@@ -48,6 +48,7 @@ import edu.internet2.middleware.openid.common.NamespaceMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.util.DatatypeHelper;
+import edu.internet2.middleware.openid.util.OpenIDNamespaceQName;
 
 /**
  * Encoding Utilities.
@@ -74,15 +75,15 @@ public final class EncodingUtils {
         NamespaceMap namespaces = parameterMap.getNamespaces();
 
         // add namespaces to key-value parameter map
-        for (String ns : namespaces.getURIs()) {
+        for (String namespaceURI : namespaces.getURIs()) {
             String key = OpenIDConstants.MESSAGE_NAMESPACE_PREFIX;
-            String alias = namespaces.getAlias(ns);
+            String namespaceAlias = namespaces.getAlias(namespaceURI);
 
-            if (alias != XMLConstants.DEFAULT_NS_PREFIX) {
-                key += "." + alias;
+            if (namespaceAlias != XMLConstants.DEFAULT_NS_PREFIX) {
+                key += "." + namespaceAlias;
             }
 
-            parameters.put(key, ns);
+            parameters.put(key, namespaceURI);
         }
 
         // add parameters to key-value parameter map
@@ -106,20 +107,30 @@ public final class EncodingUtils {
 
         // check if parameter name is for a namespace declaration
         if (OpenIDConstants.MESSAGE_NAMESPACE_PREFIX.equals(parts[0])) {
+            String alias;
+
             if (parts.length == 2) {
-                return new QName(namespaces.getURI(parts[1]), "", parts[1]);
+                alias = parts[1];
             } else {
-                return new QName(namespaces.getURI(XMLConstants.DEFAULT_NS_PREFIX), "");
+                alias = XMLConstants.DEFAULT_NS_PREFIX;
             }
+
+            return new OpenIDNamespaceQName(namespaces.getURI(alias), alias);
         }
 
         // otherwise, parameter name is for a message parameter
+        String alias;
+        String localPart;
+
         if (parts.length == 2) {
-            return new QName(namespaces.getURI(parts[0]), parts[1], parts[0]);
+            alias = parts[0];
+            localPart = parts[1];
         } else {
-            // default namespace
-            return new QName(namespaces.getURI(XMLConstants.DEFAULT_NS_PREFIX), parts[0]);
+            alias = XMLConstants.DEFAULT_NS_PREFIX;
+            localPart = parts[0];
         }
+
+        return new QName(namespaces.getURI(alias), localPart, alias);
     }
 
     /**
@@ -130,20 +141,22 @@ public final class EncodingUtils {
      * @return namespaced parameter name
      */
     public static String encodeParameterName(QName qname, NamespaceMap namespaces) {
-        String parameter = qname.getLocalPart();
-        String ns = namespaces.getAlias(qname.getNamespaceURI());
+        String parameter;
+        String namespaceAlias = namespaces.getAlias(qname.getNamespaceURI());
 
-        if (parameter.equals("")) {
+        if (qname instanceof OpenIDNamespaceQName) {
             // parameter name is for a namespace declaration
             parameter = "ns";
 
-            if (ns != XMLConstants.DEFAULT_NS_PREFIX) {
-                parameter += "." + ns;
+            if (namespaceAlias != XMLConstants.DEFAULT_NS_PREFIX) {
+                parameter += "." + namespaceAlias;
             }
         } else {
-            // parameter name is for a message parameter
-            if (ns != XMLConstants.DEFAULT_NS_PREFIX) {
-                parameter = ns + "." + parameter;
+            // otherwise, parameter name is for a message parameter
+            parameter = qname.getLocalPart();
+
+            if (namespaceAlias != XMLConstants.DEFAULT_NS_PREFIX) {
+                parameter = namespaceAlias + "." + parameter;
             }
         }
 
