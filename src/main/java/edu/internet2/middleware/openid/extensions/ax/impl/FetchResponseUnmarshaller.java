@@ -16,18 +16,17 @@
 
 package edu.internet2.middleware.openid.extensions.ax.impl;
 
-import java.util.Map;
-
+import edu.internet2.middleware.openid.common.ParameterMap;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeUnmarshaller;
 import edu.internet2.middleware.openid.extensions.ax.FetchResponse;
 
 /**
  * FetchRequestUnmarshaller.
  */
-public class FetchResponseUnmarshaller {
+public class FetchResponseUnmarshaller implements AttributeExchangeUnmarshaller<FetchResponse> {
 
     /** {@inheritDoc} */
-    public FetchResponse unmarshall(Map<String, String> parameters) {
-        return null;
+    public void unmarshall(FetchResponse response, ParameterMap parameters) {
     }
 
 }

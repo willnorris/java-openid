@@ -20,12 +20,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.extensions.MessageExtension;
-
 /**
  * Response to an Attribute Exchange fetch request.
  */
-public interface FetchResponse extends MessageExtension {
+public interface FetchResponse extends AttributeExchangeMessage {
 
     /**
      * Message mode for attribute exchange fetch responses.
@@ -45,5 +43,12 @@ public interface FetchResponse extends MessageExtension {
      * @return the update URL
      */
     public URL getUpdateURL();
+
+    /**
+     * Set update URL.
+     * 
+     * @param newURL new URL
+     */
+    public void setUpdateURL(URL newURL);
 
 }

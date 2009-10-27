@@ -19,9 +19,9 @@ package edu.internet2.middleware.openid.extensions.ax.impl;
 import edu.internet2.middleware.openid.extensions.ax.StoreResponse;
 
 /**
- * StoreResponseImpl.
+ * Implementation of {@link StoreResponse} attribute exchange messages.
  */
-public class StoreResponseImpl implements StoreResponse {
+public class StoreResponseImpl extends BaseAttributeExchangeMessage implements StoreResponse {
 
     /**
      * Whether this response indicates success.
@@ -32,6 +32,15 @@ public class StoreResponseImpl implements StoreResponse {
      * Error message.
      */
     private String error;
+
+    /** {@inheritDoc} */
+    public String getMode() {
+        if (success) {
+            return StoreResponse.MODE_SUCCESS;
+        } else {
+            return StoreResponse.MODE_FAILURE;
+        }
+    }
 
     /** {@inheritDoc} */
     public String getError() {
@@ -63,15 +72,6 @@ public class StoreResponseImpl implements StoreResponse {
      */
     public void setSuccess(boolean newSuccess) {
         success = newSuccess;
-    }
-
-    /** {@inheritDoc} */
-    public String getNamespace() {
-        if (success) {
-            return StoreResponse.MODE_SUCCESS;
-        } else {
-            return StoreResponse.MODE_FAILURE;
-        }
     }
 
 }

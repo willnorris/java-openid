@@ -23,9 +23,9 @@ import java.util.Map;
 import edu.internet2.middleware.openid.extensions.ax.StoreRequest;
 
 /**
- * StoreRequestImpl.
+ * Implementation of {@link StoreRequest} attribute exchange messages.
  */
-public class StoreRequestImpl implements StoreRequest {
+public class StoreRequestImpl extends BaseAttributeExchangeMessage implements StoreRequest {
 
     /**
      * Attributes.
@@ -40,13 +40,13 @@ public class StoreRequestImpl implements StoreRequest {
     }
 
     /** {@inheritDoc} */
-    public Map<String, List<String>> getAttributes() {
-        return attributes;
+    public String getMode() {
+        return StoreRequest.MODE;
     }
 
     /** {@inheritDoc} */
-    public String getNamespace() {
-        return StoreRequest.MODE;
+    public Map<String, List<String>> getAttributes() {
+        return attributes;
     }
 
 }

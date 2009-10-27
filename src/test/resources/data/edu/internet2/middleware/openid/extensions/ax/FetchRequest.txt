@@ -1,0 +1,10 @@
+ns.ax:http://openid.net/srv/ax/1.0
+ax.mode:fetch_request
+ax.type.n0:http://example.com/schema/fullname
+ax.type.n1:http://example.com/schema/gender
+ax.type.n2:http://example.com/schema/favourite_dog
+ax.type.n3:http://example.com/schema/favourite_movie
+ax.count.n3:3
+ax.required:n0,n1
+ax.if_available:n2,n3
+ax.update_url:http://idconsumer.com/update?transaction_id=a6b5c41

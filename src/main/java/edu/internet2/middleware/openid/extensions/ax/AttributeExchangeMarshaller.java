@@ -1,5 +1,5 @@
 /*
- * Copyright [2009] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2009 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.extensions.ax.impl;
+package edu.internet2.middleware.openid.extensions.ax;
 
 import edu.internet2.middleware.openid.common.ParameterMap;
-import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeUnmarshaller;
-import edu.internet2.middleware.openid.extensions.ax.StoreRequest;
 
 /**
- * StoreRequestUnmarshaller.
+ * Marshaller for a specific Attribute Exchange message.
+ * 
+ * @param <MessageType> type of AX message this marshaller handles
  */
-public class StoreRequestUnmarshaller implements AttributeExchangeUnmarshaller<StoreRequest> {
+public interface AttributeExchangeMarshaller<MessageType extends AttributeExchangeMessage> {
 
-    /** {@inheritDoc} */
-    public void unmarshall(StoreRequest request, ParameterMap parameters) {
-    }
+    /**
+     * Marshall the given message into the parameter map.
+     * 
+     * @param message message to marshall
+     * @param parameters parameter map to marshall message into
+     */
+    public void marshall(MessageType message, ParameterMap parameters);
 
 }

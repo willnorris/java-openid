@@ -1,5 +1,5 @@
 /*
- * Copyright [2009] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2009 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,24 +16,20 @@
 
 package edu.internet2.middleware.openid.extensions.ax;
 
-import java.util.List;
-import java.util.Map;
+import edu.internet2.middleware.openid.extensions.MessageExtension;
 
 /**
- * Request for an OpenID Provider to store identity information for a user.
+ * An Attribute Exchange Message.
+ * 
+ * This interface contains no methods or constants. Its only purpose is to group and provide type safety.
  */
-public interface StoreRequest extends AttributeExchangeMessage {
+public interface AttributeExchangeMessage extends MessageExtension {
 
     /**
-     * Attribute Exchange mode for a store request.
-     */
-    public static final String MODE = "store_request";
-
-    /**
-     * The attributes to store.
+     * Get the Attribute Exchange message mode.
      * 
-     * @return the attributes
+     * @return the mode
      */
-    public Map<String, List<String>> getAttributes();
+    public String getMode();
 
 }

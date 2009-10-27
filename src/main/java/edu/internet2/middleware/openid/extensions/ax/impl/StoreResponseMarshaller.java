@@ -16,26 +16,20 @@
 
 package edu.internet2.middleware.openid.extensions.ax.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import edu.internet2.middleware.openid.common.ParameterMap;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeMarshaller;
 import edu.internet2.middleware.openid.extensions.ax.StoreResponse;
-import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
 
 /**
  * StoreResponseMarshaller.
  */
-public class StoreResponseMarshaller {
+public class StoreResponseMarshaller implements AttributeExchangeMarshaller<StoreResponse> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(StoreResponse response) {
-        Map<String, String> parameters = new HashMap<String, String>();
-
+    public void marshall(StoreResponse response, ParameterMap parameters) {
         if (response.getError() != null) {
-            parameters.put(Parameter.error.toString(), response.getError());
+            // parameters.put(Parameter.error.toString(), response.getError());
         }
-
-        return parameters;
     }
 
 }

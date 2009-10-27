@@ -1,5 +1,5 @@
 /*
- * Copyright [2009] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2009 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,17 @@
 
 package edu.internet2.middleware.openid.extensions.ax.impl;
 
-import edu.internet2.middleware.openid.common.ParameterMap;
-import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeUnmarshaller;
-import edu.internet2.middleware.openid.extensions.ax.StoreResponse;
-import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
+import edu.internet2.middleware.openid.extensions.MessageExtensionBuilder;
+import edu.internet2.middleware.openid.extensions.ax.FetchResponse;
 
 /**
- * StoreResponseUnmarshaller.
+ * Builder of {@link FetchResponse} message extensions.
  */
-public class StoreResponseUnmarshaller implements AttributeExchangeUnmarshaller<StoreResponse> {
+public class FetchResponseBuilder implements MessageExtensionBuilder<FetchResponse> {
 
     /** {@inheritDoc} */
-    public void unmarshall(StoreResponse response, ParameterMap parameters) {
-        response.setError(parameters.get(Parameter.error.QNAME));
+    public FetchResponse buildObject() {
+        return new FetchResponseImpl();
     }
 
 }

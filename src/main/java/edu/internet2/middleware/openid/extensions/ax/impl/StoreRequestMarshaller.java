@@ -16,22 +16,21 @@
 
 package edu.internet2.middleware.openid.extensions.ax.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeMarshaller;
 import edu.internet2.middleware.openid.extensions.ax.StoreRequest;
-import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
 
 /**
  * StoreRequestMarshaller.
  */
-public class StoreRequestMarshaller {
+public class StoreRequestMarshaller implements AttributeExchangeMarshaller<StoreRequest> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(StoreRequest request) {
-        Map<String, String> parameters = new HashMap<String, String>();
+    public void marshall(StoreRequest request, ParameterMap parameters) {
         int aliasCount = 0;
         int valueCount;
         String aliasName;
@@ -48,20 +47,18 @@ public class StoreRequestMarshaller {
             valueCount = 0;
 
             // add type parameter
-            parameters.put(Parameter.type.toString() + "." + aliasName, name);
+            // parameters.put(Parameter.type.toString() + "." + aliasName, name);
 
             if (values.size() == 1) {
-                parameters.put(Parameter.value.toString() + "." + aliasName, values.get(0));
+                // parameters.put(Parameter.value.toString() + "." + aliasName, values.get(0));
             } else {
-                parameters.put(Parameter.count.toString() + "." + aliasName, values.size() + "");
+                // parameters.put(Parameter.count.toString() + "." + aliasName, values.size() + "");
                 for (String value : values) {
-                    parameters.put(Parameter.value.toString() + "." + aliasName + "." + (++valueCount), value);
+                    // parameters.put(Parameter.value.toString() + "." + aliasName + "." + (++valueCount), value);
                 }
             }
 
         }
-
-        return parameters;
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright [2009] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2009 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,17 @@
 
 package edu.internet2.middleware.openid.extensions.ax.impl;
 
-import edu.internet2.middleware.openid.common.ParameterMap;
-import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeUnmarshaller;
-import edu.internet2.middleware.openid.extensions.ax.StoreResponse;
-import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeMessage;
 
 /**
- * StoreResponseUnmarshaller.
+ * Base class for {@link AttributeExchangeMessage} implementations.
  */
-public class StoreResponseUnmarshaller implements AttributeExchangeUnmarshaller<StoreResponse> {
+public abstract class BaseAttributeExchangeMessage implements AttributeExchangeMessage {
 
     /** {@inheritDoc} */
-    public void unmarshall(StoreResponse response, ParameterMap parameters) {
-        response.setError(parameters.get(Parameter.error.QNAME));
+    public String getNamespace() {
+        return AttributeExchange.AX_10_NS;
     }
 
 }

@@ -16,12 +16,10 @@
 
 package edu.internet2.middleware.openid.extensions.ax;
 
-import edu.internet2.middleware.openid.extensions.MessageExtension;
-
 /**
  * Response to an Attribute Exchange store request.
  */
-public interface StoreResponse extends MessageExtension {
+public interface StoreResponse extends AttributeExchangeMessage {
 
     /**
      * Attribute Exchange mode representing a successful response to a store request.
@@ -40,4 +38,10 @@ public interface StoreResponse extends MessageExtension {
      */
     public String getError();
 
+    /**
+     * Set the error message.
+     * 
+     * @param newError the error message
+     */
+    public void setError(String newError);
 }

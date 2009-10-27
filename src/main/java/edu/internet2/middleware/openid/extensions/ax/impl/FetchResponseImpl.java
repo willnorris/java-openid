@@ -21,13 +21,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
 import edu.internet2.middleware.openid.extensions.ax.FetchResponse;
 
 /**
- * FetchResponseImpl.
+ * Implementation of {@link FetchResponse} attribute exchange messages.
  */
-public class FetchResponseImpl implements FetchResponse {
+public class FetchResponseImpl extends BaseAttributeExchangeMessage implements FetchResponse {
 
     /**
      * Attributes.
@@ -47,6 +46,11 @@ public class FetchResponseImpl implements FetchResponse {
     }
 
     /** {@inheritDoc} */
+    public String getMode() {
+        return FetchResponse.MODE;
+    }
+
+    /** {@inheritDoc} */
     public Map<String, List<String>> getAttributes() {
         return attributes;
     }
@@ -57,15 +61,6 @@ public class FetchResponseImpl implements FetchResponse {
     }
 
     /** {@inheritDoc} */
-    public String getNamespace() {
-        return AttributeExchange.AX_10_NS;
-    }
-
-    /**
-     * Set update URL.
-     * 
-     * @param newUpdateURL the updateURL to set
-     */
     public void setUpdateURL(URL newUpdateURL) {
         updateURL = newUpdateURL;
     }

@@ -17,22 +17,21 @@
 package edu.internet2.middleware.openid.extensions.ax.impl;
 
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeMarshaller;
 import edu.internet2.middleware.openid.extensions.ax.FetchResponse;
-import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
 
 /**
  * FetchRequestMarshaller.
  */
-public class FetchResponseMarshaller {
+public class FetchResponseMarshaller implements AttributeExchangeMarshaller<FetchResponse> {
 
     /** {@inheritDoc} */
-    public Map<String, String> marshall(FetchResponse response) {
-        Map<String, String> parameters = new HashMap<String, String>();
+    public void marshall(FetchResponse response, ParameterMap parameters) {
         int aliasCount = 0;
         int valueCount;
         String aliasName;
@@ -40,7 +39,7 @@ public class FetchResponseMarshaller {
         // update URL
         URL policyURL = response.getUpdateURL();
         if (policyURL != null) {
-            parameters.put(Parameter.update_url.toString(), policyURL.toString());
+            // parameters.put(Parameter.update_url.toString(), policyURL.toString());
         }
 
         // attributes
@@ -55,20 +54,18 @@ public class FetchResponseMarshaller {
             valueCount = 0;
 
             // add type parameter
-            parameters.put(Parameter.type.toString() + "." + aliasName, name);
+            // parameters.put(Parameter.type.toString() + "." + aliasName, name);
 
             if (values.size() == 1) {
-                parameters.put(Parameter.value.toString() + "." + aliasName, values.get(0));
+                // parameters.put(Parameter.value.toString() + "." + aliasName, values.get(0));
             } else {
-                parameters.put(Parameter.count.toString() + "." + aliasName, values.size() + "");
+                // parameters.put(Parameter.count.toString() + "." + aliasName, values.size() + "");
                 for (String value : values) {
-                    parameters.put(Parameter.value.toString() + "." + aliasName + "." + (++valueCount), value);
+                    // parameters.put(Parameter.value.toString() + "." + aliasName + "." + (++valueCount), value);
                 }
             }
 
         }
-
-        return parameters;
     }
 
 }
