@@ -28,7 +28,7 @@ public final class SimpleRegistration {
     /**
      * Namespace URI for Simple Registration version 1.0.
      */
-    public static final String SREG_10_NS = "http://openid.net/extensions/sreg/1.0";
+    public static final String SREG_10_NS = "http://openid.net/sreg/1.0";
 
     /**
      * Namespace URI for Simple Registration version 1.1.
@@ -127,4 +127,5 @@ public final class SimpleRegistration {
     /** Constructor. */
     protected SimpleRegistration() {
     }
+
 }

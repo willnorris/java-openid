@@ -22,7 +22,7 @@ import edu.internet2.middleware.openid.extensions.BaseMessageExtensionTestCase;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
 
 /**
- * Test case for creating, marshalling, and unmarshalling {@link SimpleRegistrationRequest}.
+ * Test case for creating, marshalling, and unmarshalling {@link SimpleRegistrationResponse}.
  */
 public class SimpleRegistrationResponseTest extends BaseMessageExtensionTestCase {
 
