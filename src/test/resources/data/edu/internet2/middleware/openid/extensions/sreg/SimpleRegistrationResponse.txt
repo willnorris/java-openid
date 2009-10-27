@@ -1,0 +1,10 @@
+ns.sreg:http://openid.net/extensions/sreg/1.1
+sreg.nickname:gpburdell
+sreg.email:gpburdell@gatech.edu
+sreg.fullname:George P. Burdell
+sreg.dob:1927-01-01
+sreg.gender:M
+sreg.postcode:30332
+sreg.country:US
+sreg.language:en
+sreg.timezone:America/New_York

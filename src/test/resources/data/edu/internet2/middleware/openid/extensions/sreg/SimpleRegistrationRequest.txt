@@ -1,0 +1,4 @@
+ns.sreg:http://openid.net/extensions/sreg/1.1
+sreg.required:email,fullname
+sreg.optional:language,timezone
+sreg.policy_url:http://example.com/sreg.policy
