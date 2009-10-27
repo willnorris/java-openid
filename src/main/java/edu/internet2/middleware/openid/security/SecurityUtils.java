@@ -40,6 +40,7 @@ import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 import edu.internet2.middleware.openid.message.encoding.impl.KeyValueFormCodec;
 import edu.internet2.middleware.openid.message.io.MarshallingException;
 import edu.internet2.middleware.openid.message.io.MessageMarshaller;
+import edu.internet2.middleware.openid.util.OpenIDNamespaceQName;
 
 /**
  * Security utilities.
@@ -76,7 +77,11 @@ public final class SecurityUtils {
         }
 
         List<QName> signedParameters = buildSignedParameters(messageParameters);
+        for (QName qname : signedParameters) {
+            log.info("signed parameter: {}", qname);
+        }
         String signatureData = buildSignatureData(messageParameters, signedParameters);
+        log.info("signature data: {}", signatureData);
         String signature = calculateSignature(association, signatureData);
 
         message.getSignedFields().clear();
@@ -120,7 +125,7 @@ public final class SecurityUtils {
         // Build list of message parameters to include in signature
         List<QName> signedParameters = new ArrayList();
         for (String nsURI : parameters.getNamespaces().getURIs()) {
-            QName nsQName = new QName(nsURI, "", parameters.getNamespaces().getAlias(nsURI));
+            QName nsQName = new OpenIDNamespaceQName(nsURI, parameters.getNamespaces().getAlias(nsURI));
             signedParameters.add(nsQName);
         }
         signedParameters.addAll(parameters.keySet());
