@@ -1,0 +1,3 @@
+ns.ax:http://openid.net/srv/ax/1.0
+ax.mode:store_response_failure
+ax.error:General storage failure

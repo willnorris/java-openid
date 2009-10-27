@@ -28,7 +28,13 @@ public class StoreResponseUnmarshaller implements AttributeExchangeUnmarshaller<
 
     /** {@inheritDoc} */
     public void unmarshall(StoreResponse response, ParameterMap parameters) {
-        response.setError(parameters.get(Parameter.error.QNAME));
+        String mode = parameters.get(Parameter.mode.QNAME);
+        if (StoreResponse.MODE_SUCCESS.equals(mode)) {
+            response.setSuccess(true);
+        } else if (StoreResponse.MODE_FAILURE.equals(mode)) {
+            response.setSuccess(false);
+            response.setError(parameters.get(Parameter.error.QNAME));
+        }
     }
 
 }

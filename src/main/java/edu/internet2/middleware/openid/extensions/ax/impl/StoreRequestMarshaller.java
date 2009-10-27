@@ -19,10 +19,14 @@ package edu.internet2.middleware.openid.extensions.ax.impl;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.namespace.QName;
+
+import edu.internet2.middleware.openid.common.NamespaceMap;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeMarshaller;
 import edu.internet2.middleware.openid.extensions.ax.StoreRequest;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
 
 /**
  * StoreRequestMarshaller.
@@ -31,34 +35,37 @@ public class StoreRequestMarshaller implements AttributeExchangeMarshaller<Store
 
     /** {@inheritDoc} */
     public void marshall(StoreRequest request, ParameterMap parameters) {
-        int aliasCount = 0;
-        int valueCount;
-        String aliasName;
+
+        NamespaceMap types = new NamespaceMap();
+        types.setAliasPrefix(AttributeExchange.ALIAS_PREFIX);
 
         // attributes
         Map<String, List<String>> attributes = request.getAttributes();
-        for (String name : attributes.keySet()) {
-            List<String> values = attributes.get(name);
-            if (values.size() <= 0) {
+        for (String typeURI : attributes.keySet()) {
+            List<String> values = attributes.get(typeURI);
+            String alias = types.add(typeURI);
+
+            QName typeQName = new QName(AttributeExchange.AX_10_NS, Parameter.type.toString() + "." + alias);
+            parameters.put(typeQName, typeURI);
+
+            if (values.isEmpty()) {
                 continue;
-            }
-
-            aliasName = AttributeExchange.ALIAS_PREFIX + (++aliasCount);
-            valueCount = 0;
-
-            // add type parameter
-            // parameters.put(Parameter.type.toString() + "." + aliasName, name);
-
-            if (values.size() == 1) {
-                // parameters.put(Parameter.value.toString() + "." + aliasName, values.get(0));
+            } else if (values.size() == 1) {
+                QName valueQName = new QName(AttributeExchange.AX_10_NS, Parameter.value.toString() + "." + alias);
+                parameters.put(valueQName, values.get(0));
             } else {
-                // parameters.put(Parameter.count.toString() + "." + aliasName, values.size() + "");
-                for (String value : values) {
-                    // parameters.put(Parameter.value.toString() + "." + aliasName + "." + (++valueCount), value);
+                QName countQName = new QName(AttributeExchange.AX_10_NS, Parameter.count.toString() + "." + alias);
+                parameters.put(countQName, Integer.toString(values.size()));
+
+                for (int i = 0; i < values.size(); i++) {
+                    QName valueQName = new QName(AttributeExchange.AX_10_NS, Parameter.value.toString() + "." + alias
+                            + "." + (i + 1));
+                    parameters.put(valueQName, values.get(i));
                 }
             }
 
         }
+
     }
 
 }

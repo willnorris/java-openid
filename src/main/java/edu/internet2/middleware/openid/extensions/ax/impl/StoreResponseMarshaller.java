@@ -19,6 +19,7 @@ package edu.internet2.middleware.openid.extensions.ax.impl;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeMarshaller;
 import edu.internet2.middleware.openid.extensions.ax.StoreResponse;
+import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
 
 /**
  * StoreResponseMarshaller.
@@ -27,8 +28,8 @@ public class StoreResponseMarshaller implements AttributeExchangeMarshaller<Stor
 
     /** {@inheritDoc} */
     public void marshall(StoreResponse response, ParameterMap parameters) {
-        if (response.getError() != null) {
-            // parameters.put(Parameter.error.toString(), response.getError());
+        if (!response.getSuccess() && response.getError() != null) {
+            parameters.put(Parameter.error.QNAME, response.getError());
         }
     }
 

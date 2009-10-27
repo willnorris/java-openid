@@ -83,7 +83,7 @@ public class AttributeExchangeUnmarshallingDispatcher implements MessageExtensio
             unmarshaller = unmarshallers.get(StoreRequest.class);
         } else if (mode.equals(StoreResponse.MODE_SUCCESS) || mode.equals(StoreResponse.MODE_FAILURE)) {
             builder = builders.getBuilder(StoreResponse.class);
-            unmarshaller = unmarshallers.get(FetchRequest.class);
+            unmarshaller = unmarshallers.get(StoreResponse.class);
         }
 
         if (builder == null) {

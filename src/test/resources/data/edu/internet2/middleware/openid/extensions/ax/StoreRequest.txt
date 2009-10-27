@@ -1,0 +1,8 @@
+ns.ax:http://openid.net/srv/ax/1.0
+ax.mode:store_request
+ax.type.a0:http://example.com/schema/fullname
+ax.value.a0:Bob Smith
+ax.type.a1:http://example.com/schema/favourite_movie
+ax.count.a1:2
+ax.value.a1.1:Movie1
+ax.value.a1.2:Movie2

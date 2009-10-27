@@ -66,9 +66,6 @@ public class FetchResponseTest extends BaseMessageExtensionTestCase {
         response.getAttributes().putAll(expectedAttributes);
         response.setUpdateURL(expectedUpdateURL);
 
-        logMessageParameters(expectedParameters);
-        logMessageParameters(response);
-
         assertEquals(expectedParameters, response);
     }
 

@@ -16,7 +16,7 @@
 
 package edu.internet2.middleware.openid.extensions.ax.impl;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +36,7 @@ public class StoreRequestImpl extends BaseAttributeExchangeMessage implements St
      * Constructor.
      */
     public StoreRequestImpl() {
-        attributes = new HashMap<String, List<String>>();
+        attributes = new LinkedHashMap<String, List<String>>();
     }
 
     /** {@inheritDoc} */

@@ -32,6 +32,20 @@ public interface StoreResponse extends AttributeExchangeMessage {
     public static final String MODE_FAILURE = "store_response_failure";
 
     /**
+     * Get whether this response indicates success.
+     * 
+     * @return if success
+     */
+    public boolean getSuccess();
+
+    /**
+     * Set whether this response indicates success.
+     * 
+     * @param newSuccess if success
+     */
+    public void setSuccess(boolean newSuccess);
+
+    /**
      * A human-readable message indicating why the store request failed.
      * 
      * @return the error message
@@ -44,4 +58,5 @@ public interface StoreResponse extends AttributeExchangeMessage {
      * @param newError the error message
      */
     public void setError(String newError);
+
 }

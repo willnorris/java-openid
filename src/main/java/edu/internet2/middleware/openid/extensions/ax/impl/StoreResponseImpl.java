@@ -56,20 +56,12 @@ public class StoreResponseImpl extends BaseAttributeExchangeMessage implements S
         error = newError;
     }
 
-    /**
-     * Get whether this response indicates success.
-     * 
-     * @return if success
-     */
+    /** {@inheritDoc} */
     public boolean getSuccess() {
         return success;
     }
 
-    /**
-     * Set whether this response indicates success.
-     * 
-     * @param newSuccess if success
-     */
+    /** {@inheritDoc} */
     public void setSuccess(boolean newSuccess) {
         success = newSuccess;
     }
