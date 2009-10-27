@@ -55,7 +55,7 @@ public class IdentifierNonceGenerator implements NonceGenerator {
     /** {@inheritDoc} */
     public String generateNonce() {
         Date date = new Date();
-        return Configuration.getNonceDateFormat().format(date) + identifierGenerator.generateIdentifier(4);
+        return Configuration.getInternetDateFormat().format(date) + identifierGenerator.generateIdentifier(4);
     }
 
 }

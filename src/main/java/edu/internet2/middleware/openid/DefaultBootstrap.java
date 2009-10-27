@@ -32,6 +32,13 @@ import edu.internet2.middleware.openid.extensions.ax.impl.FetchRequestBuilder;
 import edu.internet2.middleware.openid.extensions.ax.impl.FetchResponseBuilder;
 import edu.internet2.middleware.openid.extensions.ax.impl.StoreRequestBuilder;
 import edu.internet2.middleware.openid.extensions.ax.impl.StoreResponseBuilder;
+import edu.internet2.middleware.openid.extensions.pape.PAPE;
+import edu.internet2.middleware.openid.extensions.pape.PAPEMessageMarshaller;
+import edu.internet2.middleware.openid.extensions.pape.PAPEMessageUnmarshaller;
+import edu.internet2.middleware.openid.extensions.pape.PAPERequest;
+import edu.internet2.middleware.openid.extensions.pape.PAPEResponse;
+import edu.internet2.middleware.openid.extensions.pape.impl.PAPERequestBuilder;
+import edu.internet2.middleware.openid.extensions.pape.impl.PAPEResponseBuilder;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationMessageMarshaller;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationMessageUnmarshaller;
@@ -199,6 +206,14 @@ public class DefaultBootstrap {
         Configuration.getExtensionBuilders().registerBuilder(FetchResponse.class, new FetchResponseBuilder());
         Configuration.getExtensionBuilders().registerBuilder(StoreRequest.class, new StoreRequestBuilder());
         Configuration.getExtensionBuilders().registerBuilder(StoreResponse.class, new StoreResponseBuilder());
+
+        // PAPE
+        marshaller = new PAPEMessageMarshaller();
+        unmarshaller = new PAPEMessageUnmarshaller();
+        initializeExtensionProvider(PAPE.PAPE_10_NS, marshaller, unmarshaller);
+
+        Configuration.getExtensionBuilders().registerBuilder(PAPERequest.class, new PAPERequestBuilder());
+        Configuration.getExtensionBuilders().registerBuilder(PAPEResponse.class, new PAPEResponseBuilder());
     }
 
     public static void initializeExtensionProvider(String namespace, MessageExtensionMarshaller marshaller,

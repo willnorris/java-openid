@@ -27,7 +27,6 @@ import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Parameter;
 import edu.internet2.middleware.openid.message.io.MarshallingException;
 import edu.internet2.middleware.openid.util.DatatypeHelper;
-import edu.internet2.middleware.openid.util.StringUtils;
 
 /**
  * Marshaller for {@link SimpleRegistrationMessage} message extensions.

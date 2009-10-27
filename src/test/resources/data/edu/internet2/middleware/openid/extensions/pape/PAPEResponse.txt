@@ -1,0 +1,7 @@
+ns.pape:http://specs.openid.net/extensions/pape/1.0
+pape.auth_time:2005-05-15T17:11:51Z
+pape.auth_policies:http://schemas.openid.net/pape/policies/2007/06/phishing-resistant http://schemas.openid.net/pape/policies/2007/06/multi-factor
+pape.auth_level.ns.a0:http://csrc.nist.gov/publications/nistpubs/800-63/SP800-63V1_0_2.pdf
+pape.auth_level.ns.a1:http://www.jisa.or.jp/spec/auth_level.html
+pape.auth_level.a0:1
+pape.auth_level.a1:2

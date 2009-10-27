@@ -51,8 +51,8 @@ public class Configuration {
     /** Message Extension Unmarshallers. */
     private static MessageExtensionUnmarshallerFactory extensionUnmarshallers = new MessageExtensionUnmarshallerFactory();
 
-    /** Date Format to use when generating nonces. */
-    private static DateFormat nonceDateFormat;
+    /** Date Format that implements Internet time format according to RFC 3339. */
+    private static DateFormat internetDateFormat;
 
     /** Constructor. */
     protected Configuration() {
@@ -113,17 +113,17 @@ public class Configuration {
     }
 
     /**
-     * Get the nonce date format.
+     * Get the Internet date format.
      * 
-     * @return the nonce date format
+     * @return the Internet date format
      */
-    public static DateFormat getNonceDateFormat() {
-        if (nonceDateFormat == null) {
-            nonceDateFormat = new SimpleDateFormat(OpenIDConstants.INTERNET_DATE_FORMAT);
-            nonceDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+    public static DateFormat getInternetDateFormat() {
+        if (internetDateFormat == null) {
+            internetDateFormat = new SimpleDateFormat(OpenIDConstants.INTERNET_DATE_FORMAT);
+            internetDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         }
 
-        return nonceDateFormat;
+        return internetDateFormat;
     }
 
 }
