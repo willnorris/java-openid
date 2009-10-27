@@ -41,10 +41,32 @@ public class NamespaceMap {
     /** Counter to ensure generated namespaces are unique. */
     private int namespaceGeneratorCount;
 
+    /** Alias prefix. */
+    private String aliasPrefix;
+
     /** Constructor. */
     public NamespaceMap() {
         namespaces = new HashMap<String, String>();
         namespaceGeneratorCount = 0;
+        aliasPrefix = "n";
+    }
+
+    /**
+     * Get the alias prefix.
+     * 
+     * @return the alias prefix
+     */
+    public String getAliasPrefix() {
+        return aliasPrefix;
+    }
+
+    /**
+     * Set the alias prefix.
+     * 
+     * @param prefix the alias prefix
+     */
+    public void setAliasPrefix(String prefix) {
+        aliasPrefix = prefix;
     }
 
     /**
@@ -178,7 +200,7 @@ public class NamespaceMap {
      * @return unique namespace alias
      */
     protected String generateNamespaceAlias() {
-        return "n" + (namespaceGeneratorCount++);
+        return aliasPrefix + (namespaceGeneratorCount++);
     }
 
 }
