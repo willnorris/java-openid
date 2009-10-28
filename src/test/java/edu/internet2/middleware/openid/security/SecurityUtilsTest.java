@@ -92,8 +92,7 @@ public class SecurityUtilsTest extends BaseTestCase {
         String messageFile = "/data/edu/internet2/middleware/openid/security/signed-message-1.txt";
         PositiveAssertion response = (PositiveAssertion) unmarshallMessage(messageFile);
         Association association = getAssociation();
-
-        logMessageParameters(response);
+        
         assertTrue(SecurityUtils.signatureIsValid(response, association));
     }
 

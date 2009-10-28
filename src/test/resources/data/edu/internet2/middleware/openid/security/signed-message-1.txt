@@ -6,4 +6,4 @@ response_nonce:123
 return_to:http://rp.example.com/consumer
 assoc_handle:new-handle
 signed:mode,claimed_id,identity,ns
-sig:AbkwxXy0umgx7qtGrPWUvWl/xvj6xZnQge7pOAbXerU=
+sig:rQezV92SdYKZCu3gynosQMk5qt/WW0uB6iYWunurkA8=
