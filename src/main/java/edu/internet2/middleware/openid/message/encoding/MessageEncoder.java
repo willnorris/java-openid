@@ -21,20 +21,11 @@ import java.util.Map;
 import edu.internet2.middleware.openid.common.ParameterMap;
 
 /**
- * Encodes and decodes a map of OpenID message parameters into a transport specific format.
+ * Encodes a map of OpenID message parameters into a transport specific format.
  * 
- * @param <EncodedType> object type the codec produces
+ * @param <MessageType> message format the encoder produces
  */
-public interface MessageCodec<EncodedType> {
-
-    /**
-     * Decode the message.
-     * 
-     * @param encoded encoded string
-     * @return map of parameters
-     * @throws EncodingException if unable to decode message
-     */
-    public ParameterMap decode(EncodedType encoded) throws EncodingException;
+public interface MessageEncoder<MessageType> {
 
     /**
      * Encode the message.
@@ -43,7 +34,7 @@ public interface MessageCodec<EncodedType> {
      * @return encoded format
      * @throws EncodingException if unable to encode message
      */
-    public EncodedType encode(ParameterMap parameters) throws EncodingException;
+    public MessageType encode(ParameterMap parameters) throws EncodingException;
 
     /**
      * Encode a simple key-value map of parameters.
@@ -52,6 +43,6 @@ public interface MessageCodec<EncodedType> {
      * @return encoded message
      * @throws EncodingException if unable to encode message
      */
-    public EncodedType encode(Map<String, String> parameters) throws EncodingException;
+    public MessageType encode(Map<String, String> parameters) throws EncodingException;
 
 }

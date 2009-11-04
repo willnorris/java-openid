@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 
 /**
  * Message encoder implementation which produces x-www-urlencoded strings. Message parameters in a URL encoded string
@@ -34,7 +35,7 @@ import edu.internet2.middleware.openid.message.encoding.EncodingException;
  * strip the prefix from all parameters when decoding. Any parameters that are not prefixed with "openid." are not part
  * of the OpenID message and will not be included in the decoded parameter map.
  */
-public class URLFormCodec extends AbstractNamespaceAwareCodec<String> {
+public class URLFormCodec extends AbstractMessageDecoder<String> {
 
     /** Prefix attached to each parameter of the encoded string. */
     private static final String PARAMETER_PREFIX = "openid";
@@ -89,9 +90,10 @@ public class URLFormCodec extends AbstractNamespaceAwareCodec<String> {
     }
 
     /** {@inheritDoc} */
-    public String encode(ParameterMap parameters) throws EncodingException {
-        log.debug("Encoding ParameterMap containing {} entries", parameters.size());
-        return super.encode(parameters);
+    public String encode(ParameterMap parameterMap) throws EncodingException {
+        log.debug("Encoding ParameterMap containing {} entries", parameterMap.size());
+        Map<String, String> parameters = EncodingUtils.flattenParameterNames(parameterMap);
+        return encode(parameters);
     }
 
     /** {@inheritDoc} */

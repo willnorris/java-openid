@@ -19,13 +19,10 @@ package edu.internet2.middleware.openid.message.encoding.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.message.encoding.EncodingException;
-
 /**
- * Message Codec implementation that decodes parameter maps retrieved from Servlet Requests. This implementation does
- * not support message encoding.
+ * Message Decoder implementation that decodes parameter maps retrieved from Servlet Requests.
  */
-public class ServletRequestParameterMapDecoder extends AbstractNamespaceAwareCodec<Map<String, String[]>> {
+public class ServletRequestParameterMapDecoder extends AbstractMessageDecoder<Map<String, String[]>> {
 
     /** Prefix attached to each parameter of the encoded string. */
     private static final String PARAMETER_PREFIX = "openid";
@@ -61,11 +58,6 @@ public class ServletRequestParameterMapDecoder extends AbstractNamespaceAwareCod
         }
 
         return parameters;
-    }
-
-    /** {@inheritDoc} */
-    public Map<String, String[]> encode(Map<String, String> parameters) {
-        throw new UnsupportedOperationException("This class does not implement message encoding.");
     }
 
 }

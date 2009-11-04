@@ -30,20 +30,20 @@ import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
 import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
-import edu.internet2.middleware.openid.message.encoding.MessageCodec;
+import edu.internet2.middleware.openid.message.encoding.MessageDecoder;
 
 /**
- * Abstract class for namespace-aware codecs.
+ * Abstract class for namespace-aware message decoders.
  * 
- * @param <EncodedType> object type the codec produces
+ * @param <MessageType> object type the decoder accepts
  */
-public abstract class AbstractNamespaceAwareCodec<EncodedType> implements MessageCodec<EncodedType> {
+public abstract class AbstractMessageDecoder<MessageType> implements MessageDecoder<MessageType> {
 
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(URLFormCodec.class);
 
     /** {@inheritDoc} */
-    public ParameterMap decode(EncodedType encoded) throws EncodingException {
+    public ParameterMap decode(MessageType encoded) throws EncodingException {
         Map<String, String> parameters = decodeMessage(encoded);
 
         ParameterMap parameterMap = new ParameterMap();
@@ -85,15 +85,6 @@ public abstract class AbstractNamespaceAwareCodec<EncodedType> implements Messag
      * @return map of parameters
      * @throws EncodingException if unable to decode the message
      */
-    public abstract Map<String, String> decodeMessage(EncodedType encoded) throws EncodingException;
-
-    /** {@inheritDoc} */
-    public EncodedType encode(ParameterMap parameterMap) throws EncodingException {
-        Map<String, String> parameters = EncodingUtils.flattenParameterNames(parameterMap);
-        return encode(parameters);
-    }
-
-    /** {@inheritDoc} */
-    public abstract EncodedType encode(Map<String, String> parameters) throws EncodingException;
+    public abstract Map<String, String> decodeMessage(MessageType encoded) throws EncodingException;
 
 }

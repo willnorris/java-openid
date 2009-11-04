@@ -24,11 +24,13 @@ import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.message.encoding.EncodingException;
+import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
+import edu.internet2.middleware.openid.message.encoding.MessageEncoder;
 
 /**
  * Message encoder implementation which produces Key-Value Form encoded strings.
  */
-public class KeyValueFormCodec extends AbstractNamespaceAwareCodec<String> {
+public class KeyValueFormCodec extends AbstractMessageDecoder<String> implements MessageEncoder<String> {
 
     /** Codec singleton instance. */
     private static KeyValueFormCodec singleton;
@@ -70,9 +72,10 @@ public class KeyValueFormCodec extends AbstractNamespaceAwareCodec<String> {
     }
 
     /** {@inheritDoc} */
-    public String encode(ParameterMap parameters) throws EncodingException {
-        log.debug("Encoding ParameterMap containing {} entries", parameters.size());
-        return super.encode(parameters);
+    public String encode(ParameterMap parameterMap) throws EncodingException {
+        log.debug("Encoding ParameterMap containing {} entries", parameterMap.size());
+        Map<String, String> parameters = EncodingUtils.flattenParameterNames(parameterMap);
+        return encode(parameters);
     }
 
     /** {@inheritDoc} */
