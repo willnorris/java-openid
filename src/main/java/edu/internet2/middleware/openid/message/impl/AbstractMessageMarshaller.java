@@ -85,7 +85,7 @@ public abstract class AbstractMessageMarshaller<MessageType extends Message> imp
      * @param parameters parameter map to marshall extensions to
      */
     protected void marshallExtensions(MessageType message, ParameterMap parameters) {
-        for (MessageExtension extension : message.getExtensions()) {
+        for (MessageExtension extension : message.getExtensions().values()) {
             log.debug("marshalling extension: {}", extension.getNamespace());
 
             String namespace = extension.getNamespace();

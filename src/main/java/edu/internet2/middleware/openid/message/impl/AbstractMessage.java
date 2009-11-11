@@ -16,8 +16,8 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.extensions.MessageExtension;
@@ -31,11 +31,11 @@ public abstract class AbstractMessage implements Message {
     /**
      * Message extensions.
      */
-    private Collection<MessageExtension> extensions;
+    private Map<String, MessageExtension> extensions;
 
     /** Constructor. */
     public AbstractMessage() {
-        extensions = new ArrayList<MessageExtension>();
+        extensions = new HashMap<String, MessageExtension>();
     }
 
     /** {@inheritDoc} */
@@ -44,7 +44,7 @@ public abstract class AbstractMessage implements Message {
     }
 
     /** {@inheritDoc} */
-    public Collection<MessageExtension> getExtensions() {
+    public Map<String, MessageExtension> getExtensions() {
         return extensions;
     }
 

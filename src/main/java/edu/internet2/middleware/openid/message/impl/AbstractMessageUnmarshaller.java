@@ -103,7 +103,7 @@ public abstract class AbstractMessageUnmarshaller<MessageType extends Message> i
                     log.info("unmarshalling message extension: {}", namespace);
                     ParameterMap extensionParameters = parameters.subMap(namespace);
                     MessageExtension extension = unmarshaller.unmarshall(extensionParameters);
-                    message.getExtensions().add(extension);
+                    message.getExtensions().put(namespace, extension);
                 } catch (UnmarshallingException e) {
                     log.error("Error while unmarshalling message extension: {}", e.getMessage());
                 }

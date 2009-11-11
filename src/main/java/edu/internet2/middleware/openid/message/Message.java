@@ -16,7 +16,7 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.util.Collection;
+import java.util.Map;
 
 import edu.internet2.middleware.openid.extensions.MessageExtension;
 
@@ -40,10 +40,10 @@ public interface Message {
     public String getMode();
 
     /**
-     * Get message extensions.
+     * Get map of message extensions, keyed by namespace URI.
      * 
      * @return the extensions
      */
-    public Collection<MessageExtension> getExtensions();
+    public Map<String, MessageExtension> getExtensions();
 
 }
