@@ -32,6 +32,7 @@ import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeUnmarshaller;
 import edu.internet2.middleware.openid.extensions.ax.FetchResponse;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
+import edu.internet2.middleware.openid.util.DatatypeHelper;
 
 /**
  * FetchRequestUnmarshaller.
@@ -45,7 +46,7 @@ public class FetchResponseUnmarshaller implements AttributeExchangeUnmarshaller<
     public void unmarshall(FetchResponse response, ParameterMap parameters) {
 
         String updateURL = parameters.get(Parameter.update_url.QNAME);
-        if (updateURL != null) {
+        if (!DatatypeHelper.isEmpty(updateURL)) {
             try {
                 response.setUpdateURL(new URL(updateURL));
             } catch (MalformedURLException e) {

@@ -29,6 +29,7 @@ import edu.internet2.middleware.openid.extensions.AbstractMessageExtensionUnmars
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Parameter;
 import edu.internet2.middleware.openid.message.io.UnmarshallingException;
+import edu.internet2.middleware.openid.util.DatatypeHelper;
 
 /**
  * Unmarshaller for {@link SimpleRegistrationMessage} message extensions.
@@ -61,7 +62,7 @@ public class SimpleRegistrationMessageUnmarshaller extends
      */
     public void unmarshall(SimpleRegistrationRequest request, ParameterMap parameters) throws UnmarshallingException {
         String policyURL = parameters.get(Parameter.policy_url.QNAME);
-        if (policyURL != null) {
+        if (!DatatypeHelper.isEmpty(policyURL)) {
             try {
                 request.setPolicyURL(new URL(policyURL));
             } catch (MalformedURLException e) {
@@ -70,7 +71,7 @@ public class SimpleRegistrationMessageUnmarshaller extends
         }
 
         String optional = parameters.get(Parameter.optional.QNAME);
-        if (optional != null) {
+        if (!DatatypeHelper.isEmpty(optional)) {
             for (String fieldName : optional.split(",")) {
                 Field field = Field.valueOf(fieldName);
                 if (field != null) {
@@ -80,7 +81,7 @@ public class SimpleRegistrationMessageUnmarshaller extends
         }
 
         String required = parameters.get(Parameter.required.QNAME);
-        if (required != null) {
+        if (!DatatypeHelper.isEmpty(required)) {
             for (String fieldName : required.split(",")) {
                 Field field = Field.valueOf(fieldName);
                 if (field != null) {

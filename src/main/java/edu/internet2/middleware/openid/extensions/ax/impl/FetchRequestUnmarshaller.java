@@ -29,6 +29,7 @@ import edu.internet2.middleware.openid.extensions.ax.AttributeExchange;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchangeUnmarshaller;
 import edu.internet2.middleware.openid.extensions.ax.FetchRequest;
 import edu.internet2.middleware.openid.extensions.ax.AttributeExchange.Parameter;
+import edu.internet2.middleware.openid.util.DatatypeHelper;
 
 /**
  * FetchRequestUnmarshaller.
@@ -42,7 +43,7 @@ public class FetchRequestUnmarshaller implements AttributeExchangeUnmarshaller<F
     public void unmarshall(FetchRequest request, ParameterMap parameters) {
 
         String required = parameters.get(Parameter.required.QNAME);
-        if (required != null) {
+        if (!DatatypeHelper.isEmpty(required)) {
             String[] requiredAliases = required.split(",");
             for (String alias : requiredAliases) {
                 String typeURI = unmarshallAttribute(request, parameters, alias);
@@ -53,7 +54,7 @@ public class FetchRequestUnmarshaller implements AttributeExchangeUnmarshaller<F
         }
 
         String optional = parameters.get(Parameter.if_available.QNAME);
-        if (optional != null) {
+        if (!DatatypeHelper.isEmpty(optional)) {
             String[] optionalAliases = optional.split(",");
             for (String alias : optionalAliases) {
                 String typeURI = unmarshallAttribute(request, parameters, alias);
@@ -64,7 +65,7 @@ public class FetchRequestUnmarshaller implements AttributeExchangeUnmarshaller<F
         }
 
         String updateURL = parameters.get(Parameter.update_url.QNAME);
-        if (updateURL != null) {
+        if (!DatatypeHelper.isEmpty(updateURL)) {
             try {
                 request.setUpdateURL(new URL(updateURL));
             } catch (MalformedURLException e) {

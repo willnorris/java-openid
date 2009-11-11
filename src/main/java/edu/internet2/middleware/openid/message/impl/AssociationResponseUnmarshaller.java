@@ -30,6 +30,7 @@ import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationResponse;
 import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
+import edu.internet2.middleware.openid.util.DatatypeHelper;
 
 /**
  * Marshaller for {@link AssociationResponse} messages.
@@ -72,7 +73,7 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
             encodedMacKey = parameters.get(Parameter.mac_key.QNAME);
         }
 
-        if (encodedMacKey != null) {
+        if (!DatatypeHelper.isEmpty(encodedMacKey)) {
             SecretKey macKey = EncodingUtils.decodeSecretKey(encodedMacKey, response.getAssociationType()
                     .getAlgorithm());
             response.setMacKey(macKey);

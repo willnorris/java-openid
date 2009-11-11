@@ -62,7 +62,7 @@ public class PAPEMessageMarshaller implements MessageExtensionMarshaller<PAPEMes
      * @throws MarshallingException thrown if an error occurs marshalling the message extension into the Parameter Map
      */
     public void marshall(PAPERequest request, ParameterMap parameters) throws MarshallingException {
-        log.debug("marshalling pape request");
+        log.debug("Marshalling OpenID PAPE request");
 
         Integer maxAge = request.getMaxAuthenticationAge();
         if (maxAge != null) {
@@ -100,7 +100,7 @@ public class PAPEMessageMarshaller implements MessageExtensionMarshaller<PAPEMes
      * @throws MarshallingException thrown if an error occurs marshalling the message extension into the Parameter Map
      */
     public void marshall(PAPEResponse response, ParameterMap parameters) throws MarshallingException {
-        log.debug("marshalling pape response");
+        log.debug("Marshalling OpenID PAPE response");
 
         Date authTime = response.getAuthenticationTime();
         if (authTime != null) {
