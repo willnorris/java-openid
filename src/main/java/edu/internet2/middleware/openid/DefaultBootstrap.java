@@ -32,13 +32,13 @@ import edu.internet2.middleware.openid.extensions.ax.impl.FetchRequestBuilder;
 import edu.internet2.middleware.openid.extensions.ax.impl.FetchResponseBuilder;
 import edu.internet2.middleware.openid.extensions.ax.impl.StoreRequestBuilder;
 import edu.internet2.middleware.openid.extensions.ax.impl.StoreResponseBuilder;
-import edu.internet2.middleware.openid.extensions.pape.PAPE;
-import edu.internet2.middleware.openid.extensions.pape.PAPEMessageMarshaller;
-import edu.internet2.middleware.openid.extensions.pape.PAPEMessageUnmarshaller;
-import edu.internet2.middleware.openid.extensions.pape.PAPERequest;
-import edu.internet2.middleware.openid.extensions.pape.PAPEResponse;
-import edu.internet2.middleware.openid.extensions.pape.impl.PAPERequestBuilder;
-import edu.internet2.middleware.openid.extensions.pape.impl.PAPEResponseBuilder;
+import edu.internet2.middleware.openid.extensions.pape.ProviderAuthenticationPolicy;
+import edu.internet2.middleware.openid.extensions.pape.PolicyMessageMarshaller;
+import edu.internet2.middleware.openid.extensions.pape.PolicyMessageUnmarshaller;
+import edu.internet2.middleware.openid.extensions.pape.PolicyRequest;
+import edu.internet2.middleware.openid.extensions.pape.PolicyResponse;
+import edu.internet2.middleware.openid.extensions.pape.impl.PolicyRequestBuilder;
+import edu.internet2.middleware.openid.extensions.pape.impl.PolicyResponseBuilder;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationMessageMarshaller;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationMessageUnmarshaller;
@@ -208,12 +208,12 @@ public class DefaultBootstrap {
         Configuration.getExtensionBuilders().registerBuilder(StoreResponse.class, new StoreResponseBuilder());
 
         // PAPE
-        marshaller = new PAPEMessageMarshaller();
-        unmarshaller = new PAPEMessageUnmarshaller();
-        initializeExtensionProvider(PAPE.PAPE_10_NS, marshaller, unmarshaller);
+        marshaller = new PolicyMessageMarshaller();
+        unmarshaller = new PolicyMessageUnmarshaller();
+        initializeExtensionProvider(ProviderAuthenticationPolicy.PAPE_10_NS, marshaller, unmarshaller);
 
-        Configuration.getExtensionBuilders().registerBuilder(PAPERequest.class, new PAPERequestBuilder());
-        Configuration.getExtensionBuilders().registerBuilder(PAPEResponse.class, new PAPEResponseBuilder());
+        Configuration.getExtensionBuilders().registerBuilder(PolicyRequest.class, new PolicyRequestBuilder());
+        Configuration.getExtensionBuilders().registerBuilder(PolicyResponse.class, new PolicyResponseBuilder());
     }
 
     public static void initializeExtensionProvider(String namespace, MessageExtensionMarshaller marshaller,

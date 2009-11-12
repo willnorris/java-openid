@@ -46,9 +46,9 @@ import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.common.NamespaceMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants;
+import edu.internet2.middleware.openid.common.NamespaceQName;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.util.DatatypeHelper;
-import edu.internet2.middleware.openid.util.OpenIDNamespaceQName;
 
 /**
  * Encoding Utilities.
@@ -115,7 +115,7 @@ public final class EncodingUtils {
                 alias = XMLConstants.DEFAULT_NS_PREFIX;
             }
 
-            return new OpenIDNamespaceQName(namespaces.getURI(alias), alias);
+            return new NamespaceQName(namespaces.getURI(alias), alias);
         }
 
         // otherwise, parameter name is for a message parameter
@@ -144,7 +144,7 @@ public final class EncodingUtils {
         String parameter;
         String namespaceAlias = namespaces.getAlias(qname.getNamespaceURI());
 
-        if (qname instanceof OpenIDNamespaceQName) {
+        if (qname instanceof NamespaceQName) {
             // parameter name is for a namespace declaration
             parameter = "ns";
 

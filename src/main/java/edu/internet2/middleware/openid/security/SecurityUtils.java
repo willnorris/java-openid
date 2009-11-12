@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.Configuration;
+import edu.internet2.middleware.openid.common.NamespaceQName;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.SignableMessage;
@@ -40,7 +41,6 @@ import edu.internet2.middleware.openid.message.encoding.EncodingUtils;
 import edu.internet2.middleware.openid.message.encoding.impl.KeyValueFormCodec;
 import edu.internet2.middleware.openid.message.io.MarshallingException;
 import edu.internet2.middleware.openid.message.io.MessageMarshaller;
-import edu.internet2.middleware.openid.util.OpenIDNamespaceQName;
 
 /**
  * Security utilities.
@@ -121,7 +121,7 @@ public final class SecurityUtils {
         // Build list of message parameters to include in signature
         List<QName> signedParameters = new ArrayList();
         for (String nsURI : parameters.getNamespaces().getURIs()) {
-            QName nsQName = new OpenIDNamespaceQName(nsURI, parameters.getNamespaces().getAlias(nsURI));
+            QName nsQName = new NamespaceQName(nsURI, parameters.getNamespaces().getAlias(nsURI));
             signedParameters.add(nsQName);
         }
         signedParameters.addAll(parameters.keySet());

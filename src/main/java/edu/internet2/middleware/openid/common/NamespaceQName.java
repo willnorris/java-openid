@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.util;
+package edu.internet2.middleware.openid.common;
 
 import javax.xml.namespace.QName;
 
@@ -31,7 +31,7 @@ import javax.xml.namespace.QName;
  * Users of this class should pay special attention to the class constructors. While the method signatures match
  * constructors of {@link QName}, they take different parameters.
  */
-public class OpenIDNamespaceQName extends QName {
+public class NamespaceQName extends QName {
 
     /** Serial Version UID. */
     private static final long serialVersionUID = -5483643911677688237L;
@@ -45,7 +45,7 @@ public class OpenIDNamespaceQName extends QName {
      * @param namespaceURI namespace URI
      * @param prefix namespace prefix
      */
-    public OpenIDNamespaceQName(String namespaceURI, String prefix) {
+    public NamespaceQName(String namespaceURI, String prefix) {
         super(namespaceURI, LOCAL_PART, prefix);
     }
 
