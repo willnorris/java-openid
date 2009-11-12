@@ -34,7 +34,7 @@ public class AuthenticationRequestMarshaller extends AbstractMessageMarshaller<A
         parameters.put(Parameter.identity.QNAME, request.getIdentity());
 
         parameters.put(Parameter.assoc_handle.QNAME, request.getAssociationHandle());
-        parameters.put(Parameter.return_to.QNAME, request.getReturnTo().toString());
+        parameters.put(Parameter.return_to.QNAME, request.getReturnTo());
         parameters.put(Parameter.realm.QNAME, request.getRealm());
     }
 

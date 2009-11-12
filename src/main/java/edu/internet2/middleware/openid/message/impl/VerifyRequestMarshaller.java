@@ -47,7 +47,7 @@ public class VerifyRequestMarshaller extends AbstractMessageMarshaller<VerifyReq
             parameters.put(Parameter.response_nonce.QNAME, request.getResponseNonce());
         }
         if (request.getReturnTo() != null) {
-            parameters.put(Parameter.return_to.QNAME, request.getReturnTo().toString());
+            parameters.put(Parameter.return_to.QNAME, request.getReturnTo());
         }
         if (request.getSignature() != null) {
             parameters.put(Parameter.sig.QNAME, request.getSignature());

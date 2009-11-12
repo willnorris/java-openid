@@ -16,7 +16,6 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class PositiveAssertionTest extends BaseMessageProviderTestCase {
     private String expectedAssociationHandle;
 
     /** Expected return to URL. */
-    private URL expectedReturnTo;
+    private String expectedReturnTo;
 
     /** Expected response nonce. */
     private String expectedNonce;
@@ -80,7 +79,7 @@ public class PositiveAssertionTest extends BaseMessageProviderTestCase {
         expectedEndpoint = "http://openid.example.com/server";
         expectedClaimedId = "http://example.org/";
         expectedIdentity = "http://example.com/username";
-        expectedReturnTo = new URL("http://rp.example.com/consumer");
+        expectedReturnTo = "http://rp.example.com/consumer";
         expectedNonce = "123";
         expectedInvalidateHandle = "old-handle";
         expectedAssociationHandle = "new-handle";
@@ -126,9 +125,9 @@ public class PositiveAssertionTest extends BaseMessageProviderTestCase {
         assertEquals("PositiveAssertion identity was " + identity + ", expected " + expectedIdentity, expectedIdentity,
                 identity);
 
-        URL returnTo = response.getReturnTo();
-        assertEquals("PositiveAssertion return_to was " + returnTo.toString() + ", expected "
-                + expectedReturnTo.toString(), expectedReturnTo.toString(), returnTo.toString());
+        String returnTo = response.getReturnTo();
+        assertEquals("PositiveAssertion return_to was " + returnTo + ", expected " + expectedReturnTo,
+                expectedReturnTo, returnTo);
 
         String nonce = response.getResponseNonce();
         assertEquals("PositiveAssertion response_nonce was " + nonce + ", expected " + expectedNonce, expectedNonce,

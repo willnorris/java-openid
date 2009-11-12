@@ -16,9 +16,6 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.net.URL;
-
-import edu.internet2.middleware.openid.message.PositiveAssertion;
 import edu.internet2.middleware.openid.message.VerifyRequest;
 
 /**
@@ -45,7 +42,7 @@ public class VerifyRequestImpl extends AbstractSignableMessage implements Verify
     private String nonce;
 
     /** Return to URL. */
-    private URL returnTo;
+    private String returnTo;
 
     /** {@inheritDoc} */
     public String getMode() {
@@ -113,12 +110,12 @@ public class VerifyRequestImpl extends AbstractSignableMessage implements Verify
     }
 
     /** {@inheritDoc} */
-    public URL getReturnTo() {
+    public String getReturnTo() {
         return returnTo;
     }
 
     /** {@inheritDoc} */
-    public void setReturnTo(URL newReturnTo) {
+    public void setReturnTo(String newReturnTo) {
         returnTo = newReturnTo;
     }
 

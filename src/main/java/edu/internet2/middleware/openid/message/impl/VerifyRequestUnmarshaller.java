@@ -16,9 +16,6 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.VerifyRequest;
@@ -37,12 +34,7 @@ public class VerifyRequestUnmarshaller extends AbstractMessageUnmarshaller<Verif
         request.setIdentity(parameters.get(Parameter.identity.QNAME));
         request.setInvalidateHandle(parameters.get(Parameter.invalidate_handle.QNAME));
         request.setResponseNonce(parameters.get(Parameter.response_nonce.QNAME));
-        try {
-            String returnTo = parameters.get(Parameter.return_to.QNAME);
-            request.setReturnTo(new URL(returnTo));
-        } catch (MalformedURLException e) {
-            // TODO
-        }
+        request.setReturnTo(parameters.get(Parameter.return_to.QNAME));
         request.setSignature(parameters.get(Parameter.sig.QNAME));
 
         String signedFields = parameters.get(Parameter.signed.QNAME);

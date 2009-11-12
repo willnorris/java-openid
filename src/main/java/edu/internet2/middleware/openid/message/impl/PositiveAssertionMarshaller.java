@@ -47,7 +47,7 @@ public class PositiveAssertionMarshaller extends AbstractMessageMarshaller<Posit
             parameters.put(Parameter.response_nonce.QNAME, response.getResponseNonce());
         }
         if (response.getReturnTo() != null) {
-            parameters.put(Parameter.return_to.QNAME, response.getReturnTo().toString());
+            parameters.put(Parameter.return_to.QNAME, response.getReturnTo());
         }
         if (response.getSignature() != null) {
             parameters.put(Parameter.sig.QNAME, response.getSignature());

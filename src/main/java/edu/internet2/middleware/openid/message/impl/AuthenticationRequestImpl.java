@@ -38,7 +38,7 @@ public class AuthenticationRequestImpl extends AbstractMessage implements Authen
     private String realm;
 
     /** Return to URL. */
-    private URL returnTo;
+    private String returnTo;
 
     /** Message mode. */
     private String mode;
@@ -94,12 +94,12 @@ public class AuthenticationRequestImpl extends AbstractMessage implements Authen
     }
 
     /** {@inheritDoc} */
-    public URL getReturnTo() {
+    public String getReturnTo() {
         return returnTo;
     }
 
     /** {@inheritDoc} */
-    public void setReturnTo(URL newReturnTo) {
+    public void setReturnTo(String newReturnTo) {
         returnTo = newReturnTo;
     }
 

@@ -16,8 +16,6 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.net.URL;
-
 import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
@@ -47,7 +45,7 @@ public class AuthenticationImmediateRequestTest extends BaseMessageProviderTestC
     private String expectedAssociationHandle;
 
     /** Expected return to URL. */
-    private URL expectedReturnTo;
+    private String expectedReturnTo;
 
     /** Expected realm. */
     private String expectedRealm;
@@ -65,7 +63,7 @@ public class AuthenticationImmediateRequestTest extends BaseMessageProviderTestC
         expectedClaimedId = "http://example.org/";
         expectedIdentity = "http://example.com/username";
         expectedAssociationHandle = "foobar";
-        expectedReturnTo = new URL("http://rp.example.com/consumer");
+        expectedReturnTo = "http://rp.example.com/consumer";
         expectedRealm = "http://rp.example.com/";
     }
 
@@ -103,9 +101,9 @@ public class AuthenticationImmediateRequestTest extends BaseMessageProviderTestC
         assertEquals("AuthenticationRequest assoc_handle was " + handle + ", expected " + expectedAssociationHandle,
                 expectedAssociationHandle, handle);
 
-        URL returnTo = request.getReturnTo();
-        assertEquals("AuthenticationRequest return_to was " + returnTo.toString() + ", expected "
-                + expectedReturnTo.toString(), expectedReturnTo.toString(), returnTo.toString());
+        String returnTo = request.getReturnTo();
+        assertEquals("AuthenticationRequest return_to was " + returnTo + ", expected " + expectedReturnTo,
+                expectedReturnTo, returnTo);
 
         String realm = request.getRealm();
         assertEquals("AuthenticationRequest realm was " + realm + ", expected " + expectedRealm, expectedRealm, realm);

@@ -16,7 +16,6 @@
 
 package edu.internet2.middleware.openid.extensions.sreg;
 
-import java.net.URL;
 import java.util.EnumSet;
 
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration.Field;
@@ -48,12 +47,12 @@ public interface SimpleRegistrationRequest extends SimpleRegistrationMessage {
      * 
      * @return the policy URL
      */
-    public URL getPolicyURL();
+    public String getPolicyURL();
 
     /**
      * Set the policy URL.
      * 
      * @param policyURL the policy URL
      */
-    public void setPolicyURL(URL policyURL);
+    public void setPolicyURL(String policyURL);
 }

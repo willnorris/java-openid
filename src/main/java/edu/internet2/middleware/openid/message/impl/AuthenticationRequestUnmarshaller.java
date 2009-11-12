@@ -16,9 +16,6 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
@@ -38,12 +35,7 @@ public class AuthenticationRequestUnmarshaller extends AbstractMessageUnmarshall
 
         request.setMode(parameters.get(Parameter.mode.QNAME));
         request.setRealm(parameters.get(Parameter.realm.QNAME));
-        try {
-            String returnTo = parameters.get(Parameter.return_to.QNAME);
-            request.setReturnTo(new URL(returnTo));
-        } catch (MalformedURLException e) {
-            // TODO
-        }
+        request.setReturnTo(parameters.get(Parameter.return_to.QNAME));
     }
 
 }

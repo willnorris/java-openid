@@ -16,7 +16,6 @@
 
 package edu.internet2.middleware.openid.extensions.ax;
 
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -42,13 +41,13 @@ public interface FetchResponse extends AttributeExchangeMessage {
      * 
      * @return the update URL
      */
-    public URL getUpdateURL();
+    public String getUpdateURL();
 
     /**
      * Set update URL.
      * 
      * @param newURL new URL
      */
-    public void setUpdateURL(URL newURL);
+    public void setUpdateURL(String newURL);
 
 }

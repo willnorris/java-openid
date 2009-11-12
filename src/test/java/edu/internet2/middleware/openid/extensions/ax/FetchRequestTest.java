@@ -17,7 +17,6 @@
 package edu.internet2.middleware.openid.extensions.ax;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +42,7 @@ public class FetchRequestTest extends BaseMessageExtensionTestCase {
     private Map<String, Integer> expectedAttributeCount;
 
     /** Expected update URL. */
-    private URL expectedUpdateURL;
+    private String expectedUpdateURL;
 
     /**
      * Constructor.
@@ -60,7 +59,7 @@ public class FetchRequestTest extends BaseMessageExtensionTestCase {
                 "http://example.com/schema/favourite_movie", });
         expectedAttributeCount = new HashMap<String, Integer>();
         expectedAttributeCount.put("http://example.com/schema/favourite_movie", 3);
-        expectedUpdateURL = new URL("http://idconsumer.com/update?transaction_id=a6b5c41");
+        expectedUpdateURL = "http://idconsumer.com/update?transaction_id=a6b5c41";
     }
 
     /** {@inheritDoc} */
@@ -94,9 +93,9 @@ public class FetchRequestTest extends BaseMessageExtensionTestCase {
         assertEquals("FetchRequest attribute count was " + attributeCount + ", expected " + expectedAttributeCount,
                 expectedAttributeCount, attributeCount);
 
-        URL updateURL = request.getUpdateURL();
-        assertEquals("SimpleRegistrationRequest policyURL was " + updateURL.toString() + ", expected "
-                + expectedUpdateURL.toString(), expectedUpdateURL.toString(), updateURL.toString());
+        String updateURL = request.getUpdateURL();
+        assertEquals("SimpleRegistrationRequest policyURL was " + updateURL + ", expected " + expectedUpdateURL,
+                expectedUpdateURL, updateURL);
     }
 
 }

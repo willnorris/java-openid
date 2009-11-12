@@ -16,8 +16,6 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.net.URL;
-
 import edu.internet2.middleware.openid.message.PositiveAssertion;
 
 /**
@@ -44,7 +42,7 @@ public class PositiveAssertionImpl extends AbstractSignableMessage implements Po
     private String nonce;
 
     /** Return to URL. */
-    private URL returnTo;
+    private String returnTo;
 
     /** {@inheritDoc} */
     public String getMode() {
@@ -112,12 +110,12 @@ public class PositiveAssertionImpl extends AbstractSignableMessage implements Po
     }
 
     /** {@inheritDoc} */
-    public URL getReturnTo() {
+    public String getReturnTo() {
         return returnTo;
     }
 
     /** {@inheritDoc} */
-    public void setReturnTo(URL newReturnTo) {
+    public void setReturnTo(String newReturnTo) {
         returnTo = newReturnTo;
     }
 

@@ -16,7 +16,6 @@
 
 package edu.internet2.middleware.openid.extensions.ax.impl;
 
-import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +35,7 @@ public class FetchResponseImpl extends BaseAttributeExchangeMessage implements F
     /**
      * Update URL.
      */
-    private URL updateURL;
+    private String updateURL;
 
     /**
      * Constructor.
@@ -56,12 +55,12 @@ public class FetchResponseImpl extends BaseAttributeExchangeMessage implements F
     }
 
     /** {@inheritDoc} */
-    public URL getUpdateURL() {
+    public String getUpdateURL() {
         return updateURL;
     }
 
     /** {@inheritDoc} */
-    public void setUpdateURL(URL newUpdateURL) {
+    public void setUpdateURL(String newUpdateURL) {
         updateURL = newUpdateURL;
     }
 

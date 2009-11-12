@@ -16,7 +16,6 @@
 
 package edu.internet2.middleware.openid.extensions.sreg.impl;
 
-import java.net.URL;
 import java.util.EnumSet;
 
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration;
@@ -41,7 +40,7 @@ public class SimpleRegistrationRequestImpl implements SimpleRegistrationRequest 
     /**
      * Policy URL.
      */
-    private URL policyURL;
+    private String policyURL;
 
     /**
      * Default constructor.
@@ -68,12 +67,12 @@ public class SimpleRegistrationRequestImpl implements SimpleRegistrationRequest 
     }
 
     /** {@inheritDoc} */
-    public URL getPolicyURL() {
+    public String getPolicyURL() {
         return policyURL;
     }
 
     /** {@inheritDoc} */
-    public void setPolicyURL(URL newPolicyURL) {
+    public void setPolicyURL(String newPolicyURL) {
         policyURL = newPolicyURL;
     }
 

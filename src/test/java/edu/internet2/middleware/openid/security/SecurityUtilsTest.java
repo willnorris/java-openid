@@ -17,7 +17,6 @@
 package edu.internet2.middleware.openid.security;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -75,7 +74,7 @@ public class SecurityUtilsTest extends BaseTestCase {
         response.setClaimedId("http://example.org/");
         response.setIdentity("http://example.com/username");
         response.setResponseNonce("2001-01-01T00:00:00ZUNIQUE");
-        response.setReturnTo(new URL("http://rp.example.com/consumer"));
+        response.setReturnTo("http://rp.example.com/consumer");
         response.setEndpoint("http://openid.example.com/server");
 
         SecurityUtils.signMessage(response, association);
@@ -92,7 +91,7 @@ public class SecurityUtilsTest extends BaseTestCase {
         String messageFile = "/data/edu/internet2/middleware/openid/security/signed-message-1.txt";
         PositiveAssertion response = (PositiveAssertion) unmarshallMessage(messageFile);
         Association association = getAssociation();
-        
+
         assertTrue(SecurityUtils.signatureIsValid(response, association));
     }
 

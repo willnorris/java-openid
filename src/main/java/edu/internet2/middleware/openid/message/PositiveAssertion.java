@@ -16,8 +16,6 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.net.URL;
-
 /**
  * Response to an authentication request indicating that the OpenID Provider was successfully able to authenticate the
  * end user.
@@ -76,14 +74,14 @@ public interface PositiveAssertion extends SignableMessage {
      * 
      * @return return-to URL
      */
-    public URL getReturnTo();
+    public String getReturnTo();
 
     /**
      * Set the return to URL.
      * 
      * @param newReturnTo the return to URL
      */
-    public void setReturnTo(URL newReturnTo);
+    public void setReturnTo(String newReturnTo);
 
     /**
      * Unique nonce for this response.

@@ -16,8 +16,6 @@
 
 package edu.internet2.middleware.openid.extensions.ax.impl;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -47,11 +45,7 @@ public class FetchResponseUnmarshaller implements AttributeExchangeUnmarshaller<
 
         String updateURL = parameters.get(Parameter.update_url.QNAME);
         if (!DatatypeHelper.isEmpty(updateURL)) {
-            try {
-                response.setUpdateURL(new URL(updateURL));
-            } catch (MalformedURLException e) {
-                log.warn("Attribute Exchange update_url malformed: '{}'", updateURL);
-            }
+            response.setUpdateURL(updateURL);
         }
 
         // get all the attribute types

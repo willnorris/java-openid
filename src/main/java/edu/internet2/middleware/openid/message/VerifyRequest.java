@@ -16,8 +16,6 @@
 
 package edu.internet2.middleware.openid.message;
 
-import java.net.URL;
-
 /**
  * Request to verify a positive authentication assertion. All of the data from the assertion to be verified is included
  * in the verification request.
@@ -76,14 +74,14 @@ public interface VerifyRequest extends SignableMessage {
      * 
      * @return return-to URL
      */
-    public URL getReturnTo();
+    public String getReturnTo();
 
     /**
      * Set the return to URL.
      * 
      * @param newReturnTo the return to URL
      */
-    public void setReturnTo(URL newReturnTo);
+    public void setReturnTo(String newReturnTo);
 
     /**
      * Unique nonce for this response.

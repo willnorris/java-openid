@@ -16,7 +16,6 @@
 
 package edu.internet2.middleware.openid.extensions.ax.impl;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +41,9 @@ public class FetchRequestMarshaller implements AttributeExchangeMarshaller<Fetch
         types.setAliasPrefix(AttributeExchange.ALIAS_PREFIX);
 
         // update URL
-        URL policyURL = request.getUpdateURL();
+        String policyURL = request.getUpdateURL();
         if (policyURL != null) {
-            parameters.put(Parameter.update_url.QNAME, policyURL.toString());
+            parameters.put(Parameter.update_url.QNAME, policyURL);
         }
 
         // required attributes

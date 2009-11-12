@@ -16,9 +16,6 @@
 
 package edu.internet2.middleware.openid.extensions.sreg;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
@@ -61,14 +58,7 @@ public class SimpleRegistrationMessageUnmarshaller extends
      * @throws UnmarshallingException thrown if an error occurs unmarshalling the message extension from the map
      */
     public void unmarshall(SimpleRegistrationRequest request, ParameterMap parameters) throws UnmarshallingException {
-        String policyURL = parameters.get(Parameter.policy_url.QNAME);
-        if (!DatatypeHelper.isEmpty(policyURL)) {
-            try {
-                request.setPolicyURL(new URL(policyURL));
-            } catch (MalformedURLException e) {
-                // TODO
-            }
-        }
+        request.setPolicyURL(parameters.get(Parameter.policy_url.QNAME));
 
         String optional = parameters.get(Parameter.optional.QNAME);
         if (!DatatypeHelper.isEmpty(optional)) {

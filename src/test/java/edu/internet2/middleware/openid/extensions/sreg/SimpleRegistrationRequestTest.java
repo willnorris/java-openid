@@ -17,7 +17,6 @@
 package edu.internet2.middleware.openid.extensions.sreg;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.EnumSet;
 
 import edu.internet2.middleware.openid.extensions.BaseMessageExtensionTestCase;
@@ -35,7 +34,7 @@ public class SimpleRegistrationRequestTest extends BaseMessageExtensionTestCase 
     private EnumSet<Field> expectedOptional;
 
     /** Expected policy URL. */
-    private URL expectedPolicyURL;
+    private String expectedPolicyURL;
 
     /**
      * Constructor.
@@ -47,7 +46,7 @@ public class SimpleRegistrationRequestTest extends BaseMessageExtensionTestCase 
 
         expectedRequired = EnumSet.of(Field.fullname, Field.email);
         expectedOptional = EnumSet.of(Field.language, Field.timezone);
-        expectedPolicyURL = new URL("http://example.com/sreg.policy");
+        expectedPolicyURL = "http://example.com/sreg.policy";
     }
 
     /** {@inheritDoc} */
@@ -73,9 +72,9 @@ public class SimpleRegistrationRequestTest extends BaseMessageExtensionTestCase 
         assertEquals("SimpleRegistrationRequest optional was " + optional + ", expected " + expectedOptional,
                 expectedOptional, optional);
 
-        URL policyURL = request.getPolicyURL();
-        assertEquals("SimpleRegistrationRequest policyURL was " + policyURL.toString() + ", expected "
-                + expectedPolicyURL.toString(), expectedPolicyURL.toString(), policyURL.toString());
+        String policyURL = request.getPolicyURL();
+        assertEquals("SimpleRegistrationRequest policyURL was " + policyURL + ", expected " + expectedPolicyURL,
+                expectedPolicyURL, policyURL);
     }
 
 }

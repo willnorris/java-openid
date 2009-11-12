@@ -16,8 +16,6 @@
 
 package edu.internet2.middleware.openid.extensions.sreg;
 
-import java.net.URL;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,9 +58,9 @@ public class SimpleRegistrationMessageMarshaller implements MessageExtensionMars
         log.debug("marshalling simple registration request");
 
         // policy URL
-        URL policyURL = request.getPolicyURL();
+        String policyURL = request.getPolicyURL();
         if (policyURL != null) {
-            parameters.put(Parameter.policy_url.QNAME, policyURL.toString());
+            parameters.put(Parameter.policy_url.QNAME, policyURL);
         }
 
         // required parameters
