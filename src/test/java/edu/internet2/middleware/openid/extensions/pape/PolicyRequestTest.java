@@ -22,9 +22,9 @@ import java.util.List;
 import edu.internet2.middleware.openid.extensions.BaseMessageExtensionTestCase;
 
 /**
- * Test case for creating, marshalling, and unmarshalling {@link PAPERequest}.
+ * Test case for creating, marshalling, and unmarshalling {@link PolicyRequest}.
  */
-public class PAPERequestTest extends BaseMessageExtensionTestCase {
+public class PolicyRequestTest extends BaseMessageExtensionTestCase {
 
     /** Expected maximum authentication age. */
     private Integer expectedMaxAuthAge;
@@ -36,8 +36,8 @@ public class PAPERequestTest extends BaseMessageExtensionTestCase {
     private List<String> expectedAssuranceLevelTypes;
 
     /** Constructor. */
-    public PAPERequestTest() {
-        messageFile = "/data/edu/internet2/middleware/openid/extensions/pape/PAPERequest.txt";
+    public PolicyRequestTest() {
+        messageFile = "/data/edu/internet2/middleware/openid/extensions/pape/PolicyRequest.txt";
 
         expectedMaxAuthAge = 3600;
         expectedAuthPolicies = Arrays.asList(new String[] {
@@ -50,7 +50,7 @@ public class PAPERequestTest extends BaseMessageExtensionTestCase {
 
     /** {@inheritDoc} */
     public void testMessageMarshall() {
-        PAPERequest request = (PAPERequest) buildMessageExtension(PAPERequest.class);
+        PolicyRequest request = (PolicyRequest) buildMessageExtension(PolicyRequest.class);
 
         request.setMaxAuthenticationAge(expectedMaxAuthAge);
         request.getAuthenticationPolicies().addAll(expectedAuthPolicies);
@@ -61,7 +61,7 @@ public class PAPERequestTest extends BaseMessageExtensionTestCase {
 
     /** {@inheritDoc} */
     public void testMessageUnmarshall() {
-        PAPERequest request = (PAPERequest) unmarshallMessageExtension(messageFile);
+        PolicyRequest request = (PolicyRequest) unmarshallMessageExtension(messageFile);
 
         Integer maxAge = request.getMaxAuthenticationAge();
         assertEquals("PAPERequest max_auth_age was " + maxAge + ", expected " + expectedMaxAuthAge, expectedMaxAuthAge,

@@ -17,16 +17,16 @@
 package edu.internet2.middleware.openid.extensions.pape.impl;
 
 import edu.internet2.middleware.openid.extensions.MessageExtensionBuilder;
-import edu.internet2.middleware.openid.extensions.pape.PAPERequest;
+import edu.internet2.middleware.openid.extensions.pape.PolicyRequest;
 
 /**
- * Builder of {@link PAPERequest} message extensions.
+ * Builder of {@link PolicyRequest} message extensions.
  */
-public class PAPERequestBuilder implements MessageExtensionBuilder<PAPERequest> {
+public class PolicyRequestBuilder implements MessageExtensionBuilder<PolicyRequest> {
 
     /** {@inheritDoc} */
-    public PAPERequest buildObject() {
-        return new PAPERequestImpl();
+    public PolicyRequest buildObject() {
+        return new PolicyRequestImpl();
     }
 
 }

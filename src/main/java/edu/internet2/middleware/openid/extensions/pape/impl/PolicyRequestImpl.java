@@ -19,13 +19,13 @@ package edu.internet2.middleware.openid.extensions.pape.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.internet2.middleware.openid.extensions.pape.PAPE;
-import edu.internet2.middleware.openid.extensions.pape.PAPERequest;
+import edu.internet2.middleware.openid.extensions.pape.ProviderAuthenticationPolicy;
+import edu.internet2.middleware.openid.extensions.pape.PolicyRequest;
 
 /**
  * Implementation of {@list PAPERequest} message.
  */
-public class PAPERequestImpl implements PAPERequest {
+public class PolicyRequestImpl implements PolicyRequest {
 
     /** Assurance level type URIs. */
     private List<String> assuranceLevelTypes;
@@ -37,14 +37,14 @@ public class PAPERequestImpl implements PAPERequest {
     private Integer maxAuthenticationAge;
 
     /** Constructor. */
-    public PAPERequestImpl() {
+    public PolicyRequestImpl() {
         assuranceLevelTypes = new ArrayList<String>();
         authenticationPolicies = new ArrayList<String>();
     }
 
     /** {@inheritDoc} */
     public String getNamespace() {
-        return PAPE.PAPE_10_NS;
+        return ProviderAuthenticationPolicy.PAPE_10_NS;
     }
 
     /** {@inheritDoc} */

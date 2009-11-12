@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
 /**
  * OpenID Provider Authentication Policy Extension.
  */
-public final class PAPE {
+public final class ProviderAuthenticationPolicy {
 
     /**
      * Namespace URI for PAPE version 1.0.
@@ -94,7 +94,7 @@ public final class PAPE {
     }
 
     /** Constructor. */
-    protected PAPE() {
+    protected ProviderAuthenticationPolicy() {
     }
 
 }

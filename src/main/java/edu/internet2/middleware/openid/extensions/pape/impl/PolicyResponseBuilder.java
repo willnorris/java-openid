@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.extensions.pape;
+package edu.internet2.middleware.openid.extensions.pape.impl;
 
-import edu.internet2.middleware.openid.extensions.MessageExtension;
+import edu.internet2.middleware.openid.extensions.MessageExtensionBuilder;
+import edu.internet2.middleware.openid.extensions.pape.PolicyResponse;
 
 /**
- * A PAPE Message.
+ * Builder of {@link PolicyResponse} message extensions.
  */
-public interface PAPEMessage extends MessageExtension {}
+public class PolicyResponseBuilder implements MessageExtensionBuilder<PolicyResponse> {
+
+    /** {@inheritDoc} */
+    public PolicyResponse buildObject() {
+        return new PolicyResponseImpl();
+    }
+
+}

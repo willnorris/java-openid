@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * PAPE Response message.
  */
-public interface PAPEResponse extends PAPEMessage {
+public interface PolicyResponse extends PolicyMessage {
 
     /**
      * The date and time of when the user was most recently authenticated in accordance with the asserted authentication

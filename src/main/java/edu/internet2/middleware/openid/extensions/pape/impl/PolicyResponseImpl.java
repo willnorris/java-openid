@@ -22,13 +22,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.internet2.middleware.openid.extensions.pape.PAPE;
-import edu.internet2.middleware.openid.extensions.pape.PAPEResponse;
+import edu.internet2.middleware.openid.extensions.pape.ProviderAuthenticationPolicy;
+import edu.internet2.middleware.openid.extensions.pape.PolicyResponse;
 
 /**
- * Implementation of {@link PAPEResponse} messages.
+ * Implementation of {@link PolicyResponse} messages.
  */
-public class PAPEResponseImpl implements PAPEResponse {
+public class PolicyResponseImpl implements PolicyResponse {
 
     /** Assurance levels. */
     private Map<String, String> assuranceLevels;
@@ -40,14 +40,14 @@ public class PAPEResponseImpl implements PAPEResponse {
     private Date authenticationTime;
 
     /** Constructor. */
-    public PAPEResponseImpl() {
+    public PolicyResponseImpl() {
         assuranceLevels = new LinkedHashMap<String, String>();
         authenticationPolicies = new ArrayList<String>();
     }
 
     /** {@inheritDoc} */
     public String getNamespace() {
-        return PAPE.PAPE_10_NS;
+        return ProviderAuthenticationPolicy.PAPE_10_NS;
     }
 
     /** {@inheritDoc} */

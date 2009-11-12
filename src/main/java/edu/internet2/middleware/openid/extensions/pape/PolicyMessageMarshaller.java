@@ -29,26 +29,26 @@ import edu.internet2.middleware.openid.Configuration;
 import edu.internet2.middleware.openid.common.NamespaceMap;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.extensions.MessageExtensionMarshaller;
-import edu.internet2.middleware.openid.extensions.pape.PAPE.Parameter;
+import edu.internet2.middleware.openid.extensions.pape.ProviderAuthenticationPolicy.Parameter;
 import edu.internet2.middleware.openid.message.io.MarshallingException;
 import edu.internet2.middleware.openid.util.StringUtils;
 
 /**
- * Marshaller for {@link PAPEMessage} message extensions.
+ * Marshaller for {@link PolicyMessage} message extensions.
  */
-public class PAPEMessageMarshaller implements MessageExtensionMarshaller<PAPEMessage> {
+public class PolicyMessageMarshaller implements MessageExtensionMarshaller<PolicyMessage> {
 
     /** Logger. */
-    private final Logger log = LoggerFactory.getLogger(PAPEMessageMarshaller.class);
+    private final Logger log = LoggerFactory.getLogger(PolicyMessageMarshaller.class);
 
     /** {@inheritDoc} */
-    public ParameterMap marshall(PAPEMessage message) throws MarshallingException {
+    public ParameterMap marshall(PolicyMessage message) throws MarshallingException {
         ParameterMap parameters = new ParameterMap();
 
-        if (message instanceof PAPERequest) {
-            marshall((PAPERequest) message, parameters);
-        } else if (message instanceof PAPEResponse) {
-            marshall((PAPEResponse) message, parameters);
+        if (message instanceof PolicyRequest) {
+            marshall((PolicyRequest) message, parameters);
+        } else if (message instanceof PolicyResponse) {
+            marshall((PolicyResponse) message, parameters);
         }
 
         return parameters;
@@ -61,7 +61,7 @@ public class PAPEMessageMarshaller implements MessageExtensionMarshaller<PAPEMes
      * @param parameters the parameter map to marshall into
      * @throws MarshallingException thrown if an error occurs marshalling the message extension into the Parameter Map
      */
-    public void marshall(PAPERequest request, ParameterMap parameters) throws MarshallingException {
+    public void marshall(PolicyRequest request, ParameterMap parameters) throws MarshallingException {
         log.debug("Marshalling OpenID PAPE request");
 
         Integer maxAge = request.getMaxAuthenticationAge();
@@ -76,7 +76,7 @@ public class PAPEMessageMarshaller implements MessageExtensionMarshaller<PAPEMes
 
         if (!request.getAssuranceLevelTypes().isEmpty()) {
             NamespaceMap types = new NamespaceMap();
-            types.setAliasPrefix(PAPE.ASSURANCE_ALIAS_PREFIX);
+            types.setAliasPrefix(ProviderAuthenticationPolicy.ASSURANCE_ALIAS_PREFIX);
 
             List<String> typeAliases = new ArrayList<String>();
 
@@ -84,7 +84,8 @@ public class PAPEMessageMarshaller implements MessageExtensionMarshaller<PAPEMes
                 String alias = types.add(typeURI);
                 typeAliases.add(alias);
 
-                QName nsQName = new QName(PAPE.PAPE_10_NS, Parameter.auth_level.toString() + ".ns." + alias);
+                QName nsQName = new QName(ProviderAuthenticationPolicy.PAPE_10_NS, Parameter.auth_level.toString()
+                        + ".ns." + alias);
                 parameters.put(nsQName, typeURI);
             }
 
@@ -99,7 +100,7 @@ public class PAPEMessageMarshaller implements MessageExtensionMarshaller<PAPEMes
      * @param parameters the parameter map to marshall into
      * @throws MarshallingException thrown if an error occurs marshalling the message extension into the Parameter Map
      */
-    public void marshall(PAPEResponse response, ParameterMap parameters) throws MarshallingException {
+    public void marshall(PolicyResponse response, ParameterMap parameters) throws MarshallingException {
         log.debug("Marshalling OpenID PAPE response");
 
         Date authTime = response.getAuthenticationTime();
@@ -108,7 +109,7 @@ public class PAPEMessageMarshaller implements MessageExtensionMarshaller<PAPEMes
         }
 
         if (response.getAuthenticationPolicies().isEmpty()) {
-            parameters.put(Parameter.auth_policies.QNAME, PAPE.PAPE_AUTH_POLICY_NONE);
+            parameters.put(Parameter.auth_policies.QNAME, ProviderAuthenticationPolicy.PAPE_AUTH_POLICY_NONE);
         } else {
             String authPolicies = StringUtils.join(response.getAuthenticationPolicies(), " ");
             parameters.put(Parameter.auth_policies.QNAME, authPolicies);
@@ -116,15 +117,17 @@ public class PAPEMessageMarshaller implements MessageExtensionMarshaller<PAPEMes
 
         if (!response.getAssuranceLevels().isEmpty()) {
             NamespaceMap types = new NamespaceMap();
-            types.setAliasPrefix(PAPE.ASSURANCE_ALIAS_PREFIX);
+            types.setAliasPrefix(ProviderAuthenticationPolicy.ASSURANCE_ALIAS_PREFIX);
 
             for (String typeURI : response.getAssuranceLevels().keySet()) {
                 String alias = types.add(typeURI);
 
-                QName nsQName = new QName(PAPE.PAPE_10_NS, Parameter.auth_level.toString() + ".ns." + alias);
+                QName nsQName = new QName(ProviderAuthenticationPolicy.PAPE_10_NS, Parameter.auth_level.toString()
+                        + ".ns." + alias);
                 parameters.put(nsQName, typeURI);
 
-                QName levelQName = new QName(PAPE.PAPE_10_NS, Parameter.auth_level.toString() + "." + alias);
+                QName levelQName = new QName(ProviderAuthenticationPolicy.PAPE_10_NS, Parameter.auth_level.toString()
+                        + "." + alias);
                 parameters.put(levelQName, response.getAssuranceLevels().get(typeURI));
             }
         }

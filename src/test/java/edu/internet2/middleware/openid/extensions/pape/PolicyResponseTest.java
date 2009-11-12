@@ -27,9 +27,9 @@ import edu.internet2.middleware.openid.Configuration;
 import edu.internet2.middleware.openid.extensions.BaseMessageExtensionTestCase;
 
 /**
- * Test case for creating, marshalling, and unmarshalling {@link PAPERequest}.
+ * Test case for creating, marshalling, and unmarshalling {@link PolicyRequest}.
  */
-public class PAPEResponseTest extends BaseMessageExtensionTestCase {
+public class PolicyResponseTest extends BaseMessageExtensionTestCase {
 
     /** Expected authentication time. */
     private Date expectedAuthTime;
@@ -45,8 +45,8 @@ public class PAPEResponseTest extends BaseMessageExtensionTestCase {
      * 
      * @throws ParseException if date format is invalid
      */
-    public PAPEResponseTest() throws ParseException {
-        messageFile = "/data/edu/internet2/middleware/openid/extensions/pape/PAPEResponse.txt";
+    public PolicyResponseTest() throws ParseException {
+        messageFile = "/data/edu/internet2/middleware/openid/extensions/pape/PolicyResponse.txt";
 
         expectedAuthTime = Configuration.getInternetDateFormat().parse("2005-05-15T17:11:51Z");
         expectedAuthPolicies = Arrays.asList(new String[] {
@@ -59,7 +59,7 @@ public class PAPEResponseTest extends BaseMessageExtensionTestCase {
 
     /** {@inheritDoc} */
     public void testMessageMarshall() {
-        PAPEResponse response = (PAPEResponse) buildMessageExtension(PAPEResponse.class);
+        PolicyResponse response = (PolicyResponse) buildMessageExtension(PolicyResponse.class);
 
         response.setAuthenticationTime(expectedAuthTime);
         response.getAuthenticationPolicies().addAll(expectedAuthPolicies);
@@ -73,7 +73,7 @@ public class PAPEResponseTest extends BaseMessageExtensionTestCase {
 
     /** {@inheritDoc} */
     public void testMessageUnmarshall() {
-        PAPEResponse response = (PAPEResponse) unmarshallMessageExtension(messageFile);
+        PolicyResponse response = (PolicyResponse) unmarshallMessageExtension(messageFile);
 
         Date authTime = response.getAuthenticationTime();
         assertEquals("PAPEResposne auth_time was " + authTime + ", expected " + expectedAuthTime, expectedAuthTime,

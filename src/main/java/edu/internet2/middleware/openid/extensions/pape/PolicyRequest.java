@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * PAPE Request message.
  */
-public interface PAPERequest extends PAPEMessage {
+public interface PolicyRequest extends PolicyMessage {
 
     /**
      * Maximum amount of time allowed to pass before user must be re-authenticated in a matter fitting the requested

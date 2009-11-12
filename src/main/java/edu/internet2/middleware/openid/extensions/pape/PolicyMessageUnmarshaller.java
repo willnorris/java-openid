@@ -25,30 +25,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.internet2.middleware.openid.Configuration;
-import edu.internet2.middleware.openid.common.NamespaceMap;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.extensions.AbstractMessageExtensionUnmarshaller;
-import edu.internet2.middleware.openid.extensions.pape.PAPE.Parameter;
+import edu.internet2.middleware.openid.extensions.pape.ProviderAuthenticationPolicy.Parameter;
 import edu.internet2.middleware.openid.message.io.UnmarshallingException;
 import edu.internet2.middleware.openid.util.DatatypeHelper;
 
 /**
- * Unmarshaller for {@link PAPEMessage} message extensions.
+ * Unmarshaller for {@link PolicyMessage} message extensions.
  */
-public class PAPEMessageUnmarshaller extends AbstractMessageExtensionUnmarshaller<PAPEMessage> {
+public class PolicyMessageUnmarshaller extends AbstractMessageExtensionUnmarshaller<PolicyMessage> {
 
     /** Logger. */
-    private final Logger log = LoggerFactory.getLogger(PAPEMessageUnmarshaller.class);
+    private final Logger log = LoggerFactory.getLogger(PolicyMessageUnmarshaller.class);
 
     /** {@inheritDoc} */
-    public PAPEMessage unmarshall(ParameterMap parameters) throws UnmarshallingException {
+    public PolicyMessage unmarshall(ParameterMap parameters) throws UnmarshallingException {
         // auth_policies is the only parameter guaranteed to be present in response messages
         if (parameters.containsKey(Parameter.auth_policies.QNAME)) {
-            PAPEResponse response = (PAPEResponse) buildMessage(PAPEResponse.class);
+            PolicyResponse response = (PolicyResponse) buildMessage(PolicyResponse.class);
             unmarshall(response, parameters);
             return response;
         } else {
-            PAPERequest request = (PAPERequest) buildMessage(PAPERequest.class);
+            PolicyRequest request = (PolicyRequest) buildMessage(PolicyRequest.class);
             unmarshall(request, parameters);
             return request;
         }
@@ -61,7 +60,7 @@ public class PAPEMessageUnmarshaller extends AbstractMessageExtensionUnmarshalle
      * @param parameters parameter map to unmarshall from
      * @throws UnmarshallingException thrown if an error occurs unmarshalling the message extension from the map
      */
-    public void unmarshall(PAPERequest request, ParameterMap parameters) throws UnmarshallingException {
+    public void unmarshall(PolicyRequest request, ParameterMap parameters) throws UnmarshallingException {
         log.debug("Unmarshalling OpenID PAPE request");
 
         String maxAuthAge = parameters.get(Parameter.max_auth_age.QNAME);
@@ -79,7 +78,8 @@ public class PAPEMessageUnmarshaller extends AbstractMessageExtensionUnmarshalle
         if (!DatatypeHelper.isEmpty(assuranceLevels)) {
             String[] aliases = assuranceLevels.trim().split(" ");
             for (String alias : aliases) {
-                QName nsQName = new QName(PAPE.PAPE_10_NS, Parameter.auth_level + ".ns." + alias);
+                QName nsQName = new QName(ProviderAuthenticationPolicy.PAPE_10_NS, Parameter.auth_level + ".ns."
+                        + alias);
                 String typeURI = parameters.get(nsQName);
 
                 if (typeURI == null) {
@@ -100,7 +100,7 @@ public class PAPEMessageUnmarshaller extends AbstractMessageExtensionUnmarshalle
      * @param parameters parameter map to unmarshall from
      * @throws UnmarshallingException thrown if an error occurs unmarshalling the message extension from the map
      */
-    public void unmarshall(PAPEResponse response, ParameterMap parameters) throws UnmarshallingException {
+    public void unmarshall(PolicyResponse response, ParameterMap parameters) throws UnmarshallingException {
         log.debug("Unmarshalling OpenID PAPE response");
 
         String authTime = parameters.get(Parameter.auth_time.QNAME);
@@ -113,7 +113,8 @@ public class PAPEMessageUnmarshaller extends AbstractMessageExtensionUnmarshalle
         }
 
         String authPolicies = parameters.get(Parameter.auth_policies.QNAME);
-        if (!DatatypeHelper.isEmpty(authPolicies) && !authPolicies.equals(PAPE.PAPE_AUTH_POLICY_NONE)) {
+        if (!DatatypeHelper.isEmpty(authPolicies)
+                && !authPolicies.equals(ProviderAuthenticationPolicy.PAPE_AUTH_POLICY_NONE)) {
             String[] policies = authPolicies.split(" ");
             response.getAuthenticationPolicies().addAll(Arrays.asList(policies));
         }
@@ -124,7 +125,8 @@ public class PAPEMessageUnmarshaller extends AbstractMessageExtensionUnmarshalle
                 String typeURI = parameters.get(qname);
                 String alias = parts[2];
 
-                QName levelQName = new QName(PAPE.PAPE_10_NS, Parameter.auth_level.toString() + "." + alias);
+                QName levelQName = new QName(ProviderAuthenticationPolicy.PAPE_10_NS, Parameter.auth_level.toString()
+                        + "." + alias);
                 String level = parameters.get(levelQName);
 
                 if (level != null) {
