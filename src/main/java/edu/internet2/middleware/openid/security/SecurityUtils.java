@@ -113,6 +113,8 @@ public final class SecurityUtils {
     /**
      * Build default list of parameters that should be signed from a given parameter map. This will include all message
      * parameters and namespace declarations with the exception of signature related parameters and the mode parameter.
+     * The mode parameter is not signed because it would break the signatures on verify requests, since they have a
+     * different mode than the positive assertion message they are verifying.
      * 
      * @param parameters parameter map to build signed parameter list for
      * @return list of parameter names that should be signed
