@@ -146,7 +146,7 @@ public final class SecurityUtils {
 
         for (QName field : signedFields) {
             String parameterName = EncodingUtils.encodeParameterName(field, parameters.getNamespaces());
-            if (field.getLocalPart().equals("")) {
+            if (field instanceof NamespaceQName) {
                 signedParameters.put(parameterName, field.getNamespaceURI());
             } else {
                 signedParameters.put(parameterName, parameters.get(field));
