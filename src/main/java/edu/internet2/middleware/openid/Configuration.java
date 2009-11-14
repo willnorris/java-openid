@@ -17,10 +17,8 @@
 package edu.internet2.middleware.openid;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
 
-import edu.internet2.middleware.openid.common.OpenIDConstants;
+import edu.internet2.middleware.openid.common.InternetDateFormat;
 import edu.internet2.middleware.openid.extensions.MessageExtensionBuilderFactory;
 import edu.internet2.middleware.openid.extensions.MessageExtensionMarshallerFactory;
 import edu.internet2.middleware.openid.extensions.MessageExtensionUnmarshallerFactory;
@@ -52,7 +50,7 @@ public class Configuration {
     private static MessageExtensionUnmarshallerFactory extensionUnmarshallers = new MessageExtensionUnmarshallerFactory();
 
     /** Date Format that implements Internet time format according to RFC 3339. */
-    private static DateFormat internetDateFormat;
+    private static DateFormat internetDateFormat = new InternetDateFormat();
 
     /** Constructor. */
     protected Configuration() {
@@ -118,11 +116,6 @@ public class Configuration {
      * @return the Internet date format
      */
     public static DateFormat getInternetDateFormat() {
-        if (internetDateFormat == null) {
-            internetDateFormat = new SimpleDateFormat(OpenIDConstants.INTERNET_DATE_FORMAT);
-            internetDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        }
-
         return internetDateFormat;
     }
 

@@ -66,9 +66,6 @@ public final class OpenIDConstants {
     /** Prefix attached to each namespace alias declarations in OpenID Messages. */
     public static final String MESSAGE_NAMESPACE_PREFIX = "ns";
 
-    /** Internet Date/Time format, specified by RFC 3339. */
-    public static final String INTERNET_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-
     /**
      * OpenID parameters.
      */
