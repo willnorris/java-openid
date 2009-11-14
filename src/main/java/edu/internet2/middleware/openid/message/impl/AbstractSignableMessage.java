@@ -22,11 +22,12 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import edu.internet2.middleware.openid.message.SignableMessage;
+import edu.internet2.middleware.openid.message.validation.AbstractValidatingMessage;
 
 /**
  * Abstract implementation for signed messages.
  */
-public abstract class AbstractSignableMessage extends AbstractMessage implements SignableMessage {
+public abstract class AbstractSignableMessage extends AbstractValidatingMessage implements SignableMessage {
 
     /** Signature. */
     private String signature;

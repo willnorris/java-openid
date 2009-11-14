@@ -16,13 +16,15 @@
 
 package edu.internet2.middleware.openid.message;
 
+import edu.internet2.middleware.openid.message.validation.ValidatingMessage;
+
 /**
  * Response to an authentication request indication the OpenID Provider was unable to authenticate the end user.
  */
-public interface NegativeAssertion extends Message {
+public interface NegativeAssertion extends ValidatingMessage {
 
     /**
-     * Message mode for a negative assertion to an immediate authentcation request.
+     * Message mode for a negative assertion to an immediate authentication request.
      */
     public static final String MODE_IMMEDIATE = "setup_needed";
 

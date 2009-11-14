@@ -16,10 +16,12 @@
 
 package edu.internet2.middleware.openid.message;
 
+import edu.internet2.middleware.openid.message.validation.ValidatingMessage;
+
 /**
  * OpenID authentication request.
  */
-public interface AuthenticationRequest extends Message {
+public interface AuthenticationRequest extends ValidatingMessage {
 
     /**
      * Message mode for authentication requests in which the relying party does not wish for the OpenID Provider to

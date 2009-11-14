@@ -16,11 +16,13 @@
 
 package edu.internet2.middleware.openid.message;
 
+import edu.internet2.middleware.openid.message.validation.ValidatingMessage;
+
 /**
  * Request to verify a positive authentication assertion. All of the data from the assertion to be verified is included
  * in the verification request.
  */
-public interface VerifyRequest extends SignableMessage {
+public interface VerifyRequest extends SignableMessage, ValidatingMessage {
 
     /**
      * Message mode for verification requests.

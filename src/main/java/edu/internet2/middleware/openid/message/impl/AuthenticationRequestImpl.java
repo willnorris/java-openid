@@ -16,14 +16,13 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import java.net.URL;
-
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
+import edu.internet2.middleware.openid.message.validation.AbstractValidatingMessage;
 
 /**
  * Implementation of {@link AuthenticationRequest}.
  */
-public class AuthenticationRequestImpl extends AbstractMessage implements AuthenticationRequest {
+public class AuthenticationRequestImpl extends AbstractValidatingMessage implements AuthenticationRequest {
 
     /** Association handle. */
     private String associationHandle;

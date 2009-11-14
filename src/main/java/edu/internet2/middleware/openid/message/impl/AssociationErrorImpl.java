@@ -19,11 +19,12 @@ package edu.internet2.middleware.openid.message.impl;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationError;
+import edu.internet2.middleware.openid.message.validation.AbstractValidatingMessage;
 
 /**
  * Implementation of {@link AssociationError}.
  */
-public class AssociationErrorImpl extends AbstractMessage implements AssociationError {
+public class AssociationErrorImpl extends AbstractValidatingMessage implements AssociationError {
 
     /** Error message. */
     private String error;

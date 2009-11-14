@@ -35,4 +35,5 @@ public abstract class AbstractMessageValidator<MessageType extends Message> impl
             throw new ValidationException("Message must have a namespace of '" + OpenIDConstants.OPENID_20_NS + "'");
         }
     }
+
 }

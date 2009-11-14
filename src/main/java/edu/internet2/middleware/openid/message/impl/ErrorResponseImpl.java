@@ -17,11 +17,12 @@
 package edu.internet2.middleware.openid.message.impl;
 
 import edu.internet2.middleware.openid.message.ErrorResponse;
+import edu.internet2.middleware.openid.message.validation.AbstractValidatingMessage;
 
 /**
  * Implementation of {@link ErrorResponse}.
  */
-public class ErrorResponseImpl extends AbstractMessage implements ErrorResponse {
+public class ErrorResponseImpl extends AbstractValidatingMessage implements ErrorResponse {
 
     /** Contact address. */
     private String contact;

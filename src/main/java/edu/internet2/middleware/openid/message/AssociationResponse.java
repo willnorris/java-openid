@@ -21,11 +21,12 @@ import javax.crypto.interfaces.DHPublicKey;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
+import edu.internet2.middleware.openid.message.validation.ValidatingMessage;
 
 /**
  * Successful response to an association request.
  */
-public interface AssociationResponse extends Message {
+public interface AssociationResponse extends ValidatingMessage {
 
     /**
      * The association handle is used as a key to refer to this association in subsequent messages.

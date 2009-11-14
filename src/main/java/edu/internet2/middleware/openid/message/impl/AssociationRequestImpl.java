@@ -22,11 +22,12 @@ import javax.crypto.spec.DHParameterSpec;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationRequest;
+import edu.internet2.middleware.openid.message.validation.AbstractValidatingMessage;
 
 /**
  * Implementation of {@link AssociationRequest}.
  */
-public class AssociationRequestImpl extends AbstractMessage implements AssociationRequest {
+public class AssociationRequestImpl extends AbstractValidatingMessage implements AssociationRequest {
 
     /** Association type. */
     private AssociationType associationType;

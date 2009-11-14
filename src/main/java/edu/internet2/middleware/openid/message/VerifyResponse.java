@@ -16,10 +16,12 @@
 
 package edu.internet2.middleware.openid.message;
 
+import edu.internet2.middleware.openid.message.validation.ValidatingMessage;
+
 /**
  * Response to a verification request.
  */
-public interface VerifyResponse extends Message {
+public interface VerifyResponse extends ValidatingMessage {
 
     /**
      * Whether the signature of the verification request is valid.

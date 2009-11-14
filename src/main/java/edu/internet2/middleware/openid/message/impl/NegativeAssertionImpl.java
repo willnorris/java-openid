@@ -17,11 +17,12 @@
 package edu.internet2.middleware.openid.message.impl;
 
 import edu.internet2.middleware.openid.message.NegativeAssertion;
+import edu.internet2.middleware.openid.message.validation.AbstractValidatingMessage;
 
 /**
  * Implementation of {@link NegativeAssertion}.
  */
-public class NegativeAssertionImpl extends AbstractMessage implements NegativeAssertion {
+public class NegativeAssertionImpl extends AbstractValidatingMessage implements NegativeAssertion {
 
     /** Message mode. */
     private String mode;

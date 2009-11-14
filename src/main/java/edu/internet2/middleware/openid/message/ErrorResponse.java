@@ -16,10 +16,12 @@
 
 package edu.internet2.middleware.openid.message;
 
+import edu.internet2.middleware.openid.message.validation.ValidatingMessage;
+
 /**
  * OpenID error response.
  */
-public interface ErrorResponse extends Message {
+public interface ErrorResponse extends ValidatingMessage {
 
     /** Message mode for error messages. */
     public static final String MODE = "error";

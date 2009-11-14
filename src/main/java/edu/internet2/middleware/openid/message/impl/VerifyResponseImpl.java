@@ -17,11 +17,12 @@
 package edu.internet2.middleware.openid.message.impl;
 
 import edu.internet2.middleware.openid.message.VerifyResponse;
+import edu.internet2.middleware.openid.message.validation.AbstractValidatingMessage;
 
 /**
  * Implementation of {@link VerifyResponse}.
  */
-public class VerifyResponseImpl extends AbstractMessage implements VerifyResponse {
+public class VerifyResponseImpl extends AbstractValidatingMessage implements VerifyResponse {
 
     /** Handle to invalidate. */
     private String invalidateHandle;

@@ -16,11 +16,13 @@
 
 package edu.internet2.middleware.openid.message;
 
+import edu.internet2.middleware.openid.message.validation.ValidatingMessage;
+
 /**
  * Response to an authentication request indicating that the OpenID Provider was successfully able to authenticate the
  * end user.
  */
-public interface PositiveAssertion extends SignableMessage {
+public interface PositiveAssertion extends SignableMessage, ValidatingMessage {
 
     /**
      * Message mode indicating a positive assertion.

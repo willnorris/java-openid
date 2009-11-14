@@ -23,11 +23,12 @@ import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
 import edu.internet2.middleware.openid.message.AssociationResponse;
+import edu.internet2.middleware.openid.message.validation.AbstractValidatingMessage;
 
 /**
  * Implementation of {@link AssociationResponse}.
  */
-public class AssociationResponseImpl extends AbstractMessage implements AssociationResponse {
+public class AssociationResponseImpl extends AbstractValidatingMessage implements AssociationResponse {
 
     /** Association Handle. */
     private String associationHandle;

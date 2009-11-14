@@ -21,11 +21,12 @@ import javax.crypto.spec.DHParameterSpec;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
+import edu.internet2.middleware.openid.message.validation.ValidatingMessage;
 
 /**
  * Request for the initiation of an association session.
  */
-public interface AssociationRequest extends Message {
+public interface AssociationRequest extends ValidatingMessage {
 
     /**
      * Message mode for association requests.

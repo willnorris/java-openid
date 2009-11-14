@@ -18,12 +18,13 @@ package edu.internet2.middleware.openid.message;
 
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
+import edu.internet2.middleware.openid.message.validation.ValidatingMessage;
 
 /**
  * Response to an {@link AssociationRequest} indicating that the OpenID Provider does not support the requested session
  * type or association type.
  */
-public interface AssociationError extends Message {
+public interface AssociationError extends ValidatingMessage {
 
     /**
      * Unsuccessful response error code.
