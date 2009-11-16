@@ -65,4 +65,12 @@ public interface Association {
      */
     public SecretKey getMacKey();
 
+    /**
+     * Whether this a private association (one that does not have shared keys). OpenID Providers MUST use only private
+     * associations for verifying signatures.
+     * 
+     * @return whether this association is private
+     */
+    public boolean isPrivate();
+
 }

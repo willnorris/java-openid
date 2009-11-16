@@ -29,7 +29,7 @@ public interface AssociationStore {
     public void add(Association association);
 
     /**
-     * Retreive an association from the store by its handle.
+     * Retrieve an association from the store by its handle.
      * 
      * @param handle handle of association to retrieve
      * @return store association with specified handle
@@ -48,7 +48,7 @@ public interface AssociationStore {
      * Invalidate the specified association. Some store implementations may treat this the same as
      * {@link #remove(Association)}.
      * 
-     * @param association assocation to invalidate
+     * @param association association to invalidate
      */
     public void invalidate(Association association);
 

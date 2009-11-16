@@ -71,7 +71,7 @@ public final class AssociationUtils {
      * @throws InvalidAlgorithmParameterException
      */
     public static KeyPair generateKeyPair(DHParameterSpec parameters) {
-        log.debug("generating new Diffi-Hellman key pair.");
+        log.debug("generating new Diffie-Hellman key pair.");
 
         try {
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance(DH_ALGORITHM);

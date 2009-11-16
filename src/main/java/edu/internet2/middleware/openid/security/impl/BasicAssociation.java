@@ -43,6 +43,9 @@ public class BasicAssociation implements Association {
     /** MAC key. */
     private SecretKey macKey;
 
+    /** Whether this association is private. */
+    private boolean isPrivate;
+
     /** {@inheritDoc} */
     public String getHandle() {
         return handle;
@@ -111,6 +114,20 @@ public class BasicAssociation implements Association {
      */
     public void setMacKey(SecretKey newMacKey) {
         macKey = newMacKey;
+    }
+
+    /** {@inheritDoc} */
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    /**
+     * Set whether this association is private.
+     * 
+     * @param newPrivate whether this association is private
+     */
+    public void setPrivate(boolean newPrivate) {
+        isPrivate = newPrivate;
     }
 
 }
