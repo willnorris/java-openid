@@ -17,16 +17,20 @@
 package edu.internet2.middleware.openid.message.impl;
 
 import edu.internet2.middleware.openid.message.AssociationResponse;
-import edu.internet2.middleware.openid.message.MessageBuilder;
 
 /**
  * Builder of {@link AssociationResponse} messages.
  */
-public class AssociationResponseBuilder implements MessageBuilder<AssociationResponse> {
+public class AssociationResponseBuilder extends AbstractValidatingMessageBuilder<AssociationResponse> {
 
     /** {@inheritDoc} */
-    public AssociationResponse buildObject() {
+    public AssociationResponse buildMessage() {
         return new AssociationResponseImpl();
+    }
+
+    /** {@inheritDoc} */
+    public Class<AssociationResponse> getType() {
+        return AssociationResponse.class;
     }
 
 }

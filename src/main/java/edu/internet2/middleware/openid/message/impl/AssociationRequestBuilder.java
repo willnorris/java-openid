@@ -17,16 +17,20 @@
 package edu.internet2.middleware.openid.message.impl;
 
 import edu.internet2.middleware.openid.message.AssociationRequest;
-import edu.internet2.middleware.openid.message.MessageBuilder;
 
 /**
  * Builder of {@link AssociationRequest} messages.
  */
-public class AssociationRequestBuilder implements MessageBuilder<AssociationRequest> {
+public class AssociationRequestBuilder extends AbstractValidatingMessageBuilder<AssociationRequest> {
 
     /** {@inheritDoc} */
-    public AssociationRequest buildObject() {
+    public AssociationRequest buildMessage() {
         return new AssociationRequestImpl();
+    }
+
+    /** {@inheritDoc} */
+    public Class<AssociationRequest> getType() {
+        return AssociationRequest.class;
     }
 
 }

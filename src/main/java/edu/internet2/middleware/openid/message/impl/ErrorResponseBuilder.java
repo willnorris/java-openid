@@ -17,16 +17,20 @@
 package edu.internet2.middleware.openid.message.impl;
 
 import edu.internet2.middleware.openid.message.ErrorResponse;
-import edu.internet2.middleware.openid.message.MessageBuilder;
 
 /**
  * Builder of {@link ErrorResponse} messages.
  */
-public class ErrorResponseBuilder implements MessageBuilder<ErrorResponse> {
+public class ErrorResponseBuilder extends AbstractValidatingMessageBuilder<ErrorResponse> {
 
     /** {@inheritDoc} */
-    public ErrorResponse buildObject() {
+    public ErrorResponse buildMessage() {
         return new ErrorResponseImpl();
+    }
+
+    /** {@inheritDoc} */
+    public Class<ErrorResponse> getType() {
+        return ErrorResponse.class;
     }
 
 }

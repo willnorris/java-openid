@@ -25,6 +25,7 @@ import edu.internet2.middleware.openid.extensions.MessageExtensionUnmarshallerFa
 import edu.internet2.middleware.openid.message.MessageBuilderFactory;
 import edu.internet2.middleware.openid.message.io.MessageMarshallerFactory;
 import edu.internet2.middleware.openid.message.io.MessageUnmarshallerFactory;
+import edu.internet2.middleware.openid.message.validation.MessageValidatorFactory;
 
 /**
  * Class for loading library configuration files and retrieving the configured components.
@@ -39,6 +40,9 @@ public class Configuration {
 
     /** Message Unmarshallers. */
     private static MessageUnmarshallerFactory messageUnmarshallers = new MessageUnmarshallerFactory();
+
+    /** Message Validators. */
+    private static MessageValidatorFactory messageValidators = new MessageValidatorFactory();
 
     /** Message Extension Builders. */
     private static MessageExtensionBuilderFactory extensionBuilders = new MessageExtensionBuilderFactory();
@@ -59,7 +63,7 @@ public class Configuration {
     /**
      * Get message builders.
      * 
-     * @return message builders.
+     * @return message builders
      */
     public static MessageBuilderFactory getMessageBuilders() {
         return messageBuilders;
@@ -68,7 +72,7 @@ public class Configuration {
     /**
      * Get message marshallers.
      * 
-     * @return message marshallers.
+     * @return message marshallers
      */
     public static MessageMarshallerFactory getMessageMarshallers() {
         return messageMarshallers;
@@ -77,16 +81,25 @@ public class Configuration {
     /**
      * Get message unmarshallers.
      * 
-     * @return message unmarshallers.
+     * @return message unmarshallers
      */
     public static MessageUnmarshallerFactory getMessageUnmarshallers() {
         return messageUnmarshallers;
     }
 
     /**
+     * Get message validators.
+     * 
+     * @return message validators
+     */
+    public static MessageValidatorFactory getMessageValidators() {
+        return messageValidators;
+    }
+
+    /**
      * Get message extension builders.
      * 
-     * @return message extension builders.
+     * @return message extension builders
      */
     public static MessageExtensionBuilderFactory getExtensionBuilders() {
         return extensionBuilders;
@@ -95,7 +108,7 @@ public class Configuration {
     /**
      * Get message extension marshallers.
      * 
-     * @return message extension marshallers.
+     * @return message extension marshallers
      */
     public static MessageExtensionMarshallerFactory getExtensionMarshallers() {
         return extensionMarshallers;
@@ -104,7 +117,7 @@ public class Configuration {
     /**
      * Get message extension unmarshallers.
      * 
-     * @return message extension unmarshallers.
+     * @return message extension unmarshallers
      */
     public static MessageExtensionUnmarshallerFactory getExtensionUnmarshallers() {
         return extensionUnmarshallers;

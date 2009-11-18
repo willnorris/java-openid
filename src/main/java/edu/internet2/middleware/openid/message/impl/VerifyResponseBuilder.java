@@ -16,17 +16,21 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.VerifyResponse;
 
 /**
  * Builder of {@link VerifyResponse} messages.
  */
-public class VerifyResponseBuilder implements MessageBuilder<VerifyResponse> {
+public class VerifyResponseBuilder extends AbstractValidatingMessageBuilder<VerifyResponse> {
 
     /** {@inheritDoc} */
-    public VerifyResponse buildObject() {
+    public VerifyResponse buildMessage() {
         return new VerifyResponseImpl();
+    }
+
+    /** {@inheritDoc} */
+    public Class<VerifyResponse> getType() {
+        return VerifyResponse.class;
     }
 
 }

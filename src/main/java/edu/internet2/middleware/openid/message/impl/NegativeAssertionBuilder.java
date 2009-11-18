@@ -16,17 +16,21 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.NegativeAssertion;
 
 /**
  * Builder of {@link NegativeAssertion} messages.
  */
-public class NegativeAssertionBuilder implements MessageBuilder<NegativeAssertion> {
+public class NegativeAssertionBuilder extends AbstractValidatingMessageBuilder<NegativeAssertion> {
 
     /** {@inheritDoc} */
-    public NegativeAssertion buildObject() {
+    public NegativeAssertion buildMessage() {
         return new NegativeAssertionImpl();
+    }
+
+    /** {@inheritDoc} */
+    public Class<NegativeAssertion> getType() {
+        return NegativeAssertion.class;
     }
 
 }

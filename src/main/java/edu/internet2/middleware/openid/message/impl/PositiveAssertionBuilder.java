@@ -16,17 +16,21 @@
 
 package edu.internet2.middleware.openid.message.impl;
 
-import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
 
 /**
  * Builder of {@link PositiveAssertion} messages.
  */
-public class PositiveAssertionBuilder implements MessageBuilder<PositiveAssertion> {
+public class PositiveAssertionBuilder extends AbstractValidatingMessageBuilder<PositiveAssertion> {
 
     /** {@inheritDoc} */
-    public PositiveAssertion buildObject() {
+    public PositiveAssertion buildMessage() {
         return new PositiveAssertionImpl();
+    }
+
+    /** {@inheritDoc} */
+    public Class<PositiveAssertion> getType() {
+        return PositiveAssertion.class;
     }
 
 }

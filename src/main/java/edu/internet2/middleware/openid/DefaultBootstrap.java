@@ -32,11 +32,11 @@ import edu.internet2.middleware.openid.extensions.ax.impl.FetchRequestBuilder;
 import edu.internet2.middleware.openid.extensions.ax.impl.FetchResponseBuilder;
 import edu.internet2.middleware.openid.extensions.ax.impl.StoreRequestBuilder;
 import edu.internet2.middleware.openid.extensions.ax.impl.StoreResponseBuilder;
-import edu.internet2.middleware.openid.extensions.pape.ProviderAuthenticationPolicy;
 import edu.internet2.middleware.openid.extensions.pape.PolicyMessageMarshaller;
 import edu.internet2.middleware.openid.extensions.pape.PolicyMessageUnmarshaller;
 import edu.internet2.middleware.openid.extensions.pape.PolicyRequest;
 import edu.internet2.middleware.openid.extensions.pape.PolicyResponse;
+import edu.internet2.middleware.openid.extensions.pape.ProviderAuthenticationPolicy;
 import edu.internet2.middleware.openid.extensions.pape.impl.PolicyRequestBuilder;
 import edu.internet2.middleware.openid.extensions.pape.impl.PolicyResponseBuilder;
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistration;
@@ -46,42 +46,54 @@ import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationRequest
 import edu.internet2.middleware.openid.extensions.sreg.SimpleRegistrationResponse;
 import edu.internet2.middleware.openid.extensions.sreg.impl.SimpleRegistrationRequestBuilder;
 import edu.internet2.middleware.openid.extensions.sreg.impl.SimpleRegistrationResponseBuilder;
+import edu.internet2.middleware.openid.message.AssociationError;
 import edu.internet2.middleware.openid.message.AssociationRequest;
+import edu.internet2.middleware.openid.message.AssociationResponse;
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
 import edu.internet2.middleware.openid.message.ErrorResponse;
 import edu.internet2.middleware.openid.message.MessageBuilder;
 import edu.internet2.middleware.openid.message.NegativeAssertion;
 import edu.internet2.middleware.openid.message.PositiveAssertion;
 import edu.internet2.middleware.openid.message.VerifyRequest;
+import edu.internet2.middleware.openid.message.VerifyResponse;
 import edu.internet2.middleware.openid.message.impl.AssociationErrorBuilder;
 import edu.internet2.middleware.openid.message.impl.AssociationErrorMarshaller;
 import edu.internet2.middleware.openid.message.impl.AssociationErrorUnmarshaller;
+import edu.internet2.middleware.openid.message.impl.AssociationErrorValidator;
 import edu.internet2.middleware.openid.message.impl.AssociationRequestBuilder;
 import edu.internet2.middleware.openid.message.impl.AssociationRequestMarshaller;
 import edu.internet2.middleware.openid.message.impl.AssociationRequestUnmarshaller;
+import edu.internet2.middleware.openid.message.impl.AssociationRequestValidator;
 import edu.internet2.middleware.openid.message.impl.AssociationResponseBuilder;
 import edu.internet2.middleware.openid.message.impl.AssociationResponseMarshaller;
 import edu.internet2.middleware.openid.message.impl.AssociationResponseUnmarshaller;
+import edu.internet2.middleware.openid.message.impl.AssociationResponseValidator;
 import edu.internet2.middleware.openid.message.impl.AuthenticationRequestBuilder;
 import edu.internet2.middleware.openid.message.impl.AuthenticationRequestMarshaller;
 import edu.internet2.middleware.openid.message.impl.AuthenticationRequestUnmarshaller;
+import edu.internet2.middleware.openid.message.impl.AuthenticationRequestValidator;
 import edu.internet2.middleware.openid.message.impl.ErrorResponseBuilder;
 import edu.internet2.middleware.openid.message.impl.ErrorResponseMarshaller;
 import edu.internet2.middleware.openid.message.impl.ErrorResponseUnmarshaller;
 import edu.internet2.middleware.openid.message.impl.NegativeAssertionBuilder;
 import edu.internet2.middleware.openid.message.impl.NegativeAssertionMarshaller;
 import edu.internet2.middleware.openid.message.impl.NegativeAssertionUnmarshaller;
+import edu.internet2.middleware.openid.message.impl.NegativeAssertionValidator;
 import edu.internet2.middleware.openid.message.impl.PositiveAssertionBuilder;
 import edu.internet2.middleware.openid.message.impl.PositiveAssertionMarshaller;
 import edu.internet2.middleware.openid.message.impl.PositiveAssertionUnmarshaller;
+import edu.internet2.middleware.openid.message.impl.PositiveAssertionValidator;
 import edu.internet2.middleware.openid.message.impl.VerifyRequestBuilder;
 import edu.internet2.middleware.openid.message.impl.VerifyRequestMarshaller;
 import edu.internet2.middleware.openid.message.impl.VerifyRequestUnmarshaller;
+import edu.internet2.middleware.openid.message.impl.VerifyRequestValidator;
 import edu.internet2.middleware.openid.message.impl.VerifyResponseBuilder;
 import edu.internet2.middleware.openid.message.impl.VerifyResponseMarshaller;
 import edu.internet2.middleware.openid.message.impl.VerifyResponseUnmarshaller;
+import edu.internet2.middleware.openid.message.impl.VerifyResponseValidator;
 import edu.internet2.middleware.openid.message.io.MessageMarshaller;
 import edu.internet2.middleware.openid.message.io.MessageUnmarshaller;
+import edu.internet2.middleware.openid.message.validation.MessageValidatorFactory;
 
 /**
  * This class can be used to bootstrap the OpenXRD library with the default configurations that ship with the library.
@@ -97,6 +109,7 @@ public class DefaultBootstrap {
      */
     public static synchronized void bootstrap() {
         initializeObjectProviders();
+        initializeMessageValidators();
         initializeExtensionProviders();
     }
 
@@ -170,6 +183,19 @@ public class DefaultBootstrap {
         marshaller = new ErrorResponseMarshaller();
         unmarshaller = new ErrorResponseUnmarshaller();
         initializeObjectProvider(qname, builder, marshaller, unmarshaller);
+    }
+
+    public static void initializeMessageValidators() {
+        MessageValidatorFactory validators = Configuration.getMessageValidators();
+
+        validators.registerValidator(AssociationRequest.class, new AssociationRequestValidator());
+        validators.registerValidator(AssociationResponse.class, new AssociationResponseValidator());
+        validators.registerValidator(AssociationError.class, new AssociationErrorValidator());
+        validators.registerValidator(AuthenticationRequest.class, new AuthenticationRequestValidator());
+        validators.registerValidator(PositiveAssertion.class, new PositiveAssertionValidator());
+        validators.registerValidator(NegativeAssertion.class, new NegativeAssertionValidator());
+        validators.registerValidator(VerifyRequest.class, new VerifyRequestValidator());
+        validators.registerValidator(VerifyResponse.class, new VerifyResponseValidator());
     }
 
     public static void initializeObjectProvider(QName qname, MessageBuilder builder, MessageMarshaller marshaller,

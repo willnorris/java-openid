@@ -17,16 +17,20 @@
 package edu.internet2.middleware.openid.message.impl;
 
 import edu.internet2.middleware.openid.message.AuthenticationRequest;
-import edu.internet2.middleware.openid.message.MessageBuilder;
 
 /**
  * Builder of {@link AuthenticationRequest} messages.
  */
-public class AuthenticationRequestBuilder implements MessageBuilder<AuthenticationRequest> {
+public class AuthenticationRequestBuilder extends AbstractValidatingMessageBuilder<AuthenticationRequest> {
 
     /** {@inheritDoc} */
-    public AuthenticationRequest buildObject() {
+    public AuthenticationRequest buildMessage() {
         return new AuthenticationRequestImpl();
+    }
+
+    /** {@inheritDoc} */
+    public Class<AuthenticationRequest> getType() {
+        return AuthenticationRequest.class;
     }
 
 }

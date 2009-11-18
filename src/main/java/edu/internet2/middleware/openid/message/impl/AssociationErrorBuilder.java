@@ -17,16 +17,20 @@
 package edu.internet2.middleware.openid.message.impl;
 
 import edu.internet2.middleware.openid.message.AssociationError;
-import edu.internet2.middleware.openid.message.MessageBuilder;
 
 /**
  * Builder of {@link AssociationError} messages.
  */
-public class AssociationErrorBuilder implements MessageBuilder<AssociationError> {
+public class AssociationErrorBuilder extends AbstractValidatingMessageBuilder<AssociationError> {
 
     /** {@inheritDoc} */
-    public AssociationError buildObject() {
+    public AssociationError buildMessage() {
         return new AssociationErrorImpl();
+    }
+
+    /** {@inheritDoc} */
+    public Class<AssociationError> getType() {
+        return AssociationError.class;
     }
 
 }
