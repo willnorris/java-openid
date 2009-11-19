@@ -50,7 +50,11 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
         response.setAssociationHandle(parameters.get(Parameter.assoc_handle.QNAME));
         response.setAssociationType(AssociationType.getType(parameters.get(Parameter.assoc_type.QNAME)));
         response.setSessionType(sessionType);
-        response.setLifetime(Integer.parseInt(parameters.get(Parameter.expires_in.QNAME)));
+
+        String lifetime = parameters.get(Parameter.expires_in.QNAME);
+        if (DatatypeHelper.isEmpty(lifetime)) {
+            response.setLifetime(Integer.parseInt(lifetime));
+        }
 
         String encodedMacKey = null;
 

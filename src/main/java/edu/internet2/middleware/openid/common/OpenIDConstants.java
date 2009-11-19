@@ -29,6 +29,15 @@ public final class OpenIDConstants {
     /** OpenID 2.0 Namespace URI. */
     public static final String OPENID_20_NS = "http://specs.openid.net/auth/2.0";
 
+    /** Identity URL indicating an OpenID Provider driven identifier selection. */
+    public static final String IDENTIFIER_SELECT_IDENTITY = "http://specs.openid.net/auth/2.0/identifier_select";
+
+    /** URL used to identify an OpenID Provider. Most commonly used as a Type element in an XRDS document. */
+    public static final String PROVIDER_DISCOVERY_TYPE = "http://specs.openid.net/auth/2.0/server";
+
+    /** URL used to identify a claimed OpenID identity. Most commonly used as a Type element in an XRDS document. */
+    public static final String IDENTIFIER_DISCOVERY_TYPE = "http://specs.openid.net/auth/2.0/signon";
+
     /**
      * Fake mode value for {@link edu.internet2.middleware.openid.message.AssociationResponse} messages.
      * 
