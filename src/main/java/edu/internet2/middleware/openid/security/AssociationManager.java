@@ -99,7 +99,17 @@ public class AssociationManager {
      * @return newly built association
      */
     public Association buildAssociation(AssociationType type) {
-        return buildAssociation(type, null);
+        return buildAssociation(type, null, false);
+    }
+
+    /**
+     * Build a new private association.
+     * 
+     * @param type type of association to build
+     * @return newly built association
+     */
+    public Association buildPrivateAssociation(AssociationType type) {
+        return buildAssociation(type, null, true);
     }
 
     /**
@@ -107,10 +117,11 @@ public class AssociationManager {
      * 
      * @param type type of association to build
      * @param entity entity identifier the association is for
+     * @param isPrivate whether the association is private
      * @return newly build association
      */
-    public Association buildAssociation(AssociationType type, String entity) {
-        Association association = builder.buildAssociation(type, defaultLifetime, entity);
+    public Association buildAssociation(AssociationType type, String entity, boolean isPrivate) {
+        Association association = builder.buildAssociation(type, defaultLifetime, entity, isPrivate);
         store.add(association);
         return association;
     }

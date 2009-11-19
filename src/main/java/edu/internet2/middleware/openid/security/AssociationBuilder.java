@@ -27,10 +27,11 @@ public interface AssociationBuilder {
      * Build an association with the specified properties.
      * 
      * @param type AssociationType for the built association
-     * @param lifetime lifetime of the build association, in seonds
+     * @param lifetime lifetime of the build association, in seconds
      * @param entity Entity identifier for the build association
+     * @param isPrivate whether the association is private
      * @return the built association
      */
-    public Association buildAssociation(AssociationType type, int lifetime, String entity);
+    public Association buildAssociation(AssociationType type, int lifetime, String entity, boolean isPrivate);
 
 }

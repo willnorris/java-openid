@@ -45,13 +45,14 @@ public class BasicAssociationBuilder implements AssociationBuilder {
     }
 
     /** {@inheritDoc} */
-    public Association buildAssociation(AssociationType type, int lifetime, String entity) {
+    public Association buildAssociation(AssociationType type, int lifetime, String entity, boolean isPrivate) {
         log.debug("Building new association of type {}", type);
 
         BasicAssociation association = new BasicAssociation();
         association.setHandle(handleGenerator.generateIdentifier());
         association.setAssociationType(type);
         association.setEntity(entity);
+        association.setPrivate(isPrivate);
 
         Date expiration = new Date();
         expiration.setTime(expiration.getTime() + (lifetime * 1000));
