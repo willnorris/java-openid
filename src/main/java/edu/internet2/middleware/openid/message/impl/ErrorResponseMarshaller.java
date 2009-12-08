@@ -19,6 +19,7 @@ package edu.internet2.middleware.openid.message.impl;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.Parameter;
 import edu.internet2.middleware.openid.message.ErrorResponse;
+import edu.internet2.middleware.openid.util.DatatypeHelper;
 
 /**
  * Marshaller for {@link ErrorResponse} messages.
@@ -27,8 +28,16 @@ public class ErrorResponseMarshaller extends AbstractMessageMarshaller<ErrorResp
 
     /** {@inheritDoc} */
     public void marshallParameters(ErrorResponse response, ParameterMap parameters) {
-        parameters.put(Parameter.contact.QNAME, response.getContact());
-        parameters.put(Parameter.error.QNAME, response.getError());
-        parameters.put(Parameter.reference.QNAME, response.getReference());
+        if (!DatatypeHelper.isEmpty(response.getContact())) {
+            parameters.put(Parameter.contact.QNAME, response.getContact());
+        }
+
+        if (!DatatypeHelper.isEmpty(response.getError())) {
+            parameters.put(Parameter.error.QNAME, response.getError());
+        }
+
+        if (!DatatypeHelper.isEmpty(response.getReference())) {
+            parameters.put(Parameter.reference.QNAME, response.getReference());
+        }
     }
 }

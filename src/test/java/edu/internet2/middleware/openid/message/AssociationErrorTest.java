@@ -27,8 +27,8 @@ import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.ParameterMap;
 import edu.internet2.middleware.openid.common.OpenIDConstants.AssociationType;
 import edu.internet2.middleware.openid.common.OpenIDConstants.SessionType;
-import edu.internet2.middleware.openid.message.io.MessageMarshaller;
 import edu.internet2.middleware.openid.message.io.MarshallingException;
+import edu.internet2.middleware.openid.message.io.MessageMarshaller;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link AssociationRequest}.

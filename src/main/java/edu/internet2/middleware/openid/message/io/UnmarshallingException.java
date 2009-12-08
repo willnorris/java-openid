@@ -16,10 +16,12 @@
 
 package edu.internet2.middleware.openid.message.io;
 
+import edu.internet2.middleware.openid.common.OpenIDException;
+
 /**
  * Exception thrown when error occurs unmarshalling an OpenID Message to a Parameter Map.
  */
-public class UnmarshallingException extends Exception {
+public class UnmarshallingException extends OpenIDException {
 
     /** Serial Version UID. */
     private static final long serialVersionUID = 2369339363904743268L;

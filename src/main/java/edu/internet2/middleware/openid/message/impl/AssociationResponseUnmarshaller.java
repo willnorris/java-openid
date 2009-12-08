@@ -52,7 +52,7 @@ public class AssociationResponseUnmarshaller extends AbstractMessageUnmarshaller
         response.setSessionType(sessionType);
 
         String lifetime = parameters.get(Parameter.expires_in.QNAME);
-        if (DatatypeHelper.isEmpty(lifetime)) {
+        if (!DatatypeHelper.isEmpty(lifetime)) {
             response.setLifetime(Integer.parseInt(lifetime));
         }
 

@@ -16,10 +16,12 @@
 
 package edu.internet2.middleware.openid.message.encoding;
 
+import edu.internet2.middleware.openid.common.OpenIDException;
+
 /**
  * Exception with OpenID message encoding.
  */
-public class EncodingException extends Exception {
+public class EncodingException extends OpenIDException {
 
     /** Serial Version UID. */
     private static final long serialVersionUID = -3799369449630531301L;

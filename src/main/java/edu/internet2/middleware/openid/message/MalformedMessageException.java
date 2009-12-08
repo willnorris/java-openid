@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package edu.internet2.middleware.openid.message.io;
+package edu.internet2.middleware.openid.message;
 
 import edu.internet2.middleware.openid.common.OpenIDException;
 
 /**
- * Exception thrown when error occurs marshalling a Parameter Map to an OpenID Message.
+ * Exception thrown when an OpenID {@link Message} is malformed.
  */
-public class MarshallingException extends OpenIDException {
+public class MalformedMessageException extends OpenIDException {
 
     /** Serial Version UID. */
-    private static final long serialVersionUID = -4631436622729303009L;
+    private static final long serialVersionUID = -4396482109254179042L;
 
-    /** Constructor. */
-    public MarshallingException() {
+    /**
+     * Constructor.
+     */
+    public MalformedMessageException() {
         super();
     }
 
@@ -36,7 +38,7 @@ public class MarshallingException extends OpenIDException {
      * 
      * @param message exception message
      */
-    public MarshallingException(String message) {
+    public MalformedMessageException(String message) {
         super(message);
     }
 
@@ -45,7 +47,7 @@ public class MarshallingException extends OpenIDException {
      * 
      * @param cause exception to be wrapped by this one
      */
-    public MarshallingException(Throwable cause) {
+    public MalformedMessageException(Throwable cause) {
         super(cause);
     }
 
@@ -55,7 +57,7 @@ public class MarshallingException extends OpenIDException {
      * @param message exception messaage
      * @param cause exception to be wrapped by this one
      */
-    public MarshallingException(String message, Throwable cause) {
+    public MalformedMessageException(String message, Throwable cause) {
         super(message, cause);
     }
 

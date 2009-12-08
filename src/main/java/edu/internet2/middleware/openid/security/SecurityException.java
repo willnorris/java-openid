@@ -16,10 +16,12 @@
 
 package edu.internet2.middleware.openid.security;
 
+import edu.internet2.middleware.openid.common.OpenIDException;
+
 /**
  * Security related exception.
  */
-public class SecurityException extends Exception {
+public class SecurityException extends OpenIDException {
 
     /** Serial Version UID. */
     private static final long serialVersionUID = -8936481031752537254L;

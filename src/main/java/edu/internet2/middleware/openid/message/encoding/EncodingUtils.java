@@ -44,10 +44,15 @@ import org.apache.http.client.utils.URIUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.internet2.middleware.openid.Configuration;
 import edu.internet2.middleware.openid.common.NamespaceMap;
-import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.NamespaceQName;
+import edu.internet2.middleware.openid.common.OpenIDConstants;
 import edu.internet2.middleware.openid.common.ParameterMap;
+import edu.internet2.middleware.openid.message.Message;
+import edu.internet2.middleware.openid.message.encoding.impl.URLFormCodec;
+import edu.internet2.middleware.openid.message.io.MarshallingException;
+import edu.internet2.middleware.openid.message.io.MessageMarshaller;
 import edu.internet2.middleware.openid.util.DatatypeHelper;
 
 /**
@@ -248,6 +253,47 @@ public final class EncodingUtils {
         }
 
         return null;
+    }
+
+    /**
+     * Encode an OpenID message as parameters into the specified URL.
+     * 
+     * @param url URL to encode OpenID message onto. This is most commonly the URL of an OpenID provider, or the
+     *            return_to URL that was included in an OpenID request.
+     * @param message OpenID message to encode
+     * @return URL with OpenID message encoded into it, or null if unable to encode message
+     */
+    public static URL encodeMessage(URL url, Message message) {
+        try {
+            MessageMarshaller<Message> marshaller = Configuration.getMessageMarshallers().getMarshaller(message);
+
+            if (marshaller == null) {
+                log.error("Unable to locate marshaller for message with mode: {}", message.getMode());
+                return null;
+            }
+
+            ParameterMap parameters = marshaller.marshall(message);
+            return encodeMessageParameters(url, parameters);
+        } catch (MarshallingException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Encode a parameter map into the specified URL.
+     * 
+     * @param url URL to encode OpenID message onto. This is most commonly the URL of an OpenID provider, or the
+     *            return_to URL that was included in an OpenID request.
+     * @param parameters message parameter map to encode
+     * @return URL with parameter map encoded into it, or null if unable to encode parameters
+     */
+    public static URL encodeMessageParameters(URL url, ParameterMap parameters) {
+        try {
+            String message = URLFormCodec.getInstance().encode(parameters);
+            return appendMessageParameters(url, message);
+        } catch (EncodingException e) {
+            return null;
+        }
     }
 
     /**
