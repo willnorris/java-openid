@@ -11,6 +11,10 @@
     <logger name="edu.internet2.middleware.openid">
         <level value="DEBUG" />
     </logger>
+    
+    <logger name="edu.internet2.middleware.openid.message">
+        <level value="INFO" />
+    </logger>
 
     <root>
         <appender-ref ref="STDOUT" />
