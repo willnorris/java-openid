@@ -6,11 +6,11 @@
     <artifactId>openid</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    
+
     <name>OpenID-J</name>
     <description>
-		The OpenID-J library provides tools to support developers working with OpenID.
-	</description>
+        The OpenID-J library provides tools to support developers working with OpenID.
+    </description>
 
     <repositories>
         <repository>
@@ -23,14 +23,14 @@
             </snapshots>
         </repository>
     </repositories>
-    
+
     <distributionManagement>
         <repository>
             <id>release-repo</id>
             <url>${dist.release.url}</url>
         </repository>
     </distributionManagement>
-    
+
     <dependencies>
         <!-- Compile dependencies -->
         <dependency>
@@ -184,7 +184,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <reporting>
         <plugins>
             <plugin>
@@ -341,24 +341,23 @@
     </organization>
 
     <issueManagement>
-        <system>JIRA</system>
-        <url>http://bugs.internet2.edu/</url>
+        <system>GitHub</system>
+        <url>http://github.com/willnorris/java-openid/issues/</url>
     </issueManagement>
-    
+
     <scm>
-        <connection>scm:svn:https://svn.middleware.georgetown.edu/java-openid/</connection>
-        <developerConnection>scm:svn:https://svn.middleware.georgetown.edu/java-openid/</developerConnection>
-        <tag>HEAD</tag>
-        <url>http://svn.middleware.georgetown.edu/view/java-openid/</url>
+        <connection>scm:git:http://github.com/willnorris/java-openid.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:willnorris/java-openid.git</developerConnection>
+        <connection>http://github.com/willnorris/java-openid</connection>
     </scm>
 
     <developers>
         <developer>
-            <id>wnorris</id>
+            <id>willnorris</id>
             <name>Will Norris</name>
             <url>http://willnorris.com/</url>
-            <organization>Internet2</organization>
-            <organizationUrl>http://www.internet2.edu/</organizationUrl>
+            <organization>Google</organization>
+            <organizationUrl>http://www.google.com/</organizationUrl>
             <roles>
                 <role>developer</role>
                 <role>documentation</role>
